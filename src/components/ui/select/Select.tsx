@@ -52,16 +52,14 @@ export const Select = forwardRef<ElementRef<typeof SelectFromRadix.Root>, Select
     //TODO const showError = !!errorMessage && errorMessage.length > 0
 
     const selectOptions = options?.map(el => {
-      return (
-        <SelectItem disabled={el.disabled} key={el.value} value={el.value}>
-          {el.label}
-        </SelectItem>
-      )
+      return <SelectItem disabled={el.disabled} key={el.value} value={el.value} />
     })
 
     return (
-      <Typography as={'label'} className={classNames.label} variant={'body2'}>
-        {label}
+      <>
+        <Typography as={'label'} className={classNames.label} variant={'body2'}>
+          {label}
+        </Typography>
         <SelectFromRadix.Root
           defaultValue={defaultValue}
           disabled={disabled}
@@ -78,13 +76,15 @@ export const Select = forwardRef<ElementRef<typeof SelectFromRadix.Root>, Select
           <SelectFromRadix.Portal>
             <SelectFromRadix.Content className={classNames.content} position={'popper'}>
               <SelectFromRadix.Viewport asChild className={classNames.viewport}>
-                <SelectFromRadix.Group>{selectOptions}</SelectFromRadix.Group>
+                <SelectFromRadix.Group className={s.selectGroup}>
+                  {selectOptions}
+                </SelectFromRadix.Group>
               </SelectFromRadix.Viewport>
             </SelectFromRadix.Content>
           </SelectFromRadix.Portal>
         </SelectFromRadix.Root>
         {/*TODO{showError && <Typography variant={'error'}>{errorMessage}</Typography>}*/}
-      </Typography>
+      </>
     )
   }
 )

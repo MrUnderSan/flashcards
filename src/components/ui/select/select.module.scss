@@ -5,13 +5,13 @@
   align-items: center;
   justify-content: space-between;
 
+  box-sizing: border-box;
   width: 100%;
-  padding: 12px 6px;
+  padding: 6px 12px;
 
   font-size: var(--font-size-m);
   line-height: var(--line-height-m);
   color: var(--color-light-100);
-  word-break: break-all;
 
   background-color: var(--color-dark-700);
   border: 1px solid var(--color-dark-300);
@@ -23,8 +23,24 @@
     padding: 0 6px;
   }
 
+  &:hover {
+    cursor: pointer;
+    background-color: var(--color-dark-300);
+  }
+
+  &:focus {
+    outline: 2px solid var(--color-info-700);
+  }
+
   &[data-placeholder] {
     color: var(--color-light-100);
+  }
+
+  &[data-state='open'] {
+    background-color: var(--color-dark-900);
+    border-color: var(--color-light-100);
+    border-bottom: none;
+    border-radius: 2px 2px 0 0;
   }
 
   &[data-state='open'] .SelectIcon {
@@ -41,15 +57,6 @@
     color: var(--color-dark-300);
   }
 
-  &:not(:disabled):hover {
-    background: var(--color-dark-500);
-  }
-
-  &:focus-visible:not([data-disabled]) {
-    border-color: var(--color-info-700);
-    outline: 1px solid var(--color-info-700);
-  }
-
   &.error {
     border: 1px solid var(--color-danger-500);
   }
@@ -61,12 +68,14 @@
   width: var(--radix-select-trigger-width);
 
   background-color: var(--color-dark-900);
-  border: 1px solid var(--color-dark-300);
+  border: 1px solid var(--color-light-100);
 
   animation: fadeIn 0.5s ease;
 }
 
 .SelectLabel {
+  cursor: default;
+
   display: flex;
   flex-direction: column;
 
