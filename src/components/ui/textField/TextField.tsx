@@ -4,7 +4,7 @@ import { Eye, EyeOff, Search } from '@/assets'
 import { Typography } from '@/components/ui/typography'
 import { clsx } from 'clsx'
 
-import s from './TextField.module.scss'
+import s from './textField.module.scss'
 
 export type TextFieldProps = {
   errorMessage?: string
