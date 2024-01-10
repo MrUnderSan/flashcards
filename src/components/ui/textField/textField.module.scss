@@ -8,6 +8,14 @@
       fill: var(--color-light-100);
     }
   }
+
+  &:disabled {
+    .searchIconDisable {
+      pointer-events: none;
+      cursor: default;
+      fill: var(--color-dark-300);
+    }
+  }
 }
 
 .field {
@@ -62,7 +70,7 @@
   }
 }
 
-.password {
+.passwordButton {
   cursor: pointer;
 
   position: absolute;
