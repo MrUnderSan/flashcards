@@ -6,13 +6,19 @@ import s from './selectItem.module.scss'
 
 type SelectItemProps = {
   disabled?: boolean
+  value: string
 } & ComponentPropsWithoutRef<typeof SelectFromRadix.Item>
 
 export const SelectItem = forwardRef<ElementRef<typeof SelectFromRadix.Item>, SelectItemProps>(
-  ({ children, className, ...restProps }, ref) => {
+  ({ className, value, ...restProps }, ref) => {
     return (
-      <SelectFromRadix.Item className={`${s.SelectItem} ${className}`} {...restProps} ref={ref}>
-        <SelectFromRadix.ItemText>{children}</SelectFromRadix.ItemText>
+      <SelectFromRadix.Item
+        className={`${s.SelectItem} ${className}`}
+        value={value}
+        {...restProps}
+        ref={ref}
+      >
+        <SelectFromRadix.ItemText>{value}</SelectFromRadix.ItemText>
       </SelectFromRadix.Item>
     )
   }

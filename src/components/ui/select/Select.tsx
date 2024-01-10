@@ -49,9 +49,9 @@ export const Select = forwardRef<ElementRef<typeof SelectFromRadix.Root>, Select
       viewport: s.SelectViewport,
     }
 
-    //TODO const showError = !!errorMessage && errorMessage.length > 0
+    const showError = !!errorMessage && errorMessage.length > 0
 
-    const selectOptions = options?.map(el => {
+    const selectItems = options?.map(el => {
       return <SelectItem disabled={el.disabled} key={el.value} value={el.value} />
     })
 
@@ -77,13 +77,13 @@ export const Select = forwardRef<ElementRef<typeof SelectFromRadix.Root>, Select
             <SelectFromRadix.Content className={classNames.content} position={'popper'}>
               <SelectFromRadix.Viewport asChild className={classNames.viewport}>
                 <SelectFromRadix.Group className={s.selectGroup}>
-                  {selectOptions}
+                  {selectItems}
                 </SelectFromRadix.Group>
               </SelectFromRadix.Viewport>
             </SelectFromRadix.Content>
           </SelectFromRadix.Portal>
         </SelectFromRadix.Root>
-        {/*TODO{showError && <Typography variant={'error'}>{errorMessage}</Typography>}*/}
+        {showError && <Typography variant={'error'}>{errorMessage}</Typography>}
       </>
     )
   }
