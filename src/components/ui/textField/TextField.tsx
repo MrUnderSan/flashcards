@@ -40,9 +40,13 @@ export const TextField = forwardRef<HTMLInputElement, PropsType>(
     const classNames = {
       field: clsx(s.field, !!errorMessage && s.error, isSearch && s.hasSearchIcon, className),
       label: clsx(s.label, restProps.disabled && s.disabled, className),
-      password: clsx(s.password, restProps.disabled && s.disabled),
+      passwordButton: clsx(s.passwordButton, restProps.disabled && s.disabled),
       rootBlock: clsx(s.rootBlock),
-      searchIcon: clsx(s.searchIcon, restProps.disabled && s.disabled, s.searchIconActive),
+      searchIcon: clsx(
+        s.searchIcon,
+        restProps.disabled && s.disabled,
+        !restProps.disabled && s.searchIconActive
+      ),
     }
 
     return (
@@ -65,7 +69,7 @@ export const TextField = forwardRef<HTMLInputElement, PropsType>(
           />
           {isShowPasswordButton && (
             <button
-              className={classNames.password}
+              className={classNames.passwordButton}
               disabled={restProps.disabled}
               onClick={setShowPasswordHandler}
               type={'button'}
@@ -74,7 +78,7 @@ export const TextField = forwardRef<HTMLInputElement, PropsType>(
             </button>
           )}
         </div>
-        {/*//TODO {errorMessage && <Typography variant={'error'}>{errorMessage}</Typography>}*/}
+        {errorMessage && <Typography variant={'error'}>{errorMessage}</Typography>}
       </div>
     )
   }
