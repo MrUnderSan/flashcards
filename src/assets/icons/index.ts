@@ -1,5 +1,6 @@
 export { default as ArrowDown } from './arrowDown'
 export { Check } from './check'
+export { Edit } from './edit'
 export { default as Eye } from './eye'
 export { default as EyeOff } from './eyeOff'
 export { LogOut } from './logOut'
