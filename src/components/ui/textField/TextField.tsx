@@ -74,7 +74,7 @@ export const TextField = forwardRef<HTMLInputElement, PropsType>(
             </button>
           )}
         </div>
-        {/*//TODO {errorMessage && <Typography variant={'error'}>{errorMessage}</Typography>}*/}
+        {errorMessage && <Typography variant={'error'}>{errorMessage}</Typography>}
       </div>
     )
   }
