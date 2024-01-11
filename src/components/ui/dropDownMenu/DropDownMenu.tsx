@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 
+import { Typography } from '@/components/ui/typography'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import s from './dropDownMenu.module.scss'
@@ -43,8 +44,12 @@ export const DropDownMenu = ({
               <DropdownMenu.Item className={s.dropDownMenuProfile}>
                 <img alt={'photo'} className={s.dropDownMenuProfileImg} src={profile.img} />
                 <div className={s.dropDownMenuProfileInfo}>
-                  <div className={s.dropDownMenuProfileInfoName}>{profile.name}</div>
-                  <div className={s.dropDownMenuProfileInfoEmail}>{profile.email}</div>
+                  <Typography className={s.dropDownMenuProfileInfoName} variant={'subtitle2'}>
+                    {profile.name}
+                  </Typography>
+                  <Typography className={s.dropDownMenuProfileInfoEmail} variant={'caption'}>
+                    {profile.email}
+                  </Typography>
                 </div>
               </DropdownMenu.Item>
               <DropdownMenu.Separator className={s.dropDownMenuSeparator} />
@@ -56,12 +61,14 @@ export const DropDownMenu = ({
               {index !== 0 && <DropdownMenu.Separator className={s.dropDownMenuSeparator} />}
               <DropdownMenu.Item className={s.dropDownMenuItem}>
                 <div className={s.dropDownMenuItemIcon}>{item.icon}</div>
-                {item.name}
+                <Typography variant={'caption'}>{item.name}</Typography>
               </DropdownMenu.Item>
             </>
           ))}
 
-          <DropdownMenu.Arrow className={s.dropDownMenuArrow} />
+          <DropdownMenu.Arrow asChild className={s.dropDownMenuArrow}>
+            <div className={s.dropDownMenuArrowDiv}></div>
+          </DropdownMenu.Arrow>
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>

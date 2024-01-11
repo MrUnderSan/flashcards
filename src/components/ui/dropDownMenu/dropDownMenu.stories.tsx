@@ -29,6 +29,7 @@ export const Profile: Story = {
         }}
       >
         <img
+          alt={'photo'}
           src={'https://assets.editorial.aetnd.com/uploads/2009/11/portrait-of-john-smith.jpg'}
           style={{
             borderRadius: '36px ',
@@ -40,12 +41,8 @@ export const Profile: Story = {
       </button>
     ),
     items: [
-      {
-        icon: <Person />,
-        name: 'Learn',
-      },
-      { icon: <Person />, name: 'Edit' },
-      { icon: <LogOut />, name: 'Delete' },
+      { icon: <Person />, name: 'My Profile' },
+      { icon: <LogOut />, name: 'Sign Out' },
     ],
     profile: {
       email: 'johnsmith@it-incubator.io',
