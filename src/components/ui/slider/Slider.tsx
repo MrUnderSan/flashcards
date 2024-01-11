@@ -10,13 +10,12 @@ type SliderProps = {
   max?: number
   min?: number
   minStepsBetweenThumbs?: number
-  onChange?: (value: number[]) => void
   step?: number
   value?: number[]
 }
 
 export const Slider = (props: SliderProps) => {
-  const { defaultValue, max, min, minStepsBetweenThumbs, onChange, step, value } = props
+  const { defaultValue, max, min, minStepsBetweenThumbs, step, value } = props
 
   const [currentValue, setCurrentValue] = useState(defaultValue)
 
