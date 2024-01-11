@@ -61,7 +61,9 @@ export const DropDownMenu = ({
             </>
           ))}
 
-          <DropdownMenu.Arrow className={s.dropDownMenuArrow} />
+          <DropdownMenu.Arrow asChild className={s.dropDownMenuArrow}>
+            <div className={s.dropDownMenuArrowDiv}></div>
+          </DropdownMenu.Arrow>
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
