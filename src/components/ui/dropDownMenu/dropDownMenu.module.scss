@@ -13,9 +13,6 @@
 
     padding: 12px;
 
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-regular);
-    line-height: var(--line-height-s);
     color: var(--color-light-100);
 
     background: var(--color-dark-700);
@@ -86,9 +83,6 @@
 
       &Name {
         cursor: pointer;
-        font-size: var(--font-size-s);
-        font-weight: var(--font-weight-bold);
-        line-height: var(--line-height-m);
       }
 
       &Email {
