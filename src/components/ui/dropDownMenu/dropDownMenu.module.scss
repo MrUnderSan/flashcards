@@ -43,15 +43,6 @@
   }
 
   &Item {
-    cursor: pointer;
-
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    justify-content: start;
-
-    outline: none;
-
     &Icon {
       display: flex;
       align-items: center;
@@ -63,10 +54,9 @@
   }
 
   &Profile {
-    display: flex;
+    cursor: default;
     gap: 8px;
     align-items: end;
-    outline: none;
 
     &Img {
       cursor: pointer;

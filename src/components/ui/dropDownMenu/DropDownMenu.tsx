@@ -5,6 +5,8 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import s from './dropDownMenu.module.scss'
 
+import { DropDownItem } from './dropDownItem'
+
 export type DropDownMenuItem = {
   icon?: ReactNode
   name?: string
@@ -41,7 +43,7 @@ export const DropDownMenu = ({
         <DropdownMenu.Content className={s.dropDownMenuContent} sideOffset={12}>
           {profile && (
             <>
-              <DropdownMenu.Item className={s.dropDownMenuProfile}>
+              <DropDownItem className={s.dropDownMenuProfile}>
                 <img alt={'photo'} className={s.dropDownMenuProfileImg} src={profile.img} />
                 <div className={s.dropDownMenuProfileInfo}>
                   <Typography className={s.dropDownMenuProfileInfoName} variant={'subtitle2'}>
@@ -51,7 +53,7 @@ export const DropDownMenu = ({
                     {profile.email}
                   </Typography>
                 </div>
-              </DropdownMenu.Item>
+              </DropDownItem>
               <DropdownMenu.Separator className={s.dropDownMenuSeparator} />
             </>
           )}
@@ -59,10 +61,11 @@ export const DropDownMenu = ({
           {items.map((item, index) => (
             <>
               {index !== 0 && <DropdownMenu.Separator className={s.dropDownMenuSeparator} />}
-              <DropdownMenu.Item className={s.dropDownMenuItem}>
+
+              <DropDownItem>
                 <div className={s.dropDownMenuItemIcon}>{item.icon}</div>
                 <Typography variant={'caption'}>{item.name}</Typography>
-              </DropdownMenu.Item>
+              </DropDownItem>
             </>
           ))}
 
