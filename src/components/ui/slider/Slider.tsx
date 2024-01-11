@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Typography } from '@/components/ui/typography'
 import * as SliderRadix from '@radix-ui/react-slider'
 
@@ -8,18 +10,19 @@ type SliderProps = {
   max?: number
   min?: number
   minStepsBetweenThumbs?: number
-  onChange?: (value: number[]) => void
   step?: number
   value?: number[]
 }
 
 export const Slider = (props: SliderProps) => {
-  const { defaultValue, max, min, minStepsBetweenThumbs, onChange, step, value } = props
+  const { defaultValue, max, min, minStepsBetweenThumbs, step, value } = props
+
+  const [currentValue, setCurrentValue] = useState(defaultValue)
 
   return (
     <div className={s.container}>
       <Typography as={'span'} className={s.valueBox} variant={'body1'}>
-        {defaultValue[0]}
+        {currentValue[0]}
       </Typography>
       <SliderRadix.Root
         className={s.slider}
@@ -27,7 +30,7 @@ export const Slider = (props: SliderProps) => {
         max={max}
         min={min}
         minStepsBetweenThumbs={minStepsBetweenThumbs}
-        onValueChange={onChange}
+        onValueChange={setCurrentValue}
         step={step}
         value={value}
       >
@@ -38,7 +41,7 @@ export const Slider = (props: SliderProps) => {
         <SliderRadix.Thumb className={s.slider__thumb} />
       </SliderRadix.Root>
       <Typography as={'span'} className={s.valueBox} variant={'body1'}>
-        {defaultValue[1]}
+        {currentValue[1]}
       </Typography>
     </div>
   )
