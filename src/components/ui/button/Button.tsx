@@ -29,7 +29,7 @@ export const Button: ButtonWithRef = forwardRef(
   ) => {
     const { as, className, fullWidth, variant = 'primary', ...rest } = props
     const Tag: ElementType = as || 'button'
-    const classNames = clsx(s.button, s[variant], fullWidth ? s.fullWidth : '', className)
+    const classNames = clsx(s.button, s[variant], fullWidth && s.fullWidth, className)
 
     return <Tag className={classNames} ref={ref} {...rest} />
   }
