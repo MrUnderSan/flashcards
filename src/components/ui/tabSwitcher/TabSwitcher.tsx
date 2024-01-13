@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react'
 
 import * as Tabs from '@radix-ui/react-tabs'
+import { clsx } from 'clsx'
 
 import s from './tabSwitcher.module.scss'
 
@@ -14,12 +15,11 @@ type TabsProps = {
   tabs: TabType[]
 } & ComponentPropsWithoutRef<typeof Tabs.Root>
 
-export const TabSwitcher = ({ defaultValue, onValueChange, tabs, ...rest }: TabsProps) => {
+export const TabSwitcher = ({ className, defaultValue, tabs, ...rest }: TabsProps) => {
   return (
     <Tabs.Root
-      className={s.root}
-      defaultValue={defaultValue ? defaultValue : tabs[0].value}
-      onValueChange={onValueChange}
+      className={clsx(s.root, className)}
+      defaultValue={defaultValue ?? tabs[0].value}
       {...rest}
     >
       <Tabs.List className={s.list}>
