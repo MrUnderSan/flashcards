@@ -54,6 +54,7 @@
     "eslint-plugin-storybook": "^0.6.15",
     "sass": "^1.69.7",
     "storybook": "7.6.7",
+    "storybook-addon-react-router-v6": "^2.0.10",
     "stylelint": "^16.1.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
