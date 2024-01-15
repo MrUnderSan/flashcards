@@ -49,6 +49,7 @@ export const Select = forwardRef<ElementRef<typeof SelectFromRadix.Root>, Select
       viewport: s.SelectViewport,
     }
 
+    const currentPlaceholder = pagination ? options?.[0].title : placeholder
     const showError = !!errorMessage && errorMessage.length > 0
 
     const selectItems = options?.map(el => {
@@ -68,7 +69,7 @@ export const Select = forwardRef<ElementRef<typeof SelectFromRadix.Root>, Select
           {...restProps}
         >
           <SelectFromRadix.Trigger className={classNames.trigger} ref={ref}>
-            <SelectFromRadix.Value placeholder={placeholder} />
+            <SelectFromRadix.Value placeholder={currentPlaceholder} />
             <SelectFromRadix.Icon asChild className={classNames.triggerIcon}>
               <ArrowDown />
             </SelectFromRadix.Icon>
