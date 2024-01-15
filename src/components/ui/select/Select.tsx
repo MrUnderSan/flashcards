@@ -11,7 +11,7 @@ import { SelectItem } from './selectItem'
 
 export type Option = {
   disabled?: boolean
-  label: string
+  title: string
   value: string
 }
 
