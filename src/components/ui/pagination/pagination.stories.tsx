@@ -16,11 +16,11 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const options = [
-  { label: 'label 1', value: '1' },
-  { label: 'label 2', value: '2' },
-  { label: 'label 3', value: '3' },
-  { label: 'label 4', value: '4' },
-  { label: 'label 5 ', value: '5' },
+  { title: 'title 1', value: '1' },
+  { title: 'title 2', value: '2' },
+  { title: 'title 3', value: '3' },
+  { title: 'title 4', value: '4' },
+  { title: 'title 5 ', value: '5' },
 ]
 const ControlledPagination = () => {
   const [current, setCurrent] = useState(1)

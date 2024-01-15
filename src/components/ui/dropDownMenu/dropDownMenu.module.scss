@@ -42,54 +42,6 @@
     }
   }
 
-  &Item {
-    &Icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      width: 16px;
-      height: 16px;
-    }
-  }
-
-  &Profile {
-    cursor: default;
-    gap: 8px;
-    align-items: end;
-
-    &Img {
-      cursor: pointer;
-
-      width: 36px;
-      height: 36px;
-
-      object-fit: cover;
-      border-radius: 36px;
-    }
-
-    &Info {
-      display: flex;
-      flex-direction: column;
-
-      &Name {
-        cursor: pointer;
-      }
-
-      &Email {
-        cursor: pointer;
-        margin-right: 30px;
-        color: var(--color-dark-100);
-      }
-    }
-  }
-
-  &Separator {
-    width: 100%;
-    height: 1px;
-    background: var(--color-dark-100);
-  }
-
   &Arrow {
     position: absolute;
 

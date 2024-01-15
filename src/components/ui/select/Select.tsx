@@ -11,7 +11,7 @@ import { SelectItem } from './selectItem'
 
 export type Option = {
   disabled?: boolean
-  label: string
+  title: string
   value: string
 }
 
@@ -49,11 +49,14 @@ export const Select = forwardRef<ElementRef<typeof SelectFromRadix.Root>, Select
       viewport: s.SelectViewport,
     }
 
+    const currentPlaceholder = pagination ? options?.[0].title : placeholder
     const showError = !!errorMessage && errorMessage.length > 0
 
-    const selectItems = options?.map(el => {
-      return <SelectItem disabled={el.disabled} key={el.value} value={el.value} />
-    })
+    const selectItems = options?.map(el => (
+      <SelectItem key={el.value} pagination={pagination} value={el.value}>
+        {el.title}
+      </SelectItem>
+    ))
 
     return (
       <>
@@ -68,7 +71,7 @@ export const Select = forwardRef<ElementRef<typeof SelectFromRadix.Root>, Select
           {...restProps}
         >
           <SelectFromRadix.Trigger className={classNames.trigger} ref={ref}>
-            <SelectFromRadix.Value placeholder={placeholder} />
+            <SelectFromRadix.Value placeholder={currentPlaceholder} />
             <SelectFromRadix.Icon asChild className={classNames.triggerIcon}>
               <ArrowDown />
             </SelectFromRadix.Icon>
