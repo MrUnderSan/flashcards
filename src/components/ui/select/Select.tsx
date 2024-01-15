@@ -52,9 +52,11 @@ export const Select = forwardRef<ElementRef<typeof SelectFromRadix.Root>, Select
     const currentPlaceholder = pagination ? options?.[0].title : placeholder
     const showError = !!errorMessage && errorMessage.length > 0
 
-    const selectItems = options?.map(el => {
-      return <SelectItem disabled={el.disabled} key={el.value} value={el.value} />
-    })
+    const selectItems = options?.map(el => (
+      <SelectItem key={el.value} pagination={pagination} value={el.value}>
+        {el.title}
+      </SelectItem>
+    ))
 
     return (
       <>
