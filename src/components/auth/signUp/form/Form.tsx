@@ -27,6 +27,7 @@ export const Form = () => {
   } = useForm<FormValues>({
     defaultValues: {
       confirmPassword: '',
+      email: '',
       password: '',
     },
     resolver: zodResolver(signUpSchema),
