@@ -1,4 +1,4 @@
-import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
+import { ChangeEvent, ComponentProps, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
 import { Eye, EyeOff, Search } from '@/assets'
 import { Typography } from '@/components/ui/typography'
@@ -9,13 +9,28 @@ import s from './textField.module.scss'
 export type TextFieldProps = {
   errorMessage?: string
   label?: string
+  labelProps?: ComponentProps<'label'>
+  rootContainerProps?: ComponentProps<'div'>
   type?: 'password' | 'search' | 'text'
 } & ComponentPropsWithoutRef<'input'>
 
 type PropsType = TextFieldProps & Omit<ComponentPropsWithoutRef<'input'>, keyof TextFieldProps>
 
 export const TextField = forwardRef<HTMLInputElement, PropsType>(
-  ({ className, errorMessage, label, onChange, placeholder, type = 'text', ...restProps }, ref) => {
+  (
+    {
+      className,
+      errorMessage,
+      label,
+      labelProps,
+      onChange,
+      placeholder,
+      rootContainerProps,
+      type = 'text',
+      ...restProps
+    },
+    ref
+  ) => {
     const [showPassword, setShowPassword] = useState(false)
 
     const isShowPasswordButton = type === 'password'
@@ -39,9 +54,10 @@ export const TextField = forwardRef<HTMLInputElement, PropsType>(
 
     const classNames = {
       field: clsx(s.field, !!errorMessage && s.error, isSearch && s.hasSearchIcon, className),
-      label: clsx(s.label, restProps.disabled && s.disabled),
+      inputWrapper: clsx(s.inputWrapper),
+      label: clsx(s.label, restProps.disabled && s.disabled, labelProps?.className),
       passwordButton: clsx(s.passwordButton, restProps.disabled && s.disabled),
-      rootBlock: clsx(s.rootBlock),
+      rootContainer: clsx(s.rootContainer, rootContainerProps?.className),
       searchIcon: clsx(
         s.searchIcon,
         restProps.disabled && s.disabled,
@@ -50,13 +66,13 @@ export const TextField = forwardRef<HTMLInputElement, PropsType>(
     }
 
     return (
-      <>
+      <div className={classNames.rootContainer}>
         {label && (
           <Typography as={'label'} className={classNames.label} variant={'body2'}>
             {label}
           </Typography>
         )}
-        <div className={classNames.rootBlock}>
+        <div className={classNames.inputWrapper}>
           {isSearch && <Search className={classNames.searchIcon} />}
           <input
             autoFocus
@@ -79,7 +95,7 @@ export const TextField = forwardRef<HTMLInputElement, PropsType>(
           )}
         </div>
         {errorMessage && <Typography variant={'error'}>{errorMessage}</Typography>}
-      </>
+      </div>
     )
   }
 )
