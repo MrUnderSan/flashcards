@@ -1,0 +1,43 @@
+.card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.email {
+  height: 84px;
+  margin-top: 27px;
+}
+
+.password {
+  height: 72px;
+}
+
+.checkbox {
+  align-self: start;
+  margin-top: 12px;
+}
+
+.recoverPassword {
+  align-self: end;
+  margin-top: 6px;
+  text-decoration: none;
+}
+
+.submit {
+  margin-top: 66px;
+}
+
+.description {
+  margin-top: 20px;
+}
+
+.signUp {
+  margin-top: 11px;
+  text-decoration: underline;
+}
