@@ -38,10 +38,11 @@ export const TextField = forwardRef<HTMLInputElement, PropsType>(
     }
 
     const classNames = {
+      container: clsx(s.container),
       field: clsx(s.field, !!errorMessage && s.error, isSearch && s.hasSearchIcon, className),
       label: clsx(s.label, restProps.disabled && s.disabled),
       passwordButton: clsx(s.passwordButton, restProps.disabled && s.disabled),
-      rootBlock: clsx(s.rootBlock),
+      root: clsx(s.root),
       searchIcon: clsx(
         s.searchIcon,
         restProps.disabled && s.disabled,
@@ -50,13 +51,13 @@ export const TextField = forwardRef<HTMLInputElement, PropsType>(
     }
 
     return (
-      <>
+      <div className={classNames.root}>
         {label && (
           <Typography as={'label'} className={classNames.label} variant={'body2'}>
             {label}
           </Typography>
         )}
-        <div className={classNames.rootBlock}>
+        <div className={classNames.container}>
           {isSearch && <Search className={classNames.searchIcon} />}
           <input
             autoFocus
@@ -79,7 +80,7 @@ export const TextField = forwardRef<HTMLInputElement, PropsType>(
           )}
         </div>
         {errorMessage && <Typography variant={'error'}>{errorMessage}</Typography>}
-      </>
+      </div>
     )
   }
 )
