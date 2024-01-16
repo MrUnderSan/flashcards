@@ -1,9 +1,9 @@
-.root {
+.rootContainer {
   width: 100%;
   min-width: 200px;
 }
 
-.container {
+.inputWrapper {
   position: relative;
 
   &:active {
