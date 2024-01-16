@@ -25,6 +25,10 @@ export const Form = () => {
     formState: { errors },
     handleSubmit,
   } = useForm<FormValues>({
+    defaultValues: {
+      confirmPassword: '',
+      password: '',
+    },
     resolver: zodResolver(signUpSchema),
   })
   const onSubmit = (data: FormValues) => console.log(data)
