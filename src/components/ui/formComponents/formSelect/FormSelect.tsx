@@ -5,9 +5,9 @@ import { Select, SelectProps } from '@/components/ui/select'
 export type FormSelectProps<TFieldValues extends FieldValues> = {
   control: Control<TFieldValues>
   name: FieldPath<TFieldValues>
-} & Omit<SelectProps, 'id' | 'onValueChange' | 'value'>
+} & Omit<SelectProps, 'onValueChange' | 'value'>
 
-export const FormTextField = <TFieldValues extends FieldValues>(
+export const FormSelect = <TFieldValues extends FieldValues>(
   props: FormSelectProps<TFieldValues>
 ) => {
   const {
