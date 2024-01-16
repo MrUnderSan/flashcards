@@ -1,4 +1,9 @@
-.rootBlock {
+.root {
+  width: 100%;
+  min-width: 200px;
+}
+
+.container {
   position: relative;
 
   &:active {
