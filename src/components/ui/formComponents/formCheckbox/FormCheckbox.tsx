@@ -7,7 +7,7 @@ type Props<T extends FieldValues> = Omit<
   'defaultValue' | 'disabled' | 'rules'
 > &
   Omit<CheckboxProps, 'checked' | 'onValueChange'>
-export const ControlledCheckbox = <T extends FieldValues>({
+export const FormCheckbox = <T extends FieldValues>({
   control,
   shouldUnregister,
   ...rest
