@@ -1,0 +1,16 @@
+.root {
+  position: relative;
+
+  .uploader {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    text-align: right;
+
+    .editAvatar {
+      all: unset;
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
