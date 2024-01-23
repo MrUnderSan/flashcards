@@ -1,19 +1,12 @@
 import { Edit, Trash } from '@/assets'
 import { Play } from '@/assets/icons/play'
+import { Column, Sort, TableSortHeader } from '@/components/tableSortHeader'
 import { Button } from '@/components/ui/button'
-import {
-  Column,
-  Sort,
-  Table,
-  TableBody,
-  TableDataCell,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
+import { Table } from '@/components/ui/table'
 import { Typography } from '@/components/ui/typography'
 import { Deck } from '@/services/decks'
 
-import s from './decks.module.scss'
+import s from './decksTable.module.scss'
 
 const columns: Column[] = [
   {
@@ -51,20 +44,18 @@ type Props = {
 
 export const DecksTable = ({ decks, onSort, sort }: Props) => {
   return (
-    <Table>
-      <TableHeader columns={columns} onSort={onSort} sort={sort} />
-      <TableBody>
+    <Table.Root>
+      <TableSortHeader columns={columns} onSort={onSort} sort={sort} />
+      <Table.Body>
         {decks?.map(deck => (
-          <TableRow key={deck.id}>
-            <TableDataCell col={'2'}>
+          <Table.Row key={deck.id}>
+            <Table.Cell col={'2'}>
               <Typography variant={'body2'}>{deck.name}</Typography>
-            </TableDataCell>
-            <TableDataCell col={'2'}>{deck.cardsCount}</TableDataCell>
-            <TableDataCell col={'2'}>
-              {new Date(deck.updated).toLocaleDateString('ru-RU')}
-            </TableDataCell>
-            <TableDataCell col={'3'}>{deck.author.name}</TableDataCell>
-            <TableDataCell col={'1'}>
+            </Table.Cell>
+            <Table.Cell col={'2'}>{deck.cardsCount}</Table.Cell>
+            <Table.Cell col={'2'}>{new Date(deck.updated).toLocaleDateString('ru-RU')}</Table.Cell>
+            <Table.Cell col={'3'}>{deck.author.name}</Table.Cell>
+            <Table.Cell col={'1'}>
               <div className={s.buttons}>
                 <Button variant={'link'}>
                   <Play />
@@ -76,10 +67,10 @@ export const DecksTable = ({ decks, onSort, sort }: Props) => {
                   <Edit />
                 </Button>
               </div>
-            </TableDataCell>
-          </TableRow>
+            </Table.Cell>
+          </Table.Row>
         ))}
-      </TableBody>
-    </Table>
+      </Table.Body>
+    </Table.Root>
   )
 }
