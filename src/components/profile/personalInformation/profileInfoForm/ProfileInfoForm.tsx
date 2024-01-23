@@ -18,13 +18,13 @@ type ProfileInfoFormProps = {
   className?: string
   deactivateEditMode: () => void
   initialValues?: ProfileInfoFormValues
-  onSubmit: (data: FormData) => void
+  updateNickname: (data: ProfileInfoFormValues) => void
 }
 export const ProfileInfoForm = ({
   className,
   deactivateEditMode,
   initialValues,
-  onSubmit,
+  updateNickname,
 }: ProfileInfoFormProps) => {
   const {
     control,
@@ -36,24 +36,21 @@ export const ProfileInfoForm = ({
   })
 
   const onSubmitHandler = (data: ProfileInfoFormValues) => {
-    const formData = new FormData()
-
-    formData.append('username', data.name)
-    console.log('profileFORM:', data.name)
-    onSubmit(formData)
+    updateNickname(data)
     deactivateEditMode()
   }
 
   return (
     <form className={clsx(s.form, className)} onSubmit={handleSubmit(onSubmitHandler)}>
-      <FormTextField
-        className={s.inputNick}
-        control={control}
-        errorMessage={errors.name?.message}
-        label={'Nickname'}
-        name={'name'}
-      />
-      <Button className={s.saveButton} fullWidth type={'submit'}>
+      <div className={s.username}>
+        <FormTextField
+          control={control}
+          errorMessage={errors.name?.message}
+          label={'Nickmame'}
+          name={'name'}
+        />
+      </div>
+      <Button fullWidth type={'submit'}>
         Save Changes
       </Button>
     </form>
