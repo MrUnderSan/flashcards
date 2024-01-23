@@ -1,3 +1,4 @@
 .container {
-  width: var(--max-content-width);
+  width: var(--container-width);
+  padding-inline: var(--container-padding-inline);
 }
