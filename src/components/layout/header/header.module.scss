@@ -11,13 +11,14 @@
   background-color: var(--color-dark-700);
   border-bottom: 1px solid var(--color-dark-500);
 
-  &Content {
+  &Container {
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    width: var(--max-content-width);
-    padding: 12px 136px;
+    width: var(--container-width);
+    padding-block: 12px;
+    padding-inline: var(--container-padding-inline);
   }
 
   &Link {
