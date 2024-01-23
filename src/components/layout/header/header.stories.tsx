@@ -6,6 +6,13 @@ import { Header } from './'
 
 const meta = {
   component: Header,
+  parameters: {
+    docs: {
+      story: {
+        height: '60px',
+      },
+    },
+  },
   tags: ['autodocs'],
   title: 'Components/Header',
 } satisfies Meta<typeof Header>
