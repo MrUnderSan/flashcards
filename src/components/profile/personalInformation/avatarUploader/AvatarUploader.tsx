@@ -1,5 +1,4 @@
-import { useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useEffect, useRef, useState } from 'react'
 
 import { EditAvatar } from '@/assets'
 import { Avatar } from '@/components/ui/avatar'
@@ -14,8 +13,8 @@ type AvatarUploaderProps = {
   avatarUrl?: string
   className?: string
   editable?: boolean
-  name: string
-  onSubmit: (data: FormData) => void
+  name?: string
+  updateAvatar: (avatar: AvatarUploaderValue) => void
 }
 
 const AvatarUploaderSchema = z
@@ -32,7 +31,7 @@ export const AvatarUploader = ({
   avatarUrl,
   className,
   editable,
-  onSubmit,
+  updateAvatar,
 }: AvatarUploaderProps) => {
   const fileRef = useRef<HTMLInputElement>(null)
 
@@ -43,41 +42,34 @@ export const AvatarUploader = ({
     ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(avatar.type) &&
     avatar.size <= 1000000
 
-  const { handleSubmit } = useForm<AvatarUploaderValue>()
-
-  const onSubmitHandler = () => {
-    const formData = new FormData()
-
-    if (avatarIsValid) {
-      formData.append('avatar', avatar)
-      onSubmit(formData)
-    }
-  }
-
   const avatarUploaderClasses = clsx(s.root, className)
 
+  useEffect(() => {
+    if (avatar) {
+      updateAvatar(avatar)
+    }
+  }, [updateAvatar, avatar])
+
   return (
-    <form onSubmit={handleSubmit(onSubmitHandler)}>
-      <div className={avatarUploaderClasses}>
-        <Avatar
-          className={s.avatar}
-          src={avatarIsValid ? URL.createObjectURL(avatar) : avatarUrl}
-          title={'avatar'}
+    <div className={avatarUploaderClasses}>
+      <Avatar
+        className={s.avatar}
+        src={avatarIsValid ? URL.createObjectURL(avatar) : avatarUrl}
+        title={'avatar'}
+      />
+      {editable && (
+        <FileUploader
+          className={s.uploader}
+          ref={fileRef}
+          setFile={setAvatar}
+          trigger={
+            <Button as={'span'} className={s.editAvatar}>
+              <EditAvatar />
+            </Button>
+          }
+          validationSchema={AvatarUploaderSchema}
         />
-        {editable && (
-          <FileUploader
-            className={s.uploader}
-            ref={fileRef}
-            setFile={setAvatar}
-            trigger={
-              <Button as={'span'} className={s.editAvatar}>
-                <EditAvatar />
-              </Button>
-            }
-            validationSchema={AvatarUploaderSchema}
-          />
-        )}
-      </div>
-    </form>
+      )}
+    </div>
   )
 }
