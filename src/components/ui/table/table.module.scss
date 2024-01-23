@@ -1,7 +1,10 @@
 .table {
   display: block;
+
   width: 100%;
-  max-width: 1100px;
+  max-width: 1000px;
+  margin: 30px auto 0;
+
   border: 1px solid var(--color-dark-500);
 }
 
@@ -32,6 +35,10 @@
 
   min-height: 35px;
   padding: 0 25px;
+
+  &:last-child {
+    padding: 0 25px 0 0;
+  }
 
   &[data-col='1'] {
     grid-column: 1 span;
@@ -73,19 +80,4 @@
 .tbody {
   display: block;
   width: 100%;
-}
-
-.th[data-col='1'],
-.td[data-col='2'] {
-  grid-column: 2 span;
-}
-
-.th[data-col='2'],
-.td[data-col='2'] {
-  grid-column: 2 span;
-}
-
-.th[data-col='3'],
-.td[data-col='3'] {
-  grid-column: 3 span;
 }

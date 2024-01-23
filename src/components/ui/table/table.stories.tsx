@@ -1,15 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { Column, TableSortHeader } from '@/components/tableSortHeader'
 import { Typography } from '@/components/ui/typography'
 
-import { Table, TableBody, TableDataCell, TableHead, TableHeadCell, TableRow } from './Table'
+import { Table } from './Table'
 
 const meta = {
   argTypes: {},
-  component: Table,
+  component: Table.Root,
   tags: ['autodocs'],
   title: 'Components/Table',
-} satisfies Meta<typeof Table>
+} satisfies Meta<typeof Table.Root>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -17,6 +18,34 @@ type Story = StoryObj<typeof meta>
 export const Table5cols: Story = {
   args: {},
   render: args => {
+    const columns: Column[] = [
+      {
+        cols: '2',
+        key: 'name',
+        title: 'Name',
+      },
+      {
+        cols: '2',
+        key: 'cardsCount',
+        title: 'Cards',
+      },
+      {
+        cols: '2',
+        key: 'updated',
+        title: 'Last Updated',
+      },
+      {
+        cols: '3',
+        key: 'author',
+        title: 'Created By',
+      },
+      {
+        cols: '1',
+        key: 'actions',
+        title: '',
+      },
+    ]
+
     const options = [
       {
         cardsNumber: 32,
@@ -39,30 +68,22 @@ export const Table5cols: Story = {
     ]
 
     return (
-      <Table {...args}>
-        <TableHead>
-          <TableRow>
-            <TableHeadCell col={'2'}>Name</TableHeadCell>
-            <TableHeadCell col={'2'}>Cards</TableHeadCell>
-            <TableHeadCell col={'2'}>Last Updated</TableHeadCell>
-            <TableHeadCell col={'3'}>Created By</TableHeadCell>
-            <TableHeadCell col={'1'}></TableHeadCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+      <Table.Root {...args}>
+        <TableSortHeader columns={columns} />
+        <Table.Body>
           {options.map((t, index) => {
             return (
-              <TableRow key={index}>
-                <TableDataCell col={'2'}>{t.name}</TableDataCell>
-                <TableDataCell col={'2'}>{t.cardsNumber}</TableDataCell>
-                <TableDataCell col={'2'}>{t.lastUpdated}</TableDataCell>
-                <TableDataCell col={'3'}>{t.createdBy}</TableDataCell>
-                <TableDataCell col={'1'}></TableDataCell>
-              </TableRow>
+              <Table.Row key={index}>
+                <Table.Cell col={'2'}>{t.name}</Table.Cell>
+                <Table.Cell col={'2'}>{t.cardsNumber}</Table.Cell>
+                <Table.Cell col={'2'}>{t.lastUpdated}</Table.Cell>
+                <Table.Cell col={'3'}>{t.createdBy}</Table.Cell>
+                <Table.Cell col={'1'}></Table.Cell>
+              </Table.Row>
             )
           })}
-        </TableBody>
-      </Table>
+        </Table.Body>
+      </Table.Root>
     )
   },
 }
@@ -70,6 +91,28 @@ export const Table5cols: Story = {
 export const Table4cols: Story = {
   args: {},
   render: args => {
+    const columns: Column[] = [
+      {
+        cols: '3',
+        key: 'name',
+        title: 'Name',
+      },
+      {
+        cols: '3',
+        key: 'cardsCount',
+        title: 'Cards',
+      },
+      {
+        cols: '2',
+        key: 'updated',
+        title: 'Last Updated',
+      },
+      {
+        cols: '2',
+        key: 'author',
+        title: 'Created By',
+      },
+    ]
     const options = [
       {
         answer: `This is how "This" works in JavaScript`,
@@ -92,36 +135,29 @@ export const Table4cols: Story = {
     ]
 
     return (
-      <Table {...args}>
-        <TableHead>
-          <TableRow>
-            <TableHeadCell col={'3'}>Question</TableHeadCell>
-            <TableHeadCell col={'3'}>Answer</TableHeadCell>
-            <TableHeadCell col={'2'}>Last Updated</TableHeadCell>
-            <TableHeadCell col={'2'}>Grade</TableHeadCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+      <Table.Root {...args}>
+        <TableSortHeader columns={columns} />
+        <Table.Body>
           {options.map((t, index) => {
             return (
-              <TableRow key={index}>
-                <TableDataCell col={'3'}>
+              <Table.Row key={index}>
+                <Table.Cell col={'3'}>
                   <Typography variant={'body2'}>{t.question}</Typography>
-                </TableDataCell>
-                <TableDataCell col={'3'}>
+                </Table.Cell>
+                <Table.Cell col={'3'}>
                   <Typography variant={'body2'}>{t.answer}</Typography>
-                </TableDataCell>
-                <TableDataCell col={'2'}>
+                </Table.Cell>
+                <Table.Cell col={'2'}>
                   <Typography variant={'body2'}>{t.lastUpdated}</Typography>
-                </TableDataCell>
-                <TableDataCell col={'2'}>
+                </Table.Cell>
+                <Table.Cell col={'2'}>
                   <Typography variant={'body2'}>{t.createdBy}</Typography>
-                </TableDataCell>
-              </TableRow>
+                </Table.Cell>
+              </Table.Row>
             )
           })}
-        </TableBody>
-      </Table>
+        </Table.Body>
+      </Table.Root>
     )
   },
 }
