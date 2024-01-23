@@ -10,15 +10,15 @@ import { baseApi } from '@/services/baseApi'
 const authService = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
-      CreateAccessToken: builder.mutation<void, void>({
-        query: () => ({ method: 'POST', url: '/v1/auth/refresh-token' }),
-      }),
       checkEmail: builder.mutation<void, { code: string }>({
         query: args => ({
           body: args,
           method: 'POST',
           url: '/v1/auth/verify-email',
         }),
+      }),
+      createAccessToken: builder.mutation<void, void>({
+        query: () => ({ method: 'POST', url: '/v1/auth/refresh-token' }),
       }),
       getMe: builder.query<User | undefined, void>({
         providesTags: ['Me'],
