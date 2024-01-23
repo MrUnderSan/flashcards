@@ -81,26 +81,3 @@
   display: block;
   width: 100%;
 }
-
-.align {
-  cursor: pointer;
-  user-select: none;
-
-  display: flex;
-  column-gap: 8px;
-  align-items: center;
-}
-
-.sortArrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &.asc {
-    transform: rotate(0);
-  }
-
-  &.desc {
-    transform: rotate(180deg);
-  }
-}

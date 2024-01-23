@@ -1,15 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { Column, TableSortHeader } from '@/components/tableSortHeader'
 import { Typography } from '@/components/ui/typography'
 
-import { Column, Table, TableBody, TableDataCell, TableHeader, TableRow } from './Table'
+import { Table } from './Table'
 
 const meta = {
   argTypes: {},
-  component: Table,
+  component: Table.Root,
   tags: ['autodocs'],
   title: 'Components/Table',
-} satisfies Meta<typeof Table>
+} satisfies Meta<typeof Table.Root>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -67,22 +68,22 @@ export const Table5cols: Story = {
     ]
 
     return (
-      <Table {...args}>
-        <TableHeader columns={columns} />
-        <TableBody>
+      <Table.Root {...args}>
+        <TableSortHeader columns={columns} />
+        <Table.Body>
           {options.map((t, index) => {
             return (
-              <TableRow key={index}>
-                <TableDataCell col={'2'}>{t.name}</TableDataCell>
-                <TableDataCell col={'2'}>{t.cardsNumber}</TableDataCell>
-                <TableDataCell col={'2'}>{t.lastUpdated}</TableDataCell>
-                <TableDataCell col={'3'}>{t.createdBy}</TableDataCell>
-                <TableDataCell col={'1'}></TableDataCell>
-              </TableRow>
+              <Table.Row key={index}>
+                <Table.Cell col={'2'}>{t.name}</Table.Cell>
+                <Table.Cell col={'2'}>{t.cardsNumber}</Table.Cell>
+                <Table.Cell col={'2'}>{t.lastUpdated}</Table.Cell>
+                <Table.Cell col={'3'}>{t.createdBy}</Table.Cell>
+                <Table.Cell col={'1'}></Table.Cell>
+              </Table.Row>
             )
           })}
-        </TableBody>
-      </Table>
+        </Table.Body>
+      </Table.Root>
     )
   },
 }
@@ -134,29 +135,29 @@ export const Table4cols: Story = {
     ]
 
     return (
-      <Table {...args}>
-        <TableHeader columns={columns} />
-        <TableBody>
+      <Table.Root {...args}>
+        <TableSortHeader columns={columns} />
+        <Table.Body>
           {options.map((t, index) => {
             return (
-              <TableRow key={index}>
-                <TableDataCell col={'3'}>
+              <Table.Row key={index}>
+                <Table.Cell col={'3'}>
                   <Typography variant={'body2'}>{t.question}</Typography>
-                </TableDataCell>
-                <TableDataCell col={'3'}>
+                </Table.Cell>
+                <Table.Cell col={'3'}>
                   <Typography variant={'body2'}>{t.answer}</Typography>
-                </TableDataCell>
-                <TableDataCell col={'2'}>
+                </Table.Cell>
+                <Table.Cell col={'2'}>
                   <Typography variant={'body2'}>{t.lastUpdated}</Typography>
-                </TableDataCell>
-                <TableDataCell col={'2'}>
+                </Table.Cell>
+                <Table.Cell col={'2'}>
                   <Typography variant={'body2'}>{t.createdBy}</Typography>
-                </TableDataCell>
-              </TableRow>
+                </Table.Cell>
+              </Table.Row>
             )
           })}
-        </TableBody>
-      </Table>
+        </Table.Body>
+      </Table.Root>
     )
   },
 }
