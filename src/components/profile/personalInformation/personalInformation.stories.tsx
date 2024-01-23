@@ -9,7 +9,10 @@ const meta = {
     logout: {
       action: 'Success logout',
     },
-    updateProfile: {
+    updateAvatar: {
+      action: 'Success update avatar',
+    },
+    updateNickname: {
       action: 'Success update username',
     },
   },
@@ -29,7 +32,7 @@ export const WithAvatar: Story = {
     data: {
       avatar: 'https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/3_avatar-1024.png',
       email: 'example@email.com',
-      username: 'MyUsername',
+      name: 'MyUsername',
     },
   },
 
@@ -47,7 +50,7 @@ export const NoAvatar: Story = {
   args: {
     data: {
       email: 'example@email.com',
-      username: 'MyUsername',
+      name: 'MyUsername',
     },
   },
   render: args => {
