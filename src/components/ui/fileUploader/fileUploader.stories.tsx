@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { FileUploader } from '@/components/ui/fileUploader/FileUploader'
+import { Toast } from '@/components/ui/toast'
 import { Meta, StoryObj } from '@storybook/react'
 import { z } from 'zod'
 
@@ -41,6 +42,7 @@ const FormFileUploader = () => {
         validationSchema={coverSchema}
       />
       {isValidImage && <img alt={'cover'} src={URL.createObjectURL(cover)} />}
+      <Toast />
     </div>
   )
 }

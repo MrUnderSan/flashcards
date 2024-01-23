@@ -4,8 +4,10 @@ import {
   ElementRef,
   ReactNode,
   forwardRef,
+  useEffect,
   useState,
 } from 'react'
+import { toast } from 'react-toastify'
 
 import { Typography } from '@/components/ui/typography'
 import { ZodEffects, ZodError } from 'zod'
@@ -21,6 +23,10 @@ export type FileUploaderProps = {
 export const FileUploader = forwardRef<ElementRef<'input'>, FileUploaderProps>(
   ({ className, name, setFile, trigger, validationSchema, ...rest }, ref) => {
     const [error, setError] = useState<null | string>(null)
+
+    useEffect(() => {
+      toast.error(error)
+    }, [error])
 
     const onChangehandler = (e: ChangeEvent<HTMLInputElement>) => {
       try {
@@ -44,22 +50,17 @@ export const FileUploader = forwardRef<ElementRef<'input'>, FileUploaderProps>(
     }
 
     return (
-      <>
-        <Typography as={'label'} className={className} htmlFor={name}>
-          {trigger}
-          <input
-            className={s.inputFile}
-            id={name}
-            onChange={onChangehandler}
-            ref={ref}
-            type={'file'}
-            {...rest}
-          />
-        </Typography>
-        <Typography as={'span'} className={s.error} variant={'error'}>
-          {error}
-        </Typography>
-      </>
+      <Typography as={'label'} className={className} htmlFor={name}>
+        {trigger}
+        <input
+          className={s.inputFile}
+          id={name}
+          onChange={onChangehandler}
+          ref={ref}
+          type={'file'}
+          {...rest}
+        />
+      </Typography>
     )
   }
 )
