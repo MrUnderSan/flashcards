@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { Typography } from '@/components/ui/typography'
 
-import { Table, TableBody, TableDataCell, TableHead, TableHeadCell, TableRow } from './Table'
+import { Column, Table, TableBody, TableDataCell, TableHeader, TableRow } from './Table'
 
 const meta = {
   argTypes: {},
@@ -17,6 +17,34 @@ type Story = StoryObj<typeof meta>
 export const Table5cols: Story = {
   args: {},
   render: args => {
+    const columns: Column[] = [
+      {
+        cols: '2',
+        key: 'name',
+        title: 'Name',
+      },
+      {
+        cols: '2',
+        key: 'cardsCount',
+        title: 'Cards',
+      },
+      {
+        cols: '2',
+        key: 'updated',
+        title: 'Last Updated',
+      },
+      {
+        cols: '3',
+        key: 'author',
+        title: 'Created By',
+      },
+      {
+        cols: '1',
+        key: 'actions',
+        title: '',
+      },
+    ]
+
     const options = [
       {
         cardsNumber: 32,
@@ -40,15 +68,7 @@ export const Table5cols: Story = {
 
     return (
       <Table {...args}>
-        <TableHead>
-          <TableRow>
-            <TableHeadCell col={'2'}>Name</TableHeadCell>
-            <TableHeadCell col={'2'}>Cards</TableHeadCell>
-            <TableHeadCell col={'2'}>Last Updated</TableHeadCell>
-            <TableHeadCell col={'3'}>Created By</TableHeadCell>
-            <TableHeadCell col={'1'}></TableHeadCell>
-          </TableRow>
-        </TableHead>
+        <TableHeader columns={columns} />
         <TableBody>
           {options.map((t, index) => {
             return (
@@ -70,6 +90,28 @@ export const Table5cols: Story = {
 export const Table4cols: Story = {
   args: {},
   render: args => {
+    const columns: Column[] = [
+      {
+        cols: '3',
+        key: 'name',
+        title: 'Name',
+      },
+      {
+        cols: '3',
+        key: 'cardsCount',
+        title: 'Cards',
+      },
+      {
+        cols: '2',
+        key: 'updated',
+        title: 'Last Updated',
+      },
+      {
+        cols: '2',
+        key: 'author',
+        title: 'Created By',
+      },
+    ]
     const options = [
       {
         answer: `This is how "This" works in JavaScript`,
@@ -93,14 +135,7 @@ export const Table4cols: Story = {
 
     return (
       <Table {...args}>
-        <TableHead>
-          <TableRow>
-            <TableHeadCell col={'3'}>Question</TableHeadCell>
-            <TableHeadCell col={'3'}>Answer</TableHeadCell>
-            <TableHeadCell col={'2'}>Last Updated</TableHeadCell>
-            <TableHeadCell col={'2'}>Grade</TableHeadCell>
-          </TableRow>
-        </TableHead>
+        <TableHeader columns={columns} />
         <TableBody>
           {options.map((t, index) => {
             return (

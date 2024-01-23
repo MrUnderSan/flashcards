@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
+import ArrowSort from '@/assets/icons/arrowSort'
 import { clsx } from 'clsx'
 
 import s from './table.module.scss'
@@ -64,3 +65,68 @@ export const TableDataCell = forwardRef<ElementRef<'td'>, TdProps>((props, ref) 
 
   return <td ref={ref} {...rest} className={classNames} data-col={col} />
 })
+
+export type Column = {
+  cols: ColsType
+  key: string
+  sortable?: boolean
+  title: string
+}
+export type Sort = {
+  direction: 'asc' | 'desc'
+  key: string
+} | null
+
+export type TableHeaderType = Omit<
+  ComponentPropsWithoutRef<'thead'> & {
+    columns: Column[]
+    onSort?: (sort: Sort) => void
+    sort?: Sort
+  },
+  'children'
+>
+
+export const TableHeader = ({ columns, onSort, sort, ...restProps }: TableHeaderType) => {
+  const handleSort = (key: string, sortable?: boolean) => () => {
+    if (!onSort || !sortable) {
+      return
+    }
+
+    if (sort?.key !== key) {
+      return onSort({ direction: 'asc', key })
+    }
+
+    if (sort.direction === 'desc') {
+      return onSort(null)
+    }
+
+    return onSort({
+      direction: sort?.direction === 'asc' ? 'desc' : 'asc',
+      key,
+    })
+  }
+
+  const iconClass = clsx(s.sortArrow, sort?.direction === 'asc' ? s.asc : s.desc)
+
+  return (
+    <TableHead {...restProps}>
+      <TableRow>
+        {columns.map(({ cols, key, sortable = true, title }) => (
+          <TableHeadCell
+            className={s.align}
+            col={cols}
+            key={key}
+            onClick={handleSort(key, sortable)}
+          >
+            {title}
+            {sort && sort.key === key && (
+              <span className={iconClass}>
+                <ArrowSort />
+              </span>
+            )}
+          </TableHeadCell>
+        ))}
+      </TableRow>
+    </TableHead>
+  )
+}
