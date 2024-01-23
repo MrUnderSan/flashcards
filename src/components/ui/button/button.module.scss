@@ -138,6 +138,14 @@
   }
 }
 
+.icon {
+  color: var(--color-light-100);
+
+  &:hover {
+    color: var(--color-accent-500);
+  }
+}
+
 .fullWidth {
   width: 100%;
 }
