@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { AvatarUploader } from '@/components/profile/personalInformation/avatarUploader/AvatarUploader'
+import { Toast } from '@/components/ui/toast'
 
 const meta = {
   argTypes: {
@@ -20,6 +21,7 @@ export const AvatarUploaderDemo = () => {
   return (
     <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
       <AvatarUploader editable name={'avatar'} onSubmit={() => {}} />
+      <Toast />
     </div>
   )
 }
