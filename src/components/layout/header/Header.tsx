@@ -1,6 +1,8 @@
 import { memo } from 'react'
+import { Link } from 'react-router-dom'
 
 import { Logo } from '@/assets'
+import { ROUTES } from '@/common/const'
 import { Button } from '@/components/ui/button'
 
 import s from './header.module.scss'
@@ -21,13 +23,13 @@ export const Header = memo(({ isLoggedIn, profile }: HeaderProps) => {
   return (
     <header className={s.header}>
       <div className={s.headerContainer}>
-        <a className={s.headerLink} href={'/'}>
+        <Link className={s.headerLink} to={ROUTES.base}>
           <Logo className={s.headerLogo} />
-        </a>
+        </Link>
         {isLoggedIn ? (
           <HeaderDropDown {...profile} />
         ) : (
-          <Button as={'a'} href={'/sign-in'}>
+          <Button as={Link} to={ROUTES.signIn}>
             Sign In
           </Button>
         )}
