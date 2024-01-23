@@ -21,11 +21,11 @@ const authService = baseApi.injectEndpoints({
         }),
       }),
       getMe: builder.query<User | undefined, void>({
-        // providesTags: ['Me'],
+        providesTags: ['Me'],
         query: () => '/v1/auth/me',
       }),
       login: builder.mutation<void, LoginArgs>({
-        // invalidatesTags: ['Me'],
+        invalidatesTags: ['Me'],
         query: args => ({
           body: args,
           method: 'POST',
@@ -33,7 +33,7 @@ const authService = baseApi.injectEndpoints({
         }),
       }),
       logout: builder.mutation<void, void>({
-        // invalidatesTags: ['Me'],
+        invalidatesTags: ['Me'],
         query: () => ({ method: 'POST', url: '/v1/auth/logout' }),
       }),
       recoverPassword: builder.mutation<void, RecoverPasswordArgs>({
@@ -53,7 +53,7 @@ const authService = baseApi.injectEndpoints({
         query: args => ({ body: args, method: 'POST', url: '/v1/auth/sign-up' }),
       }),
       updateProfile: builder.mutation<User, FormData>({
-        // invalidatesTags: ['Me'],
+        invalidatesTags: ['Me'],
         query: args => ({
           body: args,
           method: 'PATCH',
