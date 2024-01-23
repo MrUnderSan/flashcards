@@ -44,22 +44,17 @@ export const FileUploader = forwardRef<ElementRef<'input'>, FileUploaderProps>(
     }
 
     return (
-      <>
-        <Typography as={'label'} className={className} htmlFor={name}>
-          {trigger}
-          <input
-            className={s.inputFile}
-            id={name}
-            onChange={onChangehandler}
-            ref={ref}
-            type={'file'}
-            {...rest}
-          />
-        </Typography>
-        <Typography as={'span'} className={s.error} variant={'error'}>
-          {error}
-        </Typography>
-      </>
+      <Typography as={'label'} className={className} htmlFor={name}>
+        {trigger}
+        <input
+          className={s.inputFile}
+          id={name}
+          onChange={onChangehandler}
+          ref={ref}
+          type={'file'}
+          {...rest}
+        />
+      </Typography>
     )
   }
 )
