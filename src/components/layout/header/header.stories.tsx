@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { action } from '@storybook/addon-actions'
+import { withRouter } from 'storybook-addon-react-router-v6'
 
 import { Header } from './'
 
 const meta = {
   component: Header,
+  decorators: [withRouter],
   parameters: {
     docs: {
       story: {
