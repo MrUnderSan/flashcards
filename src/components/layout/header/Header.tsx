@@ -20,7 +20,7 @@ export type HeaderProps =
 export const Header = memo(({ isLoggedIn, profile }: HeaderProps) => {
   return (
     <header className={s.header}>
-      <div className={s.headerContent}>
+      <div className={s.headerContainer}>
         <a className={s.headerLink} href={'/'}>
           <Logo className={s.headerLogo} />
         </a>
