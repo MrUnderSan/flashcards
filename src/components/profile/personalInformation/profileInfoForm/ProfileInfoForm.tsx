@@ -18,13 +18,13 @@ type ProfileInfoFormProps = {
   className?: string
   deactivateEditMode: () => void
   initialValues?: ProfileInfoFormValues
-  onSubmit: (data: FormData) => void
+  updateNickname: (data: ProfileInfoFormValues) => void
 }
 export const ProfileInfoForm = ({
   className,
   deactivateEditMode,
   initialValues,
-  onSubmit,
+  updateNickname,
 }: ProfileInfoFormProps) => {
   const {
     control,
@@ -36,11 +36,7 @@ export const ProfileInfoForm = ({
   })
 
   const onSubmitHandler = (data: ProfileInfoFormValues) => {
-    const formData = new FormData()
-
-    formData.append('username', data.name)
-    console.log('profileFORM:', data.name)
-    onSubmit(formData)
+    updateNickname(data)
     deactivateEditMode()
   }
 
