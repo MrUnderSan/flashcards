@@ -14,7 +14,7 @@ import s from './button.module.scss'
 type ButtonOwnProps<T extends ElementType> = {
   as?: T
   fullWidth?: boolean
-  variant?: 'link' | 'primary' | 'secondary' | 'tertiary'
+  variant?: 'icon' | 'link' | 'primary' | 'secondary' | 'tertiary'
 }
 
 export type ButtonProps<T extends ElementType = 'button'> = ButtonOwnProps<T> &
