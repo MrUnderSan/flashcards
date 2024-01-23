@@ -46,14 +46,15 @@ export const ProfileInfoForm = ({
 
   return (
     <form className={clsx(s.form, className)} onSubmit={handleSubmit(onSubmitHandler)}>
-      <FormTextField
-        className={s.inputNick}
-        control={control}
-        errorMessage={errors.name?.message}
-        label={'Nickname'}
-        name={'name'}
-      />
-      <Button className={s.saveButton} fullWidth type={'submit'}>
+      <div className={s.username}>
+        <FormTextField
+          control={control}
+          errorMessage={errors.name?.message}
+          label={'Nickmame'}
+          name={'name'}
+        />
+      </div>
+      <Button fullWidth type={'submit'}>
         Save Changes
       </Button>
     </form>

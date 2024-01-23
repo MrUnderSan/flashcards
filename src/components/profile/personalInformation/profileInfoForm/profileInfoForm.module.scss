@@ -1,10 +1,9 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 36px;
-  align-items: center;
+  width: 100%;
+}
 
-  .inputNick {
-    width: 100%;
-  }
+.username {
+  margin: 12px 0 36px;
 }
