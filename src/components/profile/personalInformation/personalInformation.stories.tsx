@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { Toast } from '@/components/ui/toast'
+
 import { PersonalInformation } from './PersonalInformation'
 
 const meta = {
@@ -30,6 +32,15 @@ export const WithAvatar: Story = {
       username: 'MyUsername',
     },
   },
+
+  render: args => {
+    return (
+      <>
+        <PersonalInformation {...args} />
+        <Toast />
+      </>
+    )
+  },
 }
 
 export const NoAvatar: Story = {
@@ -38,5 +49,13 @@ export const NoAvatar: Story = {
       email: 'example@email.com',
       username: 'MyUsername',
     },
+  },
+  render: args => {
+    return (
+      <>
+        <PersonalInformation {...args} />
+        <Toast />
+      </>
+    )
   },
 }
