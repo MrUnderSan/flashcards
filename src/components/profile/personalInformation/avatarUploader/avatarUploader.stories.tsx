@@ -5,7 +5,7 @@ import { Toast } from '@/components/ui/toast'
 
 const meta = {
   argTypes: {
-    onSubmit: {
+    updateAvatar: {
       action: 'onSubmit avatar',
     },
   },
@@ -20,7 +20,7 @@ type Story = StoryObj<typeof meta>
 export const AvatarUploaderDemo = () => {
   return (
     <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-      <AvatarUploader editable name={'avatar'} onSubmit={() => {}} />
+      <AvatarUploader editable name={'avatar'} updateAvatar={() => {}} />
       <Toast />
     </div>
   )
@@ -37,7 +37,7 @@ export const editableTrue: Story = {
 export const editableFalse = () => {
   return (
     <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-      <AvatarUploader name={'avatar'} onSubmit={() => {}} />
+      <AvatarUploader name={'avatar'} updateAvatar={() => {}} />
     </div>
   )
 }
