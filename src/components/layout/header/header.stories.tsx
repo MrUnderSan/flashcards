@@ -23,17 +23,16 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Unlogged: Story = {
-  args: { isLoggedIn: false },
+  args: { isAuth: false },
 }
 
 export const Logged: Story = {
   args: {
-    isLoggedIn: true,
+    isAuth: true,
+    logout: action('onLogout'),
     profile: {
-      avatar: null,
       email: 'johnsmith@it-incubator.io',
-      onLogout: action('onLogout'),
-      userName: 'John Smith',
+      name: 'John Smith',
     },
   },
 }

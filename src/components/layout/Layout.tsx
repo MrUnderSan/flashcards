@@ -22,9 +22,8 @@ export const Layout = () => {
     <>
       <Header isAuth={isAuth} logout={logout} profile={profile} />
       <main className={s.main}>
-        <Outlet context={{ isAuth }} />
+        {isLoading ? <div>Loading</div> : <Outlet context={{ isAuth }} />}
       </main>
-      {isLoading && <div>Loading</div>}
     </>
   )
 }
