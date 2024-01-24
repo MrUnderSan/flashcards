@@ -1,4 +1,8 @@
 .container {
-  width: var(--container-width);
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  max-width: var(--container-width);
   padding-inline: var(--container-padding-inline);
 }
