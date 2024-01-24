@@ -26,7 +26,7 @@ export const AvatarUploaderDemo = () => {
   )
 }
 
-export const editableTrue: Story = {
+export const EditableTrue: Story = {
   args: {
     editable: true,
     name: 'avatar',
@@ -34,7 +34,7 @@ export const editableTrue: Story = {
   render: () => <AvatarUploaderDemo />,
 }
 
-export const editableFalse = () => {
+export const EditableFalse = () => {
   return (
     <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
       <AvatarUploader name={'avatar'} updateAvatar={() => {}} />
