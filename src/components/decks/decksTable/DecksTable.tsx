@@ -26,7 +26,7 @@ const columns: Column[] = [
   },
   {
     cols: '3',
-    key: 'author',
+    key: 'author.name',
     title: 'Created By',
   },
   {
@@ -38,11 +38,16 @@ const columns: Column[] = [
 
 type Props = {
   decks: Deck[] | undefined
+  deleteClick: (id: string) => void
+  //editClick: (id: string) => void
   onSort: (key: Sort) => void
   sort: Sort
 }
 
-export const DecksTable = ({ decks, onSort, sort }: Props) => {
+export const DecksTable = ({ decks, deleteClick, onSort, sort }: Props) => {
+  const deleteHandler = (id: string) => () => deleteClick(id)
+  // const editHandler = (id: string) => () => editClick(id)
+
   return (
     <Table.Root>
       <TableSortHeader columns={columns} onSort={onSort} sort={sort} />
@@ -57,13 +62,13 @@ export const DecksTable = ({ decks, onSort, sort }: Props) => {
             <Table.Cell col={'3'}>{deck.author.name}</Table.Cell>
             <Table.Cell col={'1'}>
               <div className={s.buttons}>
-                <Button variant={'link'}>
+                <Button variant={'icon'}>
                   <Play />
                 </Button>
-                <Button variant={'link'}>
+                <Button onClick={deleteHandler(deck.id)} variant={'icon'}>
                   <Trash />
                 </Button>
-                <Button variant={'link'}>
+                <Button onClick={() => {}} variant={'icon'}>
                   <Edit />
                 </Button>
               </div>
