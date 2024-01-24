@@ -1,8 +1,11 @@
+import { Link } from 'react-router-dom'
+
 import { LogOut, Person } from '@/assets'
+import { ROUTES } from '@/common/const'
+import { ProfileData } from '@/common/types'
 import {
   DropDownBasicItemContent,
   DropDownItem,
-  DropDownItemProps,
   DropDownMenu,
   DropDownSeparator,
 } from '@/components/ui/dropDownMenu'
@@ -11,21 +14,22 @@ import { Typography } from '@/components/ui/typography'
 import s from './headerDropDown.module.scss'
 
 export type HeaderDropDownProps = {
-  avatar: null | string
-  email: string
-  onLogout: DropDownItemProps['onSelect']
-  userName: string
+  logout: () => void
+  profile: ProfileData
 }
 
-export const HeaderDropDown = ({ avatar, email, onLogout, userName }: HeaderDropDownProps) => {
+export const HeaderDropDown = ({
+  logout,
+  profile: { avatar, email, name },
+}: HeaderDropDownProps) => {
   if (!avatar) {
-    avatar = `https://ui-avatars.com/api/?name=${userName.split(' ').join('+')}`
+    avatar = `https://ui-avatars.com/api/?name=${name.split(' ').join('+')}`
   }
 
   const trigger = (
     <button className={s.trigger}>
       <Typography className={s.triggerName} variant={'subtitle1'}>
-        {userName}
+        {name}
       </Typography>
       <img alt={'photo'} className={s.triggerImg} src={avatar} />
     </button>
@@ -37,21 +41,21 @@ export const HeaderDropDown = ({ avatar, email, onLogout, userName }: HeaderDrop
         <img alt={'photo'} className={s.profileImg} src={avatar} />
         <div className={s.profileInfo}>
           <Typography className={s.profileInfoName} variant={'subtitle2'}>
-            {userName}
+            {name}
           </Typography>
           <Typography className={s.profileInfoEmail} variant={'caption'}>
             {email}
           </Typography>
         </div>
-      </DropDownItem>{' '}
-      <DropDownSeparator />
-      <DropDownItem asChild>
-        <a href={'/profile'}>
-          <DropDownBasicItemContent icon={<Person />} name={'My Profile'} />
-        </a>
       </DropDownItem>
       <DropDownSeparator />
-      <DropDownItem onSelect={onLogout}>
+      <DropDownItem asChild>
+        <Link to={ROUTES.profile}>
+          <DropDownBasicItemContent icon={<Person />} name={'My Profile'} />
+        </Link>
+      </DropDownItem>
+      <DropDownSeparator />
+      <DropDownItem onSelect={logout}>
         <DropDownBasicItemContent icon={<LogOut />} name={'Sign Out'} />
       </DropDownItem>
     </DropDownMenu>

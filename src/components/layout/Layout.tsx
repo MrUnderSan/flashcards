@@ -1,19 +1,30 @@
 import { Outlet } from 'react-router-dom'
 
-import s from './layout.module.css'
+import { ProfileData } from '@/common/types'
+import { useGetMeQuery, useLogoutMutation } from '@/services'
+
+import s from './layout.module.scss'
 
 import { Header } from './header'
 
 export const Layout = () => {
-  const isLoggedIn = false
-  const profileData = undefined
+  const { data, isError, isLoading } = useGetMeQuery()
+  const [logout] = useLogoutMutation()
+  const isAuth = !isError
+
+  const profile: ProfileData | undefined = data && {
+    avatar: data.avatar,
+    email: data.email,
+    name: data.name,
+  }
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} profile={profileData} />
+      <Header isAuth={isAuth} logout={logout} profile={profile} />
       <main className={s.main}>
-        <Outlet />
+        <Outlet context={{ isAuth }} />
       </main>
+      {isLoading && <div>Loading</div>}
     </>
   )
 }
