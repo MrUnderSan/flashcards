@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
+import { ROUTES } from '@/common/const'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { FormCheckbox } from '@/components/ui/formComponents/formCheckbox'
@@ -68,7 +69,7 @@ export const SignIn = ({ onSubmit }: SignInProps) => {
         <Typography
           as={Link}
           className={s.recoverPassword}
-          to={'/recover-password'}
+          to={ROUTES.recoverPassword}
           variant={'body2'}
         >
           Forgot Password?
@@ -80,7 +81,7 @@ export const SignIn = ({ onSubmit }: SignInProps) => {
       <Typography className={s.description} variant={'body2'}>
         Don&apos;t have an account?
       </Typography>
-      <Button as={Link} className={s.signUp} to={'/sign-up'} variant={'link'}>
+      <Button as={Link} className={s.signUp} to={ROUTES.signUp} variant={'link'}>
         Sign Up
       </Button>
     </Card>
