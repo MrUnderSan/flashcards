@@ -16,7 +16,7 @@ export const DecksPage = () => {
   const [createMode, setCreateMode] = useState(false)
   const [deleteModeId, setDeleteModeId] = useState<null | string>(null)
   const sort = sortBy !== null ? `${sortBy?.key}-${sortBy?.direction}` : null
-  const { data, isLoading } = useGetDecksQuery({ orderBy: sort })
+  const { data } = useGetDecksQuery({ orderBy: sort })
 
   const deckToDeleteName = data?.items?.find(deck => deck.id === deleteModeId)?.name
 
