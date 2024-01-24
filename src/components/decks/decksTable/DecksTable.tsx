@@ -1,5 +1,6 @@
 import { Edit, Trash } from '@/assets'
 import { Play } from '@/assets/icons/play'
+import { getLocaleDateString } from '@/common/utils'
 import { Column, Sort, TableSortHeader } from '@/components/tableSortHeader'
 import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
@@ -58,7 +59,7 @@ export const DecksTable = ({ decks, deleteClick, onSort, sort }: Props) => {
               <Typography variant={'body2'}>{deck.name}</Typography>
             </Table.Cell>
             <Table.Cell col={'2'}>{deck.cardsCount}</Table.Cell>
-            <Table.Cell col={'2'}>{new Date(deck.updated).toLocaleDateString('ru-RU')}</Table.Cell>
+            <Table.Cell col={'2'}>{getLocaleDateString(deck.updated)}</Table.Cell>
             <Table.Cell col={'3'}>{deck.author.name}</Table.Cell>
             <Table.Cell col={'1'}>
               <div className={s.buttons}>
