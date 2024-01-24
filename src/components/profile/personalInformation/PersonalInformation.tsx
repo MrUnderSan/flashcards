@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { ProfileData } from '@/common/types'
 import {
   AvatarUploader,
   AvatarUploaderValue,
@@ -11,14 +12,13 @@ import {
 } from '@/components/profile/personalInformation/profileInfoForm/ProfileInfoForm'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
-import { User } from '@/services'
 import { clsx } from 'clsx'
 
 import s from './personalInformation.module.scss'
 
 type PersonalInformationProps = {
   className?: string
-  data?: User
+  data?: ProfileData
   logout: () => void
   updateAvatar: (avatar: AvatarUploaderValue) => void
   updateNickname: (data: ProfileInfoFormValues) => void
