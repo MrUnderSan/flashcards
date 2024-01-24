@@ -9,9 +9,9 @@ import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import { useGetDecksQuery } from '@/services'
 
-import s from './decksPage.module.scss'
+import s from './decks.module.scss'
 
-export const DecksPage = () => {
+export const Decks = () => {
   const [sortBy, setSortBy] = useState<Sort>(null)
   const [createMode, setCreateMode] = useState(false)
   const [deleteModeId, setDeleteModeId] = useState<null | string>(null)
