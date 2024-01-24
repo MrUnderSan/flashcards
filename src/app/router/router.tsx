@@ -7,11 +7,14 @@ import {
 } from 'react-router-dom'
 
 import { ROUTES } from '@/common/const'
+import { useAppOutletContext } from '@/common/hooks'
 import { Layout } from '@/components/layout'
+import { SignIn } from '@/pages'
+import { Decks } from '@/pages/decks/Decks'
 
 const publicRoutes: RouteObject[] = [
   {
-    element: <div>login page</div>,
+    element: <SignIn />,
     path: ROUTES.signIn,
   },
 ]
@@ -22,15 +25,15 @@ const privateRoutes: RouteObject[] = [
     path: ROUTES.base,
   },
   {
-    element: <div>decks page</div>,
+    element: <Decks />,
     path: ROUTES.decks,
   },
 ]
 
 function PrivateRoutes() {
-  const isAuthenticated = true
+  const { isAuth } = useAppOutletContext()
 
-  return isAuthenticated ? <Outlet /> : <Navigate to={ROUTES.signIn} />
+  return isAuth ? <Outlet /> : <Navigate to={ROUTES.signIn} />
 }
 
 const router = createBrowserRouter([
