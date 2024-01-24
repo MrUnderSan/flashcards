@@ -31,7 +31,7 @@ export const Modal = forwardRef<ElementRef<typeof DialogFromRadix.Root>, ModalPr
         <DialogFromRadix.Portal>
           <DialogFromRadix.Overlay className={classNames.overlay} />
           <DialogFromRadix.Content asChild className={classNames.content} ref={ref}>
-            <Card>
+            <Card className={s.modal}>
               {title && (
                 <div className={classNames.title}>
                   <Typography as={'h2'} variant={'h2'}>

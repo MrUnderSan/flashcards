@@ -1,0 +1,13 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+
+  width: 100%;
+  margin: 24px 0 0;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
