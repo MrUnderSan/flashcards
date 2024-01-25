@@ -1,4 +1,4 @@
-import { CardsResponse } from '@/services'
+import { CardsResponse, GetCardsArgs } from '@/services'
 import { baseApi } from '@/services/baseApi'
 import { CreateDeckArgs, Deck, DecksResponse, GetDecksArgs } from '@/services/decks/decks.type'
 
@@ -20,8 +20,8 @@ const decksService = baseApi.injectEndpoints({
           url: `v1/decks/${id}`,
         }),
       }),
-      getDeckCards: builder.query<CardsResponse, { id: string }>({
-        query: ({ id }) => `v1/decks/${id}/cards`,
+      getDeckCards: builder.query<CardsResponse, { args: GetCardsArgs; id: string }>({
+        query: ({ args, id }) => ({ params: args ? args : undefined, url: `v1/decks/${id}/cards` }),
       }),
       getDecks: builder.query<DecksResponse, GetDecksArgs | void>({
         providesTags: ['Decks'],
@@ -35,4 +35,10 @@ const decksService = baseApi.injectEndpoints({
   },
 })
 
-export const { useCreateDeckMutation, useDeleteDeckMutation, useGetDecksQuery } = decksService
+export const {
+  useCreateDeckMutation,
+  useDeleteDeckMutation,
+  useGetDeckCardsQuery,
+  useGetDecksQuery,
+  useGetOneDeckQuery,
+} = decksService
