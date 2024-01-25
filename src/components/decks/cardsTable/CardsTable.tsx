@@ -27,13 +27,13 @@ const columns: Column[] = [
   },
 ]
 
-type FriendsDeckTableProps = {
+type CardsTableProps = {
   cards: Card[] | undefined
   onSort: (key: Sort) => void
   sort: Sort
 }
 
-export const CardsTable = ({ cards, onSort, sort }: FriendsDeckTableProps) => {
+export const CardsTable = ({ cards, onSort, sort }: CardsTableProps) => {
   return (
     <Table.Root>
       <TableSortHeader columns={columns} onSort={onSort} sort={sort} />
