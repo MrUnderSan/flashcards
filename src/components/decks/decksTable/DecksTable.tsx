@@ -40,6 +40,7 @@ const columns: Column[] = [
 ]
 
 type Props = {
+  currentUserId: string
   decks: Deck[] | undefined
   deleteClick: (id: string) => void
   //editClick: (id: string) => void
@@ -47,7 +48,7 @@ type Props = {
   sort: Sort
 }
 
-export const DecksTable = ({ decks, deleteClick, onSort, sort }: Props) => {
+export const DecksTable = ({ currentUserId, decks, deleteClick, onSort, sort }: Props) => {
   const deleteHandler = (id: string) => () => deleteClick(id)
   // const editHandler = (id: string) => () => editClick(id)
 
@@ -70,12 +71,17 @@ export const DecksTable = ({ decks, deleteClick, onSort, sort }: Props) => {
                 <Button variant={'icon'}>
                   <Play />
                 </Button>
-                <Button onClick={deleteHandler(deck.id)} variant={'icon'}>
-                  <Trash />
-                </Button>
-                <Button onClick={() => {}} variant={'icon'}>
-                  <Edit />
-                </Button>
+                {deck.author.id === currentUserId && (
+                  <>
+                    {' '}
+                    <Button onClick={deleteHandler(deck.id)} variant={'icon'}>
+                      <Trash />
+                    </Button>
+                    <Button onClick={() => {}} variant={'icon'}>
+                      <Edit />
+                    </Button>
+                  </>
+                )}
               </div>
             </Table.Cell>
           </Table.Row>

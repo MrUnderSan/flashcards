@@ -97,6 +97,7 @@ export const Decks = () => {
         </Button>
       </div>
       <DecksTable
+        currentUserId={currentUserId ?? ''}
         decks={data?.items}
         deleteClick={setDeleteModeId}
         onSort={setSortBy}
