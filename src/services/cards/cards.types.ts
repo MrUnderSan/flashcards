@@ -37,3 +37,10 @@ export type UpdateCardBody = {
 export type UpdateCardArgs = {
   body: UpdateCardBody
 } & CardArgsType
+
+export type GetCardsArgs = {
+  currentPage?: number
+  itemsPerPage?: number
+  orderBy?: null | string
+  question?: string
+}
