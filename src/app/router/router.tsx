@@ -11,11 +11,16 @@ import { useAppOutletContext } from '@/common/hooks'
 import { Layout } from '@/components/layout'
 import { SignIn } from '@/pages'
 import { Decks } from '@/pages/decks/Decks'
+import { SignUp } from '@/pages/signUp'
 
 const publicRoutes: RouteObject[] = [
   {
     element: <SignIn />,
     path: ROUTES.signIn,
+  },
+  {
+    element: <SignUp />,
+    path: ROUTES.signUp,
   },
 ]
 
