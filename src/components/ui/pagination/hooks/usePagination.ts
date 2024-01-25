@@ -36,8 +36,7 @@ export const usePagination = ({
 }: PaginationParams): ('...' | number)[] => {
   return useMemo(() => {
     // As a first step, we shall go about calculating the total pages from totalCount and pageSize  as follows:
-    const totalPageCount = Math.ceil(totalCount / pageSize)
-
+    const totalPageCount = Math.ceil(totalCount)
     // Pages count is determined as siblingCount + firstPage + lastPage + currentPage + 2*DOTS
     const totalPageNumbers = siblingCount + 5
 

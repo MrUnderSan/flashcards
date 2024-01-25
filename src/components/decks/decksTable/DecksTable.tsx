@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import { Edit, Trash } from '@/assets'
 import { Play } from '@/assets/icons/play'
 import { getLocaleDateString } from '@/common/utils'
@@ -56,7 +58,9 @@ export const DecksTable = ({ decks, deleteClick, onSort, sort }: Props) => {
         {decks?.map(deck => (
           <Table.Row key={deck.id}>
             <Table.Cell col={'2'}>
-              <Typography variant={'body2'}>{deck.name}</Typography>
+              <Typography as={Link} className={s.link} to={`/decks/${deck.id}`} variant={'body2'}>
+                {deck.name}
+              </Typography>
             </Table.Cell>
             <Table.Cell col={'2'}>{deck.cardsCount}</Table.Cell>
             <Table.Cell col={'2'}>{getLocaleDateString(deck.updated)}</Table.Cell>
