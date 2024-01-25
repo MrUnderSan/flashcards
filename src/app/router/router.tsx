@@ -9,8 +9,9 @@ import {
 import { ROUTES } from '@/common/const'
 import { useAppOutletContext } from '@/common/hooks'
 import { Layout } from '@/components/layout'
-import { SignIn } from '@/pages'
+import { Deck } from '@/pages/deck'
 import { Decks } from '@/pages/decks/Decks'
+import { SignIn } from '@/pages/signIn'
 import { SignUp } from '@/pages/signUp'
 
 const publicRoutes: RouteObject[] = [
@@ -33,6 +34,7 @@ const privateRoutes: RouteObject[] = [
     element: <Decks />,
     path: ROUTES.decks,
   },
+  { element: <Deck />, path: ROUTES.deck },
 ]
 
 function PrivateRoutes() {
