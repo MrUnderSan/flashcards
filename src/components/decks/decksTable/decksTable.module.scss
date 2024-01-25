@@ -6,3 +6,11 @@
     width: 16px;
   }
 }
+
+.link {
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-accent-500);
+  }
+}

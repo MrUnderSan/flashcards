@@ -2,3 +2,21 @@
   display: flex;
   justify-content: space-between;
 }
+
+.pagination {
+  margin-top: 25px;
+}
+
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 40px;
+}
+
+.search {
+  max-width: 300px;
+}

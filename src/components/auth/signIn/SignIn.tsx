@@ -14,7 +14,7 @@ import s from './signIn.module.scss'
 
 const loginSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(6).max(30),
+  password: z.string().min(4).max(30),
   rememberMe: z.boolean().default(false),
 })
 
