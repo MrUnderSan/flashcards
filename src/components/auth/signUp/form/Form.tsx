@@ -11,6 +11,7 @@ const signUpSchema = z
   .object({
     confirmPassword: z.string(),
     email: z.string().email(),
+    name: z.string().min(3).max(12),
     password: z.string().min(6).max(30),
   })
   .refine(data => data.password === data.confirmPassword, {
@@ -18,8 +19,12 @@ const signUpSchema = z
     path: ['confirmPassword'],
   })
 
-type FormValues = z.infer<typeof signUpSchema>
-export const Form = () => {
+export type FormValues = z.infer<typeof signUpSchema>
+
+type FormProps = {
+  onSubmit: (data: FormValues) => void
+}
+export const Form = ({ onSubmit }: FormProps) => {
   const {
     control,
     formState: { errors },
@@ -32,11 +37,16 @@ export const Form = () => {
     },
     resolver: zodResolver(signUpSchema),
   })
-  const onSubmit = (data: FormValues) => console.log(data)
 
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={s.form__inner}>
+        <FormTextField
+          control={control}
+          errorMessage={errors.email?.message}
+          label={'Name'}
+          name={'name'}
+        />
         <FormTextField
           control={control}
           errorMessage={errors.email?.message}
@@ -55,6 +65,7 @@ export const Form = () => {
           errorMessage={errors.confirmPassword?.message}
           label={'Confirm Password'}
           name={'confirmPassword'}
+          type={'password'}
         />
       </div>
       <Button as={'button'} fullWidth type={'submit'}>
