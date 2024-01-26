@@ -23,30 +23,31 @@ export type FileUploaderProps = {
 
 export const FileUploader = forwardRef<ElementRef<'input'>, FileUploaderProps>(
   ({ className, name, setFile, trigger, validationSchema = IMAGE_SCHEMA, ...rest }, ref) => {
-    const [error, setError] = useState<null | string>(null)
+    const [errorMessage, setErrorMessage] = useState<null | string>(null)
 
     useEffect(() => {
-      toast.error(error)
-    }, [error])
+      toast.error(errorMessage)
+    }, [errorMessage])
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-      try {
-        const file = e.target.files?.[0]
+      const file = e.target.files?.[0]
+      let error = null
 
-        if (file) {
-          setFile(file)
-          setError(null)
-          validationSchema.parse(file)
-        }
+      try {
+        validationSchema.parse(file)
+        setErrorMessage(null)
       } catch (e) {
-        const error = e as Error | ZodError
+        error = e as Error | ZodError
 
         if (error instanceof ZodError) {
-          setError('Validate error: ' + error.errors[0].message)
+          setErrorMessage('Validate error: ' + error.errors[0].message)
         } else {
-          setError('Native error: ' + error.message)
+          setErrorMessage('Native error: ' + error.message)
         }
         setFile(null)
+      }
+      if (!error) {
+        file && setFile(file)
       }
     }
 

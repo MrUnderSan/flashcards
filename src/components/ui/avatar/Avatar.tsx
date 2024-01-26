@@ -8,7 +8,7 @@ import s from './avatar.module.scss'
 type Props = {
   size?: 'large' | 'small'
   src?: string
-  title: string
+  title?: string
 } & ComponentPropsWithoutRef<typeof RadixAvatar.Root>
 
 export const Avatar = forwardRef<ElementRef<typeof RadixAvatar.Root>, Props>(
@@ -16,9 +16,7 @@ export const Avatar = forwardRef<ElementRef<typeof RadixAvatar.Root>, Props>(
     return (
       <RadixAvatar.Root className={clsx(s.root, s[size], className)} ref={ref} {...rest}>
         <RadixAvatar.Image alt={'avatar'} className={s.image} src={src} />
-        <RadixAvatar.Fallback className={s.fallback} delayMs={600}>
-          {title}
-        </RadixAvatar.Fallback>
+        <RadixAvatar.Fallback className={s.fallback}>{title}</RadixAvatar.Fallback>
       </RadixAvatar.Root>
     )
   }
