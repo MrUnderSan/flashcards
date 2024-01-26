@@ -1,62 +1,67 @@
 import { ChangeEvent, useState } from 'react'
 
 import { Trash } from '@/assets'
+import { SELECT_OPTIONS_PAGINATION, TABS } from '@/common/const'
 import { DecksTable } from '@/components/decks/decksTable'
 import { CreateModal } from '@/components/decks/modals/createModal/CreateModal'
 import { DeleteDeckModal } from '@/components/decks/modals/deleteDeckModal/DeleteDeckModal'
 import { Page } from '@/components/page'
-import { Sort } from '@/components/tableSortHeader'
 import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
 import { TabSwitcher } from '@/components/ui/tabSwitcher'
 import { TextField } from '@/components/ui/textField'
 import { Typography } from '@/components/ui/typography'
-import { useDebounce } from '@/hooks/useDebounce'
+import { useDebounce, useDecksSearchParams } from '@/hooks'
 import { useGetDecksQuery, useGetMeQuery } from '@/services'
 
 import s from './decks.module.scss'
 
 export const Decks = () => {
-  const tabs = [
-    { title: 'My Decks', value: 'my' },
-    { title: 'All Decks', value: 'all' },
-  ]
-  const [sortBy, setSortBy] = useState<Sort>(null)
-  const [currentTab, setCurrentTab] = useState('all')
-  const [sliderArgs, setSliderArgs] = useState([0, 50])
-  const [text, setText] = useState('')
-  const [itemsPerPage, setItemsPerPage] = useState('10')
-  const [currentPage, setCurrentPage] = useState<number>(1)
+  const {
+    changeItemsPerPage,
+    changeMinMaxCard,
+    changePage,
+    changeSort,
+    changeValue,
+    itemsPerPage,
+    maxCards,
+    minCards,
+    page,
+    rangeValue,
+    sort,
+    value,
+  } = useDecksSearchParams()
   const [createMode, setCreateMode] = useState(false)
   const [deleteModeId, setDeleteModeId] = useState<null | string>(null)
-  const sort = sortBy !== null ? `${sortBy?.key}-${sortBy?.direction}` : null
-  const debouncedValue = useDebounce<string>(text, 500)
+  const [currentTab, setCurrentTab] = useState('all')
+  const debouncedValue = useDebounce<string>(value ?? '', 500)
+
   const { data: me } = useGetMeQuery()
   const currentUserId = me?.id
   const authorId = currentTab === 'my' ? currentUserId : undefined
   const { data } = useGetDecksQuery({
     authorId,
-    currentPage,
+    currentPage: page,
     itemsPerPage: Number(itemsPerPage),
-    maxCardsCount: sliderArgs[1],
-    minCardsCount: sliderArgs[0],
+    maxCardsCount: maxCards,
+    minCardsCount: minCards,
     name: debouncedValue,
-    orderBy: sort,
+    orderBy: sort ? `${sort.key}-${sort.direction}` : undefined,
   })
 
-  const clearFilter = () => {
-    setSliderArgs([0, 50])
+  const clearFilterHandler = () => {
+    changeMinMaxCard([0, 50])
     setCurrentTab('all')
-    setText('')
+    changeValue('')
   }
 
   const changeTextHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setText(e.currentTarget.value)
+    changeValue(e.currentTarget.value)
   }
 
   const handleTabChange = (tab: string) => {
-    setCurrentPage(1)
+    changePage(1)
     setCurrentTab(tab)
   }
 
@@ -72,7 +77,9 @@ export const Decks = () => {
         open={!!deleteModeId}
       />
       <div className={s.header}>
-        <Typography variant={'h1'}>Decks list</Typography>
+        <Typography as={'h1'} variant={'h1'}>
+          Decks list
+        </Typography>
         <Button onClick={() => setCreateMode(true)} variant={'primary'}>
           Add New Deck
         </Button>
@@ -82,16 +89,16 @@ export const Decks = () => {
           onChange={changeTextHandler}
           rootContainerProps={{ className: s.search }}
           type={'search'}
-          value={text}
+          value={value ?? ''}
         />
         <TabSwitcher
           className={s.tabs}
           onValueChange={handleTabChange}
-          tabs={tabs}
+          tabs={TABS}
           value={currentTab}
         />
-        <Slider max={50} onValueChange={setSliderArgs} value={sliderArgs} />
-        <Button onClick={clearFilter} variant={'secondary'}>
+        <Slider max={50} onValueChange={changeMinMaxCard} value={rangeValue} />
+        <Button onClick={clearFilterHandler} variant={'secondary'}>
           <Trash />
           Clear Filter
         </Button>
@@ -100,21 +107,22 @@ export const Decks = () => {
         currentUserId={currentUserId ?? ''}
         decks={data?.items}
         deleteClick={setDeleteModeId}
-        onSort={setSortBy}
-        sort={sortBy}
+        onSort={changeSort}
+        sort={sort}
       />
+      {data?.items.length === 0 && (
+        <Typography as={'h2'} className={s.found} variant={'h2'}>
+          Decks not found
+        </Typography>
+      )}
       <Pagination
         className={s.pagination}
-        currentPage={data?.pagination?.currentPage ?? 1}
-        defaultValue={itemsPerPage}
-        onChangePage={setCurrentPage}
-        onValueChange={setItemsPerPage}
-        options={[
-          { title: '5', value: '5' },
-          { title: '10', value: '10' },
-          { title: '15', value: '15' },
-        ]}
-        pageSize={Number(itemsPerPage)}
+        currentPage={page}
+        defaultValue={String(itemsPerPage)}
+        onChangePage={changePage}
+        onValueChange={changeItemsPerPage}
+        options={SELECT_OPTIONS_PAGINATION}
+        pageSize={itemsPerPage}
         totalCount={data?.pagination?.totalPages || 1}
       />
     </Page>

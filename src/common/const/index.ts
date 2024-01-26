@@ -17,3 +17,8 @@ export const SELECT_OPTIONS_PAGINATION = [
   { title: '10', value: '10' },
   { title: '15', value: '15' },
 ]
+
+export const TABS = [
+  { title: 'My Decks', value: 'my' },
+  { title: 'All Decks', value: 'all' },
+]
