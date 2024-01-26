@@ -1,0 +1,110 @@
+.dropDownMenu {
+  &Trigger {
+    cursor: pointer;
+  }
+
+  &Content {
+    will-change: transform, opacity;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+
+    padding: 12px;
+
+    color: var(--color-light-100);
+
+    background: var(--color-dark-700);
+    border: 1px solid var(--color-dark-500);
+    border-radius: 4px;
+    box-shadow:
+      0 10px 38px -10px rgb(22 23 24 / 35%),
+      0 10px 20px -15px rgb(22 23 24 / 20%);
+
+    animation-duration: 400ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+
+    &[data-side='top'] {
+      animation-name: slideDownAndFade;
+    }
+
+    &[data-side='right'] {
+      animation-name: slideLeftAndFade;
+    }
+
+    &[data-side='bottom'] {
+      animation-name: slideUpAndFade;
+    }
+
+    &[data-side='left'] {
+      animation-name: slideRightAndFade;
+    }
+  }
+
+  &Arrow {
+    position: absolute;
+
+    &Div {
+      top: -3px;
+      left: calc(50% - 3px);
+      transform: rotate(45deg);
+
+      width: 6px;
+      height: 6px;
+
+      background-color: var(--color-dark-700);
+      border: 1px solid var(--color-dark-500);
+      border-top: none;
+      border-left: none;
+    }
+  }
+}
+
+@keyframes slideUpAndFade {
+  from {
+    transform: translateY(2px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideRightAndFade {
+  from {
+    transform: translateX(-2px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDownAndFade {
+  from {
+    transform: translateY(-2px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideLeftAndFade {
+  from {
+    transform: translateX(2px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

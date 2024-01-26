@@ -1,0 +1,89 @@
+.SelectTrigger {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+  width: 100%;
+  padding: 6px 12px;
+
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-m);
+  color: var(--color-light-100);
+
+  background-color: var(--color-dark-900);
+  border: 1px solid var(--color-dark-300);
+  border-radius: 2px;
+
+  transition: 0.2s ease-in-out;
+
+  &.pagination {
+    padding: 0 6px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--color-dark-500);
+  }
+
+  &:focus {
+    outline: 2px solid var(--color-info-700);
+  }
+
+  &[data-placeholder] {
+    color: var(--color-light-100);
+  }
+
+  &[data-state='open'] {
+    background-color: var(--color-dark-900);
+    border-color: var(--color-light-100);
+    border-bottom: none;
+    border-radius: 2px 2px 0 0;
+  }
+
+  &[data-state='open'] .SelectIcon {
+    transform: rotate(180deg);
+    transition: all 0.2s ease-in-out;
+  }
+
+  &[data-state='closed'] .SelectIcon {
+    transition: all 0.3s ease-in-out;
+  }
+
+  &[data-disabled] {
+    pointer-events: none;
+    color: var(--color-dark-300);
+  }
+
+  &.error {
+    border: 1px solid var(--color-danger-500);
+  }
+}
+
+.SelectContent {
+  overflow: hidden;
+
+  width: var(--radix-select-trigger-width);
+
+  background-color: var(--color-dark-900);
+  border: 1px solid var(--color-light-100);
+
+  animation: fadeIn 0.5s ease;
+}
+
+.SelectLabel {
+  cursor: default;
+
+  display: flex;
+  flex-direction: column;
+
+  font-size: 14px;
+  line-height: var(--line-height-m);
+  color: var(--color-dark-100);
+}
+
+.disabled {
+  color: var(--color-dark-300);
+}

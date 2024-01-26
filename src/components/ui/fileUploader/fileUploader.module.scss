@@ -1,0 +1,9 @@
+.inputFile {
+  display: none;
+}
+
+.error {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--color-danger-300);
+}
