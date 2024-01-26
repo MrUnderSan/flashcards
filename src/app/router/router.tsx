@@ -9,11 +9,7 @@ import {
 import { ROUTES } from '@/common/const'
 import { useAppOutletContext } from '@/common/hooks'
 import { Layout } from '@/components/layout'
-import { Deck } from '@/pages/deck'
-import { Decks } from '@/pages/decks/Decks'
-import { Profile } from '@/pages/profile'
-import { SignIn } from '@/pages/signIn'
-import { SignUp } from '@/pages/signUp'
+import { Deck, Decks, Profile, RecoverPassword, SignIn, SignUp } from '@/pages'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -23,6 +19,10 @@ const publicRoutes: RouteObject[] = [
   {
     element: <SignUp />,
     path: ROUTES.signUp,
+  },
+  {
+    element: <RecoverPassword />,
+    path: ROUTES.recoverPassword,
   },
 ]
 
