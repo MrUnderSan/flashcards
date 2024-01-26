@@ -79,7 +79,6 @@ export const EditModal = ({ id, img, name, onOpenChange, open }: EditModalProps)
           label={'New name for deck'}
           name={'name'}
           placeholder={name}
-          value={name}
         />
         {currentImg || isValidImage ? (
           <div className={s.imgContainer}>
