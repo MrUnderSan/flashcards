@@ -11,25 +11,25 @@ import { clsx } from 'clsx'
 
 import s from './button.module.scss'
 
-export type ButtonProps<T extends ElementType> = {
+type ButtonOwnProps<T extends ElementType> = {
   as?: T
   fullWidth?: boolean
-  variant?: 'link' | 'primary' | 'secondary' | 'tertiary'
-} & ComponentPropsWithoutRef<T>
+  variant?: 'icon' | 'link' | 'primary' | 'secondary' | 'tertiary'
+}
+
+export type ButtonProps<T extends ElementType = 'button'> = ButtonOwnProps<T> &
+  Omit<ComponentPropsWithoutRef<T>, keyof ButtonOwnProps<T>>
 
 type ButtonWithRef = <T extends ElementType = 'button'>(
-  props: ButtonProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>,
+  props: ButtonProps<T>,
   ref?: Ref<ElementRef<T>>
 ) => ReactNode
 
 export const Button: ButtonWithRef = forwardRef(
-  <T extends ElementType = 'button'>(
-    props: ButtonProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>,
-    ref: Ref<ElementRef<T>>
-  ) => {
+  <T extends ElementType>(props: ButtonProps<T>, ref: Ref<ElementRef<T>>) => {
     const { as, className, fullWidth, variant = 'primary', ...rest } = props
     const Tag: ElementType = as || 'button'
-    const classNames = clsx(s.button, s[variant], fullWidth ? s.fullWidth : '', className)
+    const classNames = clsx(s.button, s[variant], fullWidth && s.fullWidth, className)
 
     return <Tag className={classNames} ref={ref} {...rest} />
   }

@@ -1,80 +1,79 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Edit, LogOut, Person, PlayCircle, Trash } from '@/assets'
+import { Edit, LogOut, Person, Trash } from '@/assets'
+import { Typography } from '@/components/ui/typography'
+import { action } from '@storybook/addon-actions'
 
-import { DropDownMenu } from './'
+import { DropDownBasicItemContent, DropDownItem, DropDownMenu, DropDownSeparator } from './'
 
 const meta = {
-  args: {
-    defaultOpen: true,
-  },
   component: DropDownMenu,
   tags: ['autodocs'],
   title: 'Components/DropDownMenu',
 } satisfies Meta<typeof DropDownMenu>
 
 export default meta
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof DropDownMenu>
+
+const img = (
+  <img
+    alt={'photo'}
+    src={'https://ui-avatars.com/api/?name=JS'}
+    style={{
+      borderRadius: '36px ',
+      height: '36px',
+      objectFit: 'cover',
+      width: '36px',
+    }}
+  />
+)
+
+const trigger = (
+  <button
+    style={{
+      border: 'none',
+      borderRadius: '36px ',
+      height: '36px',
+      padding: 0,
+      width: '36px',
+    }}
+  >
+    {img}
+  </button>
+)
 
 export const Profile: Story = {
-  args: {
-    children: (
-      <button
-        style={{
-          border: 'none',
-          borderRadius: '36px ',
-          height: '36px',
-          padding: 0,
-          width: '36px',
-        }}
-      >
-        <img
-          src={'https://assets.editorial.aetnd.com/uploads/2009/11/portrait-of-john-smith.jpg'}
-          style={{
-            borderRadius: '36px ',
-            height: '36px',
-            objectFit: 'cover',
-            width: '36px',
-          }}
-        />
-      </button>
-    ),
-    items: [
-      {
-        icon: <Person />,
-        name: 'Learn',
-      },
-      { icon: <Person />, name: 'Edit' },
-      { icon: <LogOut />, name: 'Delete' },
-    ],
-    profile: {
-      email: 'johnsmith@it-incubator.io',
-      img: 'https://assets.editorial.aetnd.com/uploads/2009/11/portrait-of-john-smith.jpg',
-      name: 'John',
-    },
-  },
+  render: () => (
+    <DropDownMenu defaultOpen trigger={trigger}>
+      <DropDownItem>
+        {img}
+        <div>
+          <Typography variant={'subtitle2'}>John Smith</Typography>
+          <Typography variant={'caption'}>johnsmith@it-incubator.io</Typography>
+        </div>
+      </DropDownItem>{' '}
+      <DropDownSeparator />
+      <DropDownItem>
+        <DropDownBasicItemContent icon={<Person />} name={'My Profile'} />
+      </DropDownItem>
+      <DropDownSeparator />
+      <DropDownItem onSelect={action('onLogout')}>
+        <DropDownBasicItemContent icon={<LogOut />} name={'Sign Out'} />
+      </DropDownItem>
+    </DropDownMenu>
+  ),
 }
 
 export const Setting: Story = {
-  args: {
-    children: (
-      <button
-        style={{
-          border: 'none',
-          borderRadius: '36px ',
-          height: '36px',
-          padding: 0,
-          width: '36px',
-        }}
-      ></button>
-    ),
-    items: [
-      {
-        icon: <PlayCircle />,
-        name: 'Learn',
-      },
-      { icon: <Edit />, name: 'Edit' },
-      { icon: <Trash />, name: 'Delete' },
-    ],
-  },
+  render: () => (
+    <DropDownMenu defaultOpen trigger={trigger}>
+      <DropDownItem onSelect={action('Edit')}>
+        <DropDownBasicItemContent icon={<Edit />} name={'Edit'} />
+      </DropDownItem>
+      <DropDownSeparator />
+      <DropDownItem onSelect={action('Delete')}>
+        <DropDownBasicItemContent icon={<Trash />} name={'Delete'} />
+      </DropDownItem>
+    </DropDownMenu>
+  ),
 }

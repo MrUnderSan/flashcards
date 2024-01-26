@@ -1,0 +1,19 @@
+.root {
+  position: relative;
+
+  .uploader {
+    cursor: pointer;
+
+    position: absolute;
+    right: -10px;
+    bottom: -10px;
+
+    text-align: right;
+
+    .editAvatar {
+      all: unset;
+      width: 32px;
+      height: 32px;
+    }
+  }
+}

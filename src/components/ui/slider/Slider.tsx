@@ -4,30 +4,28 @@ import * as SliderRadix from '@radix-ui/react-slider'
 import s from './slider.module.scss'
 
 type SliderProps = {
-  defaultValue: number[]
   max?: number
   min?: number
   minStepsBetweenThumbs?: number
-  onChange?: (value: number[]) => void
+  onValueChange: (values: number[]) => void
   step?: number
-  value?: number[]
+  value: number[]
 }
 
 export const Slider = (props: SliderProps) => {
-  const { defaultValue, max, min, minStepsBetweenThumbs, onChange, step, value } = props
+  const { max, min, minStepsBetweenThumbs, onValueChange, step, value } = props
 
   return (
     <div className={s.container}>
       <Typography as={'span'} className={s.valueBox} variant={'body1'}>
-        {defaultValue[0]}
+        {value[0]}
       </Typography>
       <SliderRadix.Root
         className={s.slider}
-        defaultValue={defaultValue}
         max={max}
         min={min}
         minStepsBetweenThumbs={minStepsBetweenThumbs}
-        onValueChange={onChange}
+        onValueChange={onValueChange}
         step={step}
         value={value}
       >
@@ -38,7 +36,7 @@ export const Slider = (props: SliderProps) => {
         <SliderRadix.Thumb className={s.slider__thumb} />
       </SliderRadix.Root>
       <Typography as={'span'} className={s.valueBox} variant={'body1'}>
-        {defaultValue[1]}
+        {value[1]}
       </Typography>
     </div>
   )

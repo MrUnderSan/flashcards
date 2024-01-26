@@ -7,24 +7,24 @@ import {
   forwardRef,
 } from 'react'
 
-import { ButtonProps } from '@/components/ui/button'
 import { clsx } from 'clsx'
 
 import s from './card.module.scss'
 
-type CardProps<T extends ElementType> = {
+type CardOwnProps<T extends ElementType> = {
   as?: T
-} & ComponentPropsWithoutRef<T>
+}
+
+export type CardProps<T extends ElementType = 'div'> = CardOwnProps<T> &
+  Omit<ComponentPropsWithoutRef<T>, keyof CardOwnProps<T>>
 
 type CardWithRef = <T extends ElementType = 'div'>(
-  props: CardProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>,
+  props: CardProps<T>,
   ref?: Ref<ElementRef<T>>
 ) => ReactNode
+
 export const Card: CardWithRef = forwardRef(
-  <T extends ElementType = 'div'>(
-    props: CardProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>,
-    ref: ElementRef<T>
-  ) => {
+  <T extends ElementType = 'div'>(props: CardProps<T>, ref: Ref<ElementRef<T>>) => {
     const { as, className, ...restProps } = props
     const Tag: ElementType = as || 'div'
     const classNames = clsx(s.card, className)
