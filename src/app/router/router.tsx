@@ -9,7 +9,7 @@ import {
 import { ROUTES } from '@/common/const'
 import { useAppOutletContext } from '@/common/hooks'
 import { Layout } from '@/components/layout'
-import { Deck, Decks, RecoverPassword, SignIn, SignUp } from '@/pages'
+import { Deck, Decks, Profile, RecoverPassword, SignIn, SignUp } from '@/pages'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -36,6 +36,7 @@ const privateRoutes: RouteObject[] = [
     path: ROUTES.decks,
   },
   { element: <Deck />, path: ROUTES.deck },
+  { element: <Profile />, path: ROUTES.profile },
 ]
 
 function PrivateRoutes() {
