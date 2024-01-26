@@ -9,6 +9,7 @@ import {
 } from 'react'
 import { toast } from 'react-toastify'
 
+import { IMAGE_SCHEMA } from '@/common/const'
 import { Typography } from '@/components/ui/typography'
 import { ZodEffects, ZodError } from 'zod'
 
@@ -17,18 +18,18 @@ import s from './fileUploader.module.scss'
 export type FileUploaderProps = {
   setFile: (file: File | null) => void
   trigger: ReactNode
-  validationSchema: ZodEffects<any>
+  validationSchema?: ZodEffects<any>
 } & ComponentPropsWithoutRef<'input'>
 
 export const FileUploader = forwardRef<ElementRef<'input'>, FileUploaderProps>(
-  ({ className, name, setFile, trigger, validationSchema, ...rest }, ref) => {
+  ({ className, name, setFile, trigger, validationSchema = IMAGE_SCHEMA, ...rest }, ref) => {
     const [error, setError] = useState<null | string>(null)
 
     useEffect(() => {
       toast.error(error)
     }, [error])
 
-    const onChangehandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
       try {
         const file = e.target.files?.[0]
 
@@ -55,7 +56,7 @@ export const FileUploader = forwardRef<ElementRef<'input'>, FileUploaderProps>(
         <input
           className={s.inputFile}
           id={name}
-          onChange={onChangehandler}
+          onChange={onChangeHandler}
           ref={ref}
           type={'file'}
           {...rest}
