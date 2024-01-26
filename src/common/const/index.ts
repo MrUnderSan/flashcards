@@ -1,3 +1,5 @@
+import { z } from 'zod'
+
 export const ROUTES = {
   base: '/',
   checkEmail: '/check-email',
@@ -22,3 +24,11 @@ export const TABS = [
   { title: 'My Decks', value: 'my' },
   { title: 'All Decks', value: 'all' },
 ]
+
+export const IMAGE_SCHEMA = z
+  .instanceof(File)
+  .refine(file => file.size <= 1000000, `Max image size is 1MB. The file will not be uploaded.`)
+  .refine(
+    file => ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(file.type),
+    'Only .jpg, .jpeg, .png and .webp formats are supported. The file will not be uploaded.'
+  )
