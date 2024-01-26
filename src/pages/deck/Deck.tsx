@@ -8,6 +8,7 @@ import { Cards } from '@/components/cards'
 import { Page } from '@/components/page'
 import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
+import { Spinner } from '@/components/ui/spinner'
 import { TextField } from '@/components/ui/textField'
 import { Typography } from '@/components/ui/typography'
 import { useGetDeckCardsQuery, useGetOneDeckQuery } from '@/services'
@@ -46,7 +47,7 @@ export const Deck = () => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <Spinner />
   }
 
   return (
