@@ -6,6 +6,7 @@ import { useDebounce, useDecksSearchParams } from '@/common/hooks'
 import { DecksTable } from '@/components/decks/decksTable'
 import { CreateModal } from '@/components/decks/modals/createModal/CreateModal'
 import { DeleteDeckModal } from '@/components/decks/modals/deleteDeckModal/DeleteDeckModal'
+import { EditModal } from '@/components/decks/modals/editModal/EditModal'
 import { Page } from '@/components/page'
 import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
@@ -34,6 +35,7 @@ export const Decks = () => {
   } = useDecksSearchParams()
   const [createMode, setCreateMode] = useState(false)
   const [deleteModeId, setDeleteModeId] = useState<null | string>(null)
+  const [editModeId, setEditModeId] = useState<null | string>(null)
   const [currentTab, setCurrentTab] = useState('all')
   const debouncedValue = useDebounce<string>(value ?? '', 500)
 
@@ -66,10 +68,19 @@ export const Decks = () => {
   }
 
   const deckToDeleteName = data?.items?.find(deck => deck.id === deleteModeId)?.name
+  const deckToUpdateName = data?.items?.find(deck => deck.id === editModeId)?.name
+  const deckImg = data?.items?.find(deck => deck.id === editModeId)?.cover
 
   return (
     <Page>
       <CreateModal onOpenChange={() => setCreateMode(false)} open={createMode} />
+      <EditModal
+        id={editModeId ?? ''}
+        img={deckImg ?? ''}
+        name={deckToUpdateName ?? ''}
+        onOpenChange={() => setEditModeId(null)}
+        open={!!editModeId}
+      />
       <DeleteDeckModal
         deckName={deckToDeleteName ?? 'Deck'}
         id={deleteModeId ?? ''}
@@ -107,6 +118,7 @@ export const Decks = () => {
         currentUserId={currentUserId ?? ''}
         decks={data?.items}
         deleteClick={setDeleteModeId}
+        editClick={setEditModeId}
         onSort={changeSort}
         sort={sort}
       />

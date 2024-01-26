@@ -1,11 +1,11 @@
 import { CardsResponse, GetCardsArgs } from '@/services'
 import { baseApi } from '@/services/baseApi'
-import { CreateDeckArgs, Deck, DecksResponse, GetDecksArgs } from '@/services/decks/decks.type'
+import { Deck, DecksResponse, GetDecksArgs } from '@/services/decks/decks.type'
 
 const decksService = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
-      createDeck: builder.mutation<DecksResponse, CreateDeckArgs>({
+      createDeck: builder.mutation<DecksResponse, FormData>({
         invalidatesTags: ['Decks'],
         query: args => ({
           body: args,
@@ -30,7 +30,17 @@ const decksService = baseApi.injectEndpoints({
           url: 'v2/decks',
         }),
       }),
-      getOneDeck: builder.query<Deck, { id: string }>({ query: ({ id }) => `v1/decks/${id}` }),
+      getOneDeck: builder.query<Deck, { id: string }>({
+        query: ({ id }) => `v1/decks/${id}`,
+      }),
+      updateDeck: builder.mutation<Deck, { data: FormData; id: string }>({
+        invalidatesTags: ['Decks'],
+        query: ({ data, id }) => ({
+          body: data,
+          method: 'PATCH',
+          url: `v1/decks/${id}`,
+        }),
+      }),
     }
   },
 })
@@ -41,4 +51,5 @@ export const {
   useGetDeckCardsQuery,
   useGetDecksQuery,
   useGetOneDeckQuery,
+  useUpdateDeckMutation,
 } = decksService
