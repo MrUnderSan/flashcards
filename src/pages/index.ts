@@ -1,2 +1,5 @@
 export * from './signIn'
+export * from './signUp'
+export * from './recoverPassword'
+export * from './decks'
 export * from './deck'
