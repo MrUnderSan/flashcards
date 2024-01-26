@@ -2,30 +2,31 @@ import { ChangeEvent } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 import { SELECT_OPTIONS_PAGINATION } from '@/common/const'
+import { useDecksSearchParams } from '@/common/hooks'
 import { useDebounce } from '@/common/hooks/useDebounce'
-import { CardsTable } from '@/components/decks/cardsTable'
+import { Cards } from '@/components/cards'
 import { Page } from '@/components/page'
 import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
 import { TextField } from '@/components/ui/textField'
 import { Typography } from '@/components/ui/typography'
-import { useDeckSearchParams } from '@/pages/deck/hooks'
 import { useGetDeckCardsQuery, useGetOneDeckQuery } from '@/services'
 
 import s from './deck.module.scss'
+
 export const Deck = () => {
   const { deckId } = useParams()
   const {
     changeItemsPerPage,
     changePage,
-    changeQuestion,
     changeSort,
+    changeValue,
     itemsPerPage,
     page,
-    question,
     sort,
-  } = useDeckSearchParams()
-  const debouncedValue = useDebounce<string>(question ?? '', 500)
+    value,
+  } = useDecksSearchParams()
+  const debouncedValue = useDebounce<string>(value ?? '', 500)
 
   const { data: cards, isLoading } = useGetDeckCardsQuery({
     args: {
@@ -41,7 +42,7 @@ export const Deck = () => {
   const toLearnLink = `/decks/${deckId}/learn`
 
   const changeSearchValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    changeQuestion(e.currentTarget.value)
+    changeValue(e.currentTarget.value)
   }
 
   if (isLoading) {
@@ -62,15 +63,9 @@ export const Deck = () => {
         onChange={changeSearchValueHandler}
         placeholder={'Search cards'}
         type={'search'}
-        value={question ?? ''}
+        value={value ?? ''}
       />
-      {cards?.items.length === 0 ? (
-        <Typography as={'span'} className={s.noResults} variant={'body2'}>
-          No results found for your search query. Please make sure you entered the query correctly.
-        </Typography>
-      ) : (
-        <CardsTable cards={cards?.items} onSort={changeSort} sort={sort} />
-      )}
+      <Cards cards={cards?.items} onSort={changeSort} searchValue={value} sort={sort} />
       <Pagination
         className={s.pagination}
         currentPage={page}
