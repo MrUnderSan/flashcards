@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 
 import { Email } from '@/assets'
+import { ROUTES } from '@/common/const'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
@@ -20,7 +21,7 @@ export const CheckEmail = ({ email }: CheckEmailProps) => {
         We’ve sent an Email with instructions to <br />
         {email}
       </Typography>
-      <Button as={Link} className={s.button} fullWidth to={'/sign-in'}>
+      <Button as={Link} className={s.button} fullWidth to={ROUTES.signIn}>
         Back to Sign In
       </Button>
     </Card>

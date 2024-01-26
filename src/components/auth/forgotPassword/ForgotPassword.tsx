@@ -26,7 +26,6 @@ export const ForgotPassword = ({ recoverPassword }: Props) => {
     control,
     formState: { errors },
     handleSubmit,
-    reset,
   } = useForm<FormValues>({
     defaultValues: {
       email: '',
@@ -36,7 +35,6 @@ export const ForgotPassword = ({ recoverPassword }: Props) => {
 
   const handleRecoverPassword = (data: FormValues) => {
     recoverPassword(data.email)
-    reset()
   }
 
   return (
