@@ -13,12 +13,12 @@ import s from './decksTable.module.scss'
 
 const columns: Column[] = [
   {
-    cols: '2',
+    cols: '3',
     key: 'name',
     title: 'Name',
   },
   {
-    cols: '2',
+    cols: '1',
     key: 'cardsCount',
     title: 'Cards',
   },
@@ -43,14 +43,21 @@ type Props = {
   currentUserId: string
   decks: Deck[] | undefined
   deleteClick: (id: string) => void
-  //editClick: (id: string) => void
+  editClick: (id: string) => void
   onSort: (key: Sort) => void
   sort: Sort
 }
 
-export const DecksTable = ({ currentUserId, decks, deleteClick, onSort, sort }: Props) => {
+export const DecksTable = ({
+  currentUserId,
+  decks,
+  deleteClick,
+  editClick,
+  onSort,
+  sort,
+}: Props) => {
   const deleteHandler = (id: string) => () => deleteClick(id)
-  // const editHandler = (id: string) => () => editClick(id)
+  const editHandler = (id: string) => () => editClick(id)
 
   return (
     <Table.Root>
@@ -58,12 +65,13 @@ export const DecksTable = ({ currentUserId, decks, deleteClick, onSort, sort }: 
       <Table.Body>
         {decks?.map(deck => (
           <Table.Row key={deck.id}>
-            <Table.Cell col={'2'}>
+            <Table.Cell col={'3'}>
+              {deck.cover && <img alt={''} className={s.img} src={deck.cover} />}
               <Typography as={Link} className={s.link} to={`/decks/${deck.id}`} variant={'body2'}>
                 {deck.name}
               </Typography>
             </Table.Cell>
-            <Table.Cell col={'2'}>{deck.cardsCount}</Table.Cell>
+            <Table.Cell col={'1'}>{deck.cardsCount}</Table.Cell>
             <Table.Cell col={'2'}>{getLocaleDateString(deck.updated)}</Table.Cell>
             <Table.Cell col={'3'}>{deck.author.name}</Table.Cell>
             <Table.Cell col={'1'}>
@@ -77,7 +85,7 @@ export const DecksTable = ({ currentUserId, decks, deleteClick, onSort, sort }: 
                     <Button onClick={deleteHandler(deck.id)} variant={'icon'}>
                       <Trash />
                     </Button>
-                    <Button onClick={() => {}} variant={'icon'}>
+                    <Button onClick={editHandler(deck.id)} variant={'icon'}>
                       <Edit />
                     </Button>
                   </>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Trash } from '@/assets'
@@ -7,72 +7,94 @@ import { FileUploader } from '@/components/ui/fileUploader/FileUploader'
 import { FormCheckbox } from '@/components/ui/formComponents/formCheckbox'
 import { FormTextField } from '@/components/ui/formComponents/formTextField'
 import { Modal } from '@/components/ui/modal'
-import { useCreateDeckMutation } from '@/services'
+import { useUpdateDeckMutation } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import s from './createModals.module.scss'
+import s from './editModal.module.scss'
 
-type CreateModalProps = {
+type EditModalProps = {
+  id: string
+  img: string
+  name: string
   onOpenChange: (open: boolean) => void
   open: boolean
 }
-const newDeckSchema = z.object({
+
+const editDeckSchema = z.object({
   isPrivate: z.boolean(),
   name: z.string().min(3).max(30),
 })
 
-type FormValues = z.infer<typeof newDeckSchema>
+type FormValues = z.infer<typeof editDeckSchema>
 
-export const CreateModal = ({ onOpenChange, open }: CreateModalProps) => {
-  const [createDeck] = useCreateDeckMutation()
+export const EditModal = ({ id, img, name, onOpenChange, open }: EditModalProps) => {
+  const [coverImg, setCoverImg] = useState<File | null>(null)
+  const [currentImg, setCurrentImg] = useState(img)
 
-  const [img, setImg] = useState<File | null>(null)
+  useEffect(() => {
+    setCurrentImg(img)
+  }, [open])
+
+  const isValidImage =
+    coverImg !== null &&
+    ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(coverImg.type)
+  const [updateDeck] = useUpdateDeckMutation()
   const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {
       isPrivate: false,
-      name: '',
+      name: name,
     },
-    resolver: zodResolver(newDeckSchema),
+    resolver: zodResolver(editDeckSchema),
   })
   const onSubmit = handleSubmit(data => {
     const formData = new FormData()
 
-    formData.append('cover', img ?? '')
+    formData.append('cover', coverImg ?? '')
     formData.append('name', data.name)
     formData.append('isPrivate', data.isPrivate ? 'true' : 'false')
-    createDeck(formData)
+    updateDeck({ data: formData, id: id })
     reset()
-    setImg(null)
+    setCoverImg(null)
     onOpenChange(false)
   })
-  const isValidImage =
-    img !== null && ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(img.type)
+
   const CloseHandler = () => {
     onOpenChange(open)
     reset()
-    setImg(null)
+    setCoverImg(null)
+  }
+
+  const removeImg = () => {
+    setCurrentImg('')
+    setCoverImg(null)
   }
 
   return (
-    <Modal onOpenChange={CloseHandler} open={open} title={'Add New Deck'}>
+    <Modal onOpenChange={CloseHandler} open={open} title={`change ${name} `}>
       <form className={s.form} onSubmit={onSubmit}>
         <FormTextField
           autoComplete={'off'}
           control={control}
-          label={'Name Pack'}
+          label={'New name for deck'}
           name={'name'}
-          placeholder={'Name'}
+          placeholder={name}
+          value={name}
         />
-        {isValidImage ? (
+        {currentImg || isValidImage ? (
           <div className={s.imgContainer}>
-            <img alt={'cover'} className={s.img} src={URL.createObjectURL(img)} />
+            {currentImg && !isValidImage && (
+              <img alt={'cover'} className={s.img} src={currentImg} />
+            )}
+            {isValidImage && (
+              <img alt={'cover'} className={s.img} src={URL.createObjectURL(coverImg)} />
+            )}
             <div>
-              <Button className={s.delete} onClick={() => setImg(null)} variant={'secondary'}>
+              <Button className={s.delete} onClick={removeImg} variant={'secondary'}>
                 <Trash />
               </Button>
               <FileUploader
-                setFile={setImg}
+                setFile={setCoverImg}
                 trigger={
                   <Button as={'span'} fullWidth variant={'secondary'}>
                     cover image
@@ -83,10 +105,10 @@ export const CreateModal = ({ onOpenChange, open }: CreateModalProps) => {
           </div>
         ) : (
           <FileUploader
-            setFile={setImg}
+            setFile={setCoverImg}
             trigger={
               <Button as={'span'} fullWidth variant={'secondary'}>
-                Upload image
+                upload image
               </Button>
             }
           />
@@ -97,7 +119,7 @@ export const CreateModal = ({ onOpenChange, open }: CreateModalProps) => {
             Cancel
           </Button>
           <Button type={'submit'} variant={'primary'}>
-            Add New Pack
+            Save changes
           </Button>
         </div>
       </form>
