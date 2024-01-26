@@ -3,9 +3,9 @@ import { toast } from 'react-toastify'
 
 import { ROUTES } from '@/common/const'
 import { Page } from '@/components/page'
-import { PersonalInformation } from '@/components/profile/personalInformation'
-import { AvatarUploaderValue } from '@/components/profile/personalInformation/avatarUploader'
-import { ProfileInfoFormValues } from '@/components/profile/personalInformation/profileInfoForm'
+import { PersonalInformation } from '@/components/personalInformation'
+import { AvatarUploaderValue } from '@/components/personalInformation/avatarUploader'
+import { ProfileInfoFormValues } from '@/components/personalInformation/profileInfoForm'
 import { useGetMeQuery, useLogoutMutation, useUpdateProfileMutation } from '@/services'
 
 export const Profile = () => {

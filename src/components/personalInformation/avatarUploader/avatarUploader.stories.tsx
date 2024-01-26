@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { AvatarUploader } from '@/components/profile/personalInformation/avatarUploader/AvatarUploader'
+import { AvatarUploader } from '@/components/personalInformation/avatarUploader/AvatarUploader'
 import { Toast } from '@/components/ui/toast'
 
 const meta = {
