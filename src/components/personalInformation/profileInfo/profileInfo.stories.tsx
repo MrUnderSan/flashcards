@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react'
 
-import { ProfileInfo } from '@/components/profile/personalInformation/profileInfo/ProfileInfo'
+import { ProfileInfo } from '@/components/personalInformation/profileInfo/ProfileInfo'
 
 const meta = {
   argTypes: {

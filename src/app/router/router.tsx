@@ -11,6 +11,7 @@ import { useAppOutletContext } from '@/common/hooks'
 import { Layout } from '@/components/layout'
 import { Deck } from '@/pages/deck'
 import { Decks } from '@/pages/decks/Decks'
+import { Profile } from '@/pages/profile'
 import { SignIn } from '@/pages/signIn'
 import { SignUp } from '@/pages/signUp'
 
@@ -35,6 +36,7 @@ const privateRoutes: RouteObject[] = [
     path: ROUTES.decks,
   },
   { element: <Deck />, path: ROUTES.deck },
+  { element: <Profile />, path: ROUTES.profile },
 ]
 
 function PrivateRoutes() {

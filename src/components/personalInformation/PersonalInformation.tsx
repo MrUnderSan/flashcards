@@ -4,12 +4,12 @@ import { ProfileData } from '@/common/types'
 import {
   AvatarUploader,
   AvatarUploaderValue,
-} from '@/components/profile/personalInformation/avatarUploader/AvatarUploader'
-import { ProfileInfo } from '@/components/profile/personalInformation/profileInfo/ProfileInfo'
+} from '@/components/personalInformation/avatarUploader/AvatarUploader'
+import { ProfileInfo } from '@/components/personalInformation/profileInfo/ProfileInfo'
 import {
   ProfileInfoForm,
   ProfileInfoFormValues,
-} from '@/components/profile/personalInformation/profileInfoForm/ProfileInfoForm'
+} from '@/components/personalInformation/profileInfoForm/ProfileInfoForm'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
 import { clsx } from 'clsx'
