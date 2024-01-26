@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom'
 
 import { ProfileData } from '@/common/types'
+import { Spinner } from '@/components/ui/spinner'
 import { useGetMeQuery, useLogoutMutation } from '@/services'
 
 import s from './layout.module.scss'
@@ -21,9 +22,7 @@ export const Layout = () => {
   return (
     <>
       <Header isAuth={isAuth} logout={logout} profile={profile} />
-      <main className={s.main}>
-        {isLoading ? <div>Loading</div> : <Outlet context={{ isAuth }} />}
-      </main>
+      <main className={s.main}>{isLoading ? <Spinner /> : <Outlet context={{ isAuth }} />}</main>
     </>
   )
 }
