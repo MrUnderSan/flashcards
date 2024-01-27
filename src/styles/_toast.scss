@@ -1,0 +1,46 @@
+:root {
+  --toastify-icon-color-info: var(--color-info-900);
+  --toastify-icon-color-success: var(--color-success-900);
+  --toastify-icon-color-warning: var(--color-warning-900);
+  --toastify-icon-color-error: var(--color-danger-900);
+  .Toastify__toast-theme--dark {
+    background: var(--color-dark-900);
+    color: var(--color-light-900);
+    border-radius: 10px;
+    outline: 1px solid var(--color-accent-700);
+  }
+
+  .Toastify__toast-theme--dark.Toastify__toast--success {
+    outline: 1px solid var(--color-success-900);
+  }
+  .Toastify__toast-theme--dark.Toastify__toast--info {
+    outline: 1px solid var(--color-info-900);
+  }
+
+  .Toastify__toast-theme--dark.Toastify__toast--warning {
+    outline: 1px solid var(--color-warning-900);
+  }
+
+  .Toastify__toast-theme--dark.Toastify__toast--error {
+    outline: 1px solid var(--color-danger-900);
+  }
+
+  .Toastify__progress-bar-theme--dark {
+    background: var(--color-accent-700);
+  }
+
+  .Toastify__progress-bar--info {
+    background: var(--color-info-900);
+  }
+
+  .Toastify__progress-bar--success {
+    background: var(--color-success-900);
+  }
+
+  .Toastify__progress-bar--warning {
+    background: var(--color-warning-900);
+  }
+  .Toastify__progress-bar--error {
+    background: var(--color-danger-900);
+  }
+}
