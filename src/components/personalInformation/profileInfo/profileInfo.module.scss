@@ -28,6 +28,11 @@
   &:focus-visible {
     outline: var(--outline-focus);
   }
+
+  &:hover {
+    background: #8c61ff;
+    border-radius: 2px;
+  }
 }
 
 .email {
