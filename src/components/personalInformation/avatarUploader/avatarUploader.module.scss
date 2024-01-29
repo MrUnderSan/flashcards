@@ -5,8 +5,8 @@
     cursor: pointer;
 
     position: absolute;
-    right: -10px;
-    bottom: -10px;
+    right: -4px;
+    bottom: -15px;
 
     text-align: right;
 
@@ -14,6 +14,10 @@
       all: unset;
       width: 32px;
       height: 32px;
+
+      :hover {
+        fill: #8c61ff;
+      }
     }
   }
 }
