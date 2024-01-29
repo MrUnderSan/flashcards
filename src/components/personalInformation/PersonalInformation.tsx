@@ -20,7 +20,7 @@ type PersonalInformationProps = {
   className?: string
   data?: ProfileData
   logout: () => void
-  updateAvatar: (avatar: AvatarUploaderValue) => void
+  updateAvatar: (avatar: AvatarUploaderValue) => Promise<void>
   updateNickname: (data: ProfileInfoFormValues) => void
 }
 
