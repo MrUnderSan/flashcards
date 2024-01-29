@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 import { EditAvatar } from '@/assets'
 import { IMAGE_SCHEMA } from '@/common/const'
@@ -15,7 +15,7 @@ type AvatarUploaderProps = {
   className?: string
   editable?: boolean
   name?: string
-  updateAvatar: (avatar: AvatarUploaderValue) => void
+  updateAvatar: (avatar: AvatarUploaderValue) => Promise<void>
 }
 
 export type AvatarUploaderValue = z.infer<typeof IMAGE_SCHEMA>
@@ -27,10 +27,12 @@ export const AvatarUploader = ({
   updateAvatar,
 }: AvatarUploaderProps) => {
   const fileRef = useRef<HTMLInputElement>(null)
+  const [avatar, setAvatar] = useState<File | null>(null)
 
-  const updateAvatarHandler = (avatar: File | null) => {
+  const updateAvatarHandler = async (avatar: File | null) => {
     if (avatar) {
-      updateAvatar(avatar)
+      await updateAvatar(avatar)
+      setAvatar(avatar)
     }
   }
 
@@ -42,7 +44,7 @@ export const AvatarUploader = ({
 
   return (
     <div className={avatarUploaderClasses}>
-      <Avatar className={s.avatar} src={avatarUrl} />
+      <Avatar className={s.avatar} src={avatar ? URL.createObjectURL(avatar) : avatarUrl} />
       {editable && (
         <FileUploader
           className={s.uploader}
@@ -50,7 +52,7 @@ export const AvatarUploader = ({
           setFile={updateAvatarHandler}
           trigger={
             <Button className={s.editAvatar} onClick={onClickTrigger}>
-              <EditAvatar />
+              <EditAvatar className={s.editAvatarIcon} />
             </Button>
           }
         />
