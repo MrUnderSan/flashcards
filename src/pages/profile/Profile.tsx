@@ -18,26 +18,36 @@ export const Profile = () => {
     const formData = new FormData()
 
     formData.append('avatar', avatar)
-    await updateProfile(formData).unwrap()
+    const updateProfilePromise = updateProfile(formData).unwrap()
 
-    toast.success('Your avatar successfully changed')
+    toast.promise(updateProfilePromise, {
+      error: 'Failed to update avatar',
+      pending: 'Updating avatar...',
+      success: 'Avatar updated successfully!',
+    })
+
+    await updateProfilePromise
   }
 
   const updateNickname = async (data: ProfileInfoFormValues) => {
     const formData = new FormData()
 
     formData.append('name', data.name)
-    await updateProfile(formData).unwrap()
-    toast.success('Your nickname successfully changed')
+    const updateProfilePromise = updateProfile(formData).unwrap()
+
+    toast.promise(updateProfilePromise, {
+      error: 'Failed to update nickname',
+      pending: 'Updating nickname...',
+      success: 'Nickname updated successfully!',
+    })
+
+    await updateProfilePromise
   }
 
   const logoutHandler = async () => {
     await logout()
       .unwrap()
       .then(() => navigate(ROUTES.signIn))
-    toast.success(
-      'You have successfully logged out of your account. Thank you for using our application'
-    )
   }
 
   return (
