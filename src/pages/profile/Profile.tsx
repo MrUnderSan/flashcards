@@ -20,7 +20,7 @@ export const Profile = () => {
     formData.append('avatar', avatar)
     const updateProfilePromise = updateProfile(formData).unwrap()
 
-    toast.promise(updateProfilePromise, {
+    await toast.promise(updateProfilePromise, {
       error: 'Failed to update avatar',
       pending: 'Updating avatar...',
       success: 'Avatar updated successfully!',
@@ -35,7 +35,7 @@ export const Profile = () => {
     formData.append('name', data.name)
     const updateProfilePromise = updateProfile(formData).unwrap()
 
-    toast.promise(updateProfilePromise, {
+    await toast.promise(updateProfilePromise, {
       error: 'Failed to update nickname',
       pending: 'Updating nickname...',
       success: 'Nickname updated successfully!',
