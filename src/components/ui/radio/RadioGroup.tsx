@@ -1,12 +1,9 @@
+import { Option } from '@/common/types'
 import { Typography } from '@/components/ui/typography'
 import * as RadioGroupRadix from '@radix-ui/react-radio-group'
 
 import s from './radioGroup.module.scss'
 
-type Option = {
-  label: string
-  value: string
-}
 export type RadioGroupProps = Omit<
   React.ComponentPropsWithoutRef<typeof RadioGroupRadix.Root>,
   'children'
