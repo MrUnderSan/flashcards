@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 
 import { Edit, Trash } from '@/assets'
 import { Play } from '@/assets/icons/play'
+import { ROUTES } from '@/common/const'
 import { getLocaleDateString } from '@/common/utils'
 import { Column, Sort, TableSortHeader } from '@/components/tableSortHeader'
 import { Button } from '@/components/ui/button'
@@ -76,9 +77,16 @@ export const DecksTable = ({
             <Table.Cell col={'3'}>{deck.author.name}</Table.Cell>
             <Table.Cell col={'1'}>
               <div className={s.buttons}>
-                <Button variant={'icon'}>
-                  <Play />
-                </Button>
+                {deck.cardsCount > 0 && (
+                  <Button
+                    as={Link}
+                    to={`${ROUTES.decks}/${deck.id}${ROUTES.learn}`}
+                    variant={'icon'}
+                  >
+                    <Play />
+                  </Button>
+                )}
+
                 {deck.author.id === currentUserId && (
                   <>
                     {' '}

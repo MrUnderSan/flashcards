@@ -56,9 +56,11 @@ export const Deck = () => {
         <Typography as={'h1'} variant={'h1'}>
           {deck?.name}
         </Typography>
-        <Button as={Link} to={toLearnLink}>
-          Learn to Pack
-        </Button>
+        {deck && deck.cardsCount > 0 && (
+          <Button as={Link} to={toLearnLink}>
+            Learn to Pack
+          </Button>
+        )}
       </div>
       {deck?.cover && <img alt={'deckImg'} className={s.img} src={deck.cover} />}
       <TextField
