@@ -4,6 +4,7 @@ import { Table } from '@/components/ui/table'
 import { Typography } from '@/components/ui/typography'
 import { Card } from '@/services'
 
+import s from './cardsTable.module.scss'
 const columns: Column[] = [
   {
     cols: '3',
@@ -41,9 +42,15 @@ export const CardsTable = ({ cards, onSort, sort }: CardsTableProps) => {
         {cards?.map(card => (
           <Table.Row key={card.id}>
             <Table.Cell col={'3'}>
+              {card.questionImg && (
+                <img alt={'questionImg'} className={s.img} src={card.questionImg} />
+              )}
               <Typography variant={'body2'}>{card.question}</Typography>
             </Table.Cell>
-            <Table.Cell col={'3'}>{card.answer}</Table.Cell>
+            <Table.Cell col={'3'}>
+              {card.answerImg && <img alt={'answerImg'} className={s.img} src={card.answerImg} />}
+              <Typography variant={'body2'}>{card.answer}</Typography>
+            </Table.Cell>
             <Table.Cell col={'2'}>{new Date(card.updated).toLocaleDateString('ru-RU')}</Table.Cell>
             <Table.Cell col={'2'}>
               <Rating rating={card.grade} />
