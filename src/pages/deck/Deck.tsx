@@ -60,9 +60,11 @@ export const Deck = () => {
           Learn to Pack
         </Button>
       </div>
+      {deck?.cover && <img alt={'deckImg'} className={s.img} src={deck.cover} />}
       <TextField
         onChange={changeSearchValueHandler}
         placeholder={'Search cards'}
+        rootContainerProps={{ className: s.inputSearch }}
         type={'search'}
         value={value ?? ''}
       />
