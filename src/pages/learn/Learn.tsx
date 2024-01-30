@@ -22,7 +22,7 @@ export const Learn = () => {
     }
   }, [randomCard])
 
-  const onSubmit = async (data: Grade) => {
+  const onSubmit = async (data: Grade, changeRateMode: any) => {
     if (card) {
       const res = await gradeCard({
         args: {
@@ -34,6 +34,7 @@ export const Learn = () => {
 
       if (res) {
         setCard(res)
+        changeRateMode(false)
       }
     }
   }
