@@ -9,7 +9,8 @@ import {
 import { ROUTES } from '@/common/const'
 import { useAppOutletContext } from '@/common/hooks'
 import { Layout } from '@/components/layout'
-import { CheckEmail, Deck, Decks, Profile, RecoverPassword, SignIn, SignUp } from '@/pages'
+import { CheckEmail, Deck, Decks, Learn, Profile, RecoverPassword, SignIn, SignUp } from '@/pages'
+import { ErrorPage } from '@/pages/404'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -41,6 +42,10 @@ const privateRoutes: RouteObject[] = [
   },
   { element: <Deck />, path: ROUTES.deck },
   { element: <Profile />, path: ROUTES.profile },
+  {
+    element: <Learn />,
+    path: `${ROUTES.decks}/:id${ROUTES.learn}`,
+  },
 ]
 
 function PrivateRoutes() {
@@ -59,6 +64,7 @@ export const router = createBrowserRouter([
       ...publicRoutes,
     ],
     element: <Layout />,
+    errorElement: <ErrorPage />,
     path: ROUTES.base,
   },
 ])

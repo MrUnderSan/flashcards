@@ -1,7 +1,7 @@
+import { Card } from '@/common/types'
 import { CardsTable } from '@/components/cards/table'
 import { Sort } from '@/components/tableSortHeader'
 import { Typography } from '@/components/ui/typography'
-import { Card } from '@/services'
 
 import s from './cards.module.scss'
 

@@ -1,10 +1,10 @@
 import { Edit, Trash } from '@/assets'
+import { Card } from '@/common/types'
 import { Column, Sort, TableSortHeader } from '@/components/tableSortHeader'
 import { Button } from '@/components/ui/button'
 import { Rating } from '@/components/ui/rating/Rating'
 import { Table } from '@/components/ui/table'
 import { Typography } from '@/components/ui/typography'
-import { Card } from '@/services'
 
 import s from './cardsTable.module.scss'
 const columns: Column[] = [

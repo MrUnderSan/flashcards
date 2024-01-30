@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState } from "react";
 import { Link, useParams } from 'react-router-dom'
 
 import { SELECT_OPTIONS_PAGINATION } from '@/common/const'
@@ -85,9 +85,8 @@ export const Deck = () => {
         <Typography as={'h1'} variant={'h1'}>
           {isOwner ? 'My Deck' : deck?.name}
         </Typography>
-        {isOwner ? (
-          <Button onClick={() => setCreateMode(true)}>Add new card</Button>
-        ) : (
+        {isOwner && <Button onClick={() => setCreateMode(true)}>Add new card</Button>}
+        {!isOwner && deck && deck.cardsCount > 0 && (
           <Button as={Link} to={toLearnLink}>
             Learn to Pack
           </Button>

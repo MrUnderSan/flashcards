@@ -1,3 +1,4 @@
+export { ArrowBack } from './arrowBack'
 export { default as ArrowDown } from './arrowDown'
 export { default as ArrowInPagination } from './arrowInPagination'
 export { Check } from './check'
