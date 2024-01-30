@@ -1,4 +1,6 @@
+import { Edit, Trash } from '@/assets'
 import { Column, Sort, TableSortHeader } from '@/components/tableSortHeader'
+import { Button } from '@/components/ui/button'
 import { Rating } from '@/components/ui/rating/Rating'
 import { Table } from '@/components/ui/table'
 import { Typography } from '@/components/ui/typography'
@@ -30,11 +32,24 @@ const columns: Column[] = [
 
 type CardsTableProps = {
   cards: Card[] | undefined
+  isOwner?: boolean
   onSort: (key: Sort) => void
+  setCardToDeleteId?: (id: string) => void
+  setCardToEditId?: (id: string) => void
   sort: Sort
 }
 
-export const CardsTable = ({ cards, onSort, sort }: CardsTableProps) => {
+export const CardsTable = ({
+  cards,
+  isOwner,
+  onSort,
+  setCardToDeleteId,
+  setCardToEditId,
+  sort,
+}: CardsTableProps) => {
+  const setCardToDeleteIdHandler = (id: string) => () => setCardToDeleteId?.(id)
+  const setCardToEditIdHandler = (id: string) => () => setCardToEditId?.(id)
+
   return (
     <Table.Root>
       <TableSortHeader columns={columns} onSort={onSort} sort={sort} />
@@ -54,6 +69,18 @@ export const CardsTable = ({ cards, onSort, sort }: CardsTableProps) => {
             <Table.Cell col={'2'}>{new Date(card.updated).toLocaleDateString('ru-RU')}</Table.Cell>
             <Table.Cell col={'2'}>
               <Rating rating={card.grade} />
+              <div className={s.buttons}>
+                {isOwner && (
+                  <>
+                    <Button onClick={setCardToDeleteIdHandler(card.id)} variant={'icon'}>
+                      <Trash />
+                    </Button>
+                    <Button onClick={setCardToEditIdHandler(card.id)} variant={'icon'}>
+                      <Edit />
+                    </Button>
+                  </>
+                )}
+              </div>
             </Table.Cell>
           </Table.Row>
         ))}
