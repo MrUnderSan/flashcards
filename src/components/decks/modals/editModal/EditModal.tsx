@@ -31,11 +31,6 @@ type FormValues = z.infer<typeof editDeckSchema>
 export const EditModal = ({ id, img, name, onOpenChange, open }: EditModalProps) => {
   const [coverImg, setCoverImg] = useState<File | null>(null)
   const [currentImg, setCurrentImg] = useState(img)
-
-  useEffect(() => {
-    setCurrentImg(img)
-  }, [open])
-
   const isValidImage =
     coverImg !== null &&
     ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(coverImg.type)
@@ -47,10 +42,16 @@ export const EditModal = ({ id, img, name, onOpenChange, open }: EditModalProps)
     },
     resolver: zodResolver(editDeckSchema),
   })
+
+  useEffect(() => {
+    setCurrentImg(img)
+    reset({ isPrivate: false, name: name })
+  }, [open, reset])
+
   const onSubmit = handleSubmit(data => {
     const formData = new FormData()
 
-    formData.append('cover', coverImg ?? '')
+    formData.append('cover', coverImg || img || '')
     formData.append('name', data.name)
     formData.append('isPrivate', data.isPrivate ? 'true' : 'false')
     updateDeck({ data: formData, id: id })
@@ -73,13 +74,7 @@ export const EditModal = ({ id, img, name, onOpenChange, open }: EditModalProps)
   return (
     <Modal onOpenChange={CloseHandler} open={open} title={`change ${name} `}>
       <form className={s.form} onSubmit={onSubmit}>
-        <FormTextField
-          autoComplete={'off'}
-          control={control}
-          label={'New name for deck'}
-          name={'name'}
-          placeholder={name}
-        />
+        <FormTextField control={control} name={'name'} />
         {currentImg || isValidImage ? (
           <div className={s.imgContainer}>
             {currentImg && !isValidImage && (
