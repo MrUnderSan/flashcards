@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
+import { Card } from '@/common/types'
 import { CreateNewAnswer } from '@/components/cards/modals/createCardModal/createNewAnswer/CreateNewAnswer'
 import { CreateNewQuestion } from '@/components/cards/modals/createCardModal/createNewQuestion/CreateNewQuestion'
 import { Button } from '@/components/ui/button'
 import { Modal } from '@/components/ui/modal'
-import { Card, useUpdateCardMutation } from '@/services'
+import { useUpdateCardMutation } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
