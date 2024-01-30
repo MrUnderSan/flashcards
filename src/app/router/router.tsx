@@ -10,6 +10,7 @@ import { ROUTES } from '@/common/const'
 import { useAppOutletContext } from '@/common/hooks'
 import { Layout } from '@/components/layout'
 import { CheckEmail, Deck, Decks, Learn, Profile, RecoverPassword, SignIn, SignUp } from '@/pages'
+import { ErrorPage } from '@/pages/404'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -63,6 +64,7 @@ export const router = createBrowserRouter([
       ...publicRoutes,
     ],
     element: <Layout />,
+    errorElement: <ErrorPage />,
     path: ROUTES.base,
   },
 ])
