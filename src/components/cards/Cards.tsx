@@ -1,4 +1,4 @@
-import { CardsTable } from '@/components/cards/cardsTable'
+import { CardsTable } from '@/components/cards/table'
 import { Sort } from '@/components/tableSortHeader'
 import { Typography } from '@/components/ui/typography'
 import { Card } from '@/services'
@@ -7,12 +7,23 @@ import s from './cards.module.scss'
 
 type CardsProps = {
   cards: Card[] | undefined
+  isOwner?: boolean
   onSort: (key: Sort) => void
   searchValue: null | string
+  setCardToDeleteId?: (id: string) => void
+  setCardToEditId?: (id: string) => void
   sort: Sort
 }
 
-export const Cards = ({ cards, onSort, searchValue, sort }: CardsProps) => {
+export const Cards = ({
+  cards,
+  isOwner,
+  onSort,
+  searchValue,
+  setCardToDeleteId,
+  setCardToEditId,
+  sort,
+}: CardsProps) => {
   if (cards?.length === 0 && searchValue) {
     return (
       <Typography as={'h2'} className={s.found} variant={'h2'}>
@@ -27,5 +38,14 @@ export const Cards = ({ cards, onSort, searchValue, sort }: CardsProps) => {
     )
   }
 
-  return <CardsTable cards={cards} onSort={onSort} sort={sort} />
+  return (
+    <CardsTable
+      cards={cards}
+      isOwner={isOwner}
+      onSort={onSort}
+      setCardToDeleteId={setCardToDeleteId}
+      setCardToEditId={setCardToEditId}
+      sort={sort}
+    />
+  )
 }
