@@ -12,12 +12,16 @@ import s from './learnCard.module.scss'
 export type LearnCardProps = {
   card: CardType
   deckName: string
-  onSubmit: (data: Grade) => void
+  onSubmit: (data: Grade, changeRateMode: any) => void
   open?: boolean
 }
 
 export const LearnCard = ({ card, deckName, onSubmit, open = false }: LearnCardProps) => {
   const [rateMode, setRateMode] = useState(open)
+
+  const handleSubmit = (data: Grade) => {
+    onSubmit(data, setRateMode)
+  }
 
   return (
     <Card className={s.card}>
@@ -34,7 +38,7 @@ export const LearnCard = ({ card, deckName, onSubmit, open = false }: LearnCardP
       </Typography>
 
       {rateMode ? (
-        <RateBlock answer={card.answer} answerImg={card.answerImg} onSubmit={onSubmit} />
+        <RateBlock answer={card.answer} answerImg={card.answerImg} onSubmit={handleSubmit} />
       ) : (
         <Button className={s.button} fullWidth onClick={() => setRateMode(true)}>
           Show Answer
