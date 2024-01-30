@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Card } from '@/common/types'
+import { action } from '@storybook/addon-actions'
 
 import { LearnCard } from './'
 
@@ -25,6 +26,7 @@ const meta = {
   args: {
     card,
     deckName: 'Deck Name',
+    onSubmit: action('onSubmit'),
   },
   component: LearnCard,
   tags: ['autodocs'],
