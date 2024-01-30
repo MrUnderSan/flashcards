@@ -22,6 +22,7 @@ const decksService = baseApi.injectEndpoints({
         }),
       }),
       getDeckCards: builder.query<CardsResponse, { args: GetCardsArgs; id: string }>({
+        providesTags: ['Cards'],
         query: ({ args, id }) => ({ params: args ? args : undefined, url: `v1/decks/${id}/cards` }),
       }),
       getDecks: builder.query<DecksResponse, GetDecksArgs | void>({
@@ -32,6 +33,7 @@ const decksService = baseApi.injectEndpoints({
         }),
       }),
       getOneDeck: builder.query<Deck, Id>({
+        providesTags: ['Deck'],
         query: ({ id }) => `v1/decks/${id}`,
       }),
       getRandomCard: builder.query<Card, { args?: GetRandomCardArg; id: string }>({
