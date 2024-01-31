@@ -94,6 +94,7 @@ export const Deck = () => {
       <DeleteDeckModal
         deckName={deck?.name ?? ''}
         id={deckId ?? ''}
+        isBackOnDelete
         onOpenChange={() => setDeleteDeckMode(false)}
         open={deleteDeckMode}
       />
