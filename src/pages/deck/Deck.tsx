@@ -52,6 +52,7 @@ export const Deck = () => {
   const { data: me } = useGetMeQuery()
 
   const isOwner = me?.id === deck?.userId
+  const isEmpty = deck && deck.cardsCount === 0
 
   const changeSearchValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
     changeValue(e.currentTarget.value)
@@ -99,25 +100,30 @@ export const Deck = () => {
       <CardsHeader
         deck={deck}
         deckId={deckId ?? ''}
+        isEmpty={isEmpty}
         isOwner={isOwner}
         setCreateMode={setCreateMode}
         setDeleteDeckMode={setDeleteDeckMode}
         setEditDeckMode={setEditDeckMode}
       />
-      <TextField
-        onChange={changeSearchValueHandler}
-        placeholder={'Search cards'}
-        rootContainerProps={{ className: s.inputSearch }}
-        type={'search'}
-        value={value ?? ''}
-      />
+      {!isEmpty && (
+        <TextField
+          onChange={changeSearchValueHandler}
+          placeholder={'Search cards'}
+          rootContainerProps={{ className: s.inputSearch }}
+          type={'search'}
+          value={value ?? ''}
+        />
+      )}
       <Cards
         cards={cards?.items}
+        isEmpty={isEmpty}
         isOwner={isOwner}
         onSort={changeSort}
         searchValue={value}
         setCardToDeleteId={setCardToDeleteId}
         setCardToEditId={setCardToEditId}
+        setCreateMode={setCreateMode}
         sort={sort}
       />
       <Pagination
