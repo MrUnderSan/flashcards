@@ -12,6 +12,7 @@ import { EditCardModal } from '@/components/cards/modals/editCardModal/EditCardM
 import { DeleteDeckModal } from '@/components/decks/modals/deleteDeckModal/DeleteDeckModal'
 import { EditModal } from '@/components/decks/modals/editModal/EditModal'
 import { Page } from '@/components/page'
+import { BackButton } from '@/components/ui/backButton'
 import { Pagination } from '@/components/ui/pagination'
 import { Spinner } from '@/components/ui/spinner'
 import { TextField } from '@/components/ui/textField'
@@ -63,7 +64,8 @@ export const Deck = () => {
   }
 
   return (
-    <Page>
+    <Page marginTop={'24px'}>
+      <BackButton text={'Back to Decks List'} />
       <CreateCardModal
         deckId={deckId}
         onOpenChange={() => setCreateMode(false)}
