@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { Button } from '@/components/ui/button'
@@ -10,10 +11,18 @@ import s from './deleteDeckModal.module.scss'
 type DeleteDeckModalProps = {
   deckName: string
   id: string
+  isBackOnDelete?: boolean
   onOpenChange: (open: boolean) => void
   open: boolean
 }
-export const DeleteDeckModal = ({ deckName, id, onOpenChange, open }: DeleteDeckModalProps) => {
+export const DeleteDeckModal = ({
+  deckName,
+  id,
+  isBackOnDelete,
+  onOpenChange,
+  open,
+}: DeleteDeckModalProps) => {
+  const navigate = useNavigate()
   const [deleteDeck] = useDeleteDeckMutation()
 
   const closeHandler = () => {
@@ -30,6 +39,7 @@ export const DeleteDeckModal = ({ deckName, id, onOpenChange, open }: DeleteDeck
     })
     await deleteDeckUnwrap
     closeHandler()
+    isBackOnDelete && navigate(-1)
   }
 
   return (
