@@ -13,14 +13,14 @@ const cardsService = baseApi.injectEndpoints({
       }),
     }),
     deleteCard: builder.mutation<void, CardArgsType>({
-      invalidatesTags: ['Cards'],
+      invalidatesTags: ['Cards', 'Deck'],
       query: args => ({
         method: 'DELETE',
         url: `v1/cards/${args.id}`,
       }),
     }),
     updateCard: builder.mutation<Card, { body: FormData; id: string }>({
-      invalidatesTags: ['Cards'],
+      invalidatesTags: ['Cards', 'Deck'],
       query: args => ({
         body: args.body,
         method: 'PATCH',
