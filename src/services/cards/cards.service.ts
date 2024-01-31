@@ -5,7 +5,7 @@ import { CardArgsType } from '@/services/cards/cards.types'
 const cardsService = baseApi.injectEndpoints({
   endpoints: builder => ({
     createCard: builder.mutation<Card, { body: FormData; id: string }>({
-      invalidatesTags: ['Cards', 'Decks', 'Deck'],
+      invalidatesTags: ['Cards', 'Deck'],
       query: ({ body, id }) => ({
         body,
         method: 'POST',
