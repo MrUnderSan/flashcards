@@ -30,8 +30,8 @@ type EditCardModalPropsFormValues = z.infer<typeof updateCardSchema>
 export const EditCardModal = ({ cardToEdit, id, onOpenChange, open }: EditCardModalProps) => {
   const [newQuestionImg, setNewQuestionImg] = useState<File | null>(null)
   const [newAnswerImg, setNewAnswerImg] = useState<File | null>(null)
-  const [currentAnswerImg, setCurrentAnswerImg] = useState(cardToEdit?.answerImg)
-  const [currentQuestionImg, setCurrentQuestionImg] = useState(cardToEdit?.questionImg)
+  const [currentAnswerImg, setCurrentAnswerImg] = useState<string>('')
+  const [currentQuestionImg, setCurrentQuestionImg] = useState<string>('')
   const [updateCard] = useUpdateCardMutation()
 
   const methods = useForm<EditCardModalPropsFormValues>({
@@ -41,8 +41,8 @@ export const EditCardModal = ({ cardToEdit, id, onOpenChange, open }: EditCardMo
   const { handleSubmit, reset } = methods
 
   useEffect(() => {
-    setCurrentAnswerImg(cardToEdit?.answerImg)
-    setCurrentQuestionImg(cardToEdit?.questionImg)
+    setCurrentAnswerImg(cardToEdit?.answerImg ?? '')
+    setCurrentQuestionImg(cardToEdit?.questionImg ?? '')
     reset({ answer: cardToEdit?.answer, question: cardToEdit?.question })
   }, [open, cardToEdit, reset])
 
@@ -58,8 +58,8 @@ export const EditCardModal = ({ cardToEdit, id, onOpenChange, open }: EditCardMo
 
     data.question && formData.append('question', data.question)
     data.answer && formData.append('answer', data.answer)
-    formData.append('questionImg', newQuestionImg || '')
-    formData.append('answerImg', newAnswerImg || '')
+    !currentQuestionImg && formData.append('questionImg', newQuestionImg ?? '')
+    !currentAnswerImg && formData.append('answerImg', newAnswerImg ?? '')
 
     const updateCardHandler = updateCard({ body: formData, id: id ?? '' }).unwrap()
 
