@@ -7,6 +7,7 @@ import { Table } from '@/components/ui/table'
 import { Typography } from '@/components/ui/typography'
 
 import s from './cardsTable.module.scss'
+
 const columns: Column[] = [
   {
     cols: '3',
@@ -67,7 +68,7 @@ export const CardsTable = ({
               <Typography variant={'body2'}>{card.answer}</Typography>
             </Table.Cell>
             <Table.Cell col={'2'}>{new Date(card.updated).toLocaleDateString('ru-RU')}</Table.Cell>
-            <Table.Cell col={'2'}>
+            <Table.Cell className={isOwner ? s.altTr : ''} col={'2'}>
               <Rating rating={card.grade} />
               <div className={s.buttons}>
                 {isOwner && (
