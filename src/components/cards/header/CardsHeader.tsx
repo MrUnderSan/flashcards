@@ -72,8 +72,8 @@ export const CardsHeader = ({
             </DropDownMenu>
           )}
         </div>
-        {isOwner && <Button onClick={() => setCreateMode(true)}>Add new card</Button>}
-        {!isOwner && deck && deck.cardsCount > 0 && (
+        {isOwner && !isEmpty && <Button onClick={() => setCreateMode(true)}>Add new card</Button>}
+        {!isOwner && !isEmpty && (
           <Button as={Link} to={toLearnLink}>
             Learn to Pack
           </Button>
