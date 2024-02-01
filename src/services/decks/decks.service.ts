@@ -9,7 +9,7 @@ const decksService = baseApi.injectEndpoints({
       createDeck: builder.mutation<Deck, FormData>({
         invalidatesTags: ['Decks'],
         async onQueryStarted(_, { dispatch, getState, queryFulfilled }) {
-          const res = await queryFulfilled
+          const response = await queryFulfilled
 
           for (const { endpointName, originalArgs } of decksService.util.selectInvalidatedBy(
             getState(),
@@ -20,7 +20,7 @@ const decksService = baseApi.injectEndpoints({
             }
             dispatch(
               decksService.util.updateQueryData(endpointName, originalArgs, draft => {
-                draft.items.unshift(res.data)
+                draft.items.unshift(response.data)
               })
             )
           }
@@ -34,7 +34,7 @@ const decksService = baseApi.injectEndpoints({
       deleteDeck: builder.mutation<void, Id>({
         invalidatesTags: ['Decks'],
         async onQueryStarted({ id }, { dispatch, getState, queryFulfilled }) {
-          let patchResult: any
+          let patchResult
 
           for (const { endpointName, originalArgs } of decksService.util.selectInvalidatedBy(
             getState(),
@@ -96,6 +96,34 @@ const decksService = baseApi.injectEndpoints({
       }),
       updateDeck: builder.mutation<Deck, { data: FormData; id: string }>({
         invalidatesTags: ['Decks'],
+        async onQueryStarted({ id, ...data }, { dispatch, getState, queryFulfilled }) {
+          let patchResult
+
+          for (const { endpointName, originalArgs } of decksService.util.selectInvalidatedBy(
+            getState(),
+            [{ type: 'Decks' }]
+          )) {
+            if (endpointName !== 'getDecks') {
+              continue
+            }
+            patchResult = dispatch(
+              decksService.util.updateQueryData(endpointName, originalArgs, draft => {
+                const index = draft?.items?.findIndex(deck => deck.id === id)
+
+                if (!index || index === -1) {
+                  return
+                }
+                Object.assign(draft?.items?.[index], data)
+              })
+            )
+          }
+
+          try {
+            await queryFulfilled
+          } catch (e) {
+            patchResult?.undo()
+          }
+        },
         query: ({ data, id }) => ({
           body: data,
           method: 'PATCH',
