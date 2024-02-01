@@ -20,6 +20,8 @@
   transition: 0.2s ease-in-out;
 
   &.pagination {
+    display: flex;
+    gap: 2px;
     padding: 0 6px;
   }
 
@@ -37,10 +39,10 @@
   }
 
   &[data-state='open'] {
-    background-color: var(--color-dark-900);
-    border-color: var(--color-light-100);
-    border-bottom: none;
-    border-radius: 2px 2px 0 0;
+    cursor: pointer;
+    background-color: var(--color-dark-700);
+    border-color: var(--color-dark-500);
+    border-radius: 2px;
   }
 
   &[data-state='open'] .SelectIcon {
@@ -67,8 +69,9 @@
 
   width: var(--radix-select-trigger-width);
 
-  background-color: var(--color-dark-900);
-  border: 1px solid var(--color-light-100);
+  background-color: var(--color-dark-700);
+  border: 1px solid var(--color-dark-500);
+  border-radius: 2px;
 
   animation: fadeIn 0.5s ease;
 }
