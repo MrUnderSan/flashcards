@@ -1,3 +1,5 @@
+import { CardGrade } from '@/common/enums'
+
 export type Deck = {
   author: Author
   cardsCount: number
@@ -41,3 +43,6 @@ export type GetDecksArgs = {
   name?: null | string
   orderBy?: null | string
 }
+
+export type GetRandomCardArg = { previousCardId: string }
+export type GradeCardArg = { cardId: string; grade: CardGrade }

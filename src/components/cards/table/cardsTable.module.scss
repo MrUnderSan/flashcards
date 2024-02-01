@@ -1,0 +1,29 @@
+.buttons {
+  display: flex;
+  column-gap: 10px;
+
+  button {
+    width: 16px;
+  }
+}
+
+.link {
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-accent-500);
+  }
+}
+
+.img {
+  aspect-ratio: 3/2;
+  max-height: 80px;
+  margin-right: 10px;
+  padding: 10px 0;
+
+  object-fit: cover;
+}
+
+.altTr {
+  justify-content: space-between;
+}

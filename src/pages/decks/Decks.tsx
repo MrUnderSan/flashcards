@@ -38,7 +38,6 @@ export const Decks = () => {
   const [editModeId, setEditModeId] = useState<null | string>(null)
   const [currentTab, setCurrentTab] = useState('all')
   const debouncedValue = useDebounce<string>(value ?? '', 500)
-
   const { data: me } = useGetMeQuery()
   const currentUserId = me?.id
   const authorId = currentTab === 'my' ? currentUserId : undefined
@@ -67,8 +66,8 @@ export const Decks = () => {
     setCurrentTab(tab)
   }
 
-  const deckToDeleteName = data?.items?.find(deck => deck.id === deleteModeId)?.name
   const deckToUpdateName = data?.items?.find(deck => deck.id === editModeId)?.name
+  const deckToDeleteName = data?.items?.find(deck => deck.id === deleteModeId)?.name
   const deckImg = data?.items?.find(deck => deck.id === editModeId)?.cover
 
   return (

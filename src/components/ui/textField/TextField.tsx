@@ -10,6 +10,7 @@ export type TextFieldProps = {
   errorMessage?: string
   label?: string
   labelProps?: ComponentProps<'label'>
+  onValueChange?: (value: string) => void
   rootContainerProps?: ComponentProps<'div'>
   type?: 'password' | 'search' | 'text'
 } & ComponentPropsWithoutRef<'input'>
@@ -24,9 +25,11 @@ export const TextField = forwardRef<HTMLInputElement, PropsType>(
       label,
       labelProps,
       onChange,
+      onValueChange,
       placeholder,
       rootContainerProps,
       type = 'text',
+      value,
       ...restProps
     },
     ref
@@ -50,6 +53,7 @@ export const TextField = forwardRef<HTMLInputElement, PropsType>(
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
       onChange?.(e)
+      onValueChange?.(e.currentTarget.value)
     }
 
     const classNames = {
@@ -81,6 +85,7 @@ export const TextField = forwardRef<HTMLInputElement, PropsType>(
             placeholder={placeholder}
             ref={ref}
             type={currentInputType}
+            value={value}
             {...restProps}
           />
           {isShowPasswordButton && (

@@ -1,0 +1,25 @@
+.card {
+  align-items: start;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.title {
+  align-self: center;
+  margin-bottom: 45px;
+}
+
+.shots {
+  margin-top: 1px;
+  margin-bottom: 10px;
+  color: var(--color-dark-100);
+
+  &Description {
+    color: var(--color-dark-100);
+  }
+}
+
+.button {
+  margin-top: 29px;
+}
