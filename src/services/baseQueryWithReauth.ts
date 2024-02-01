@@ -2,10 +2,6 @@
 
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
-import { toast } from 'react-toastify'
-
-import { router } from '@/app/router/router'
-import { ROUTES } from '@/common/const'
 import { Mutex } from 'async-mutex'
 
 import { baseQuery } from './baseQuery'
@@ -39,8 +35,8 @@ export const baseQueryWithReauth: BaseQueryFn<
           // retry the initial query
           result = await baseQuery(args, api, extraOptions)
         } else {
-          await router.navigate(ROUTES.signIn)
-          toast.error('You are not authorized')
+          // await router.navigate(ROUTES.signIn)
+          // toast.error('You are not authorized')
         }
       } finally {
         // release must be called once the mutex should be released again.

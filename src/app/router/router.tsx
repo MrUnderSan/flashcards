@@ -54,6 +54,12 @@ function PrivateRoutes() {
   return isAuth ? <Outlet /> : <Navigate to={ROUTES.signIn} />
 }
 
+function PublicRoutes() {
+  const { isAuth } = useAppOutletContext()
+
+  return isAuth ? <Navigate to={ROUTES.decks} /> : <Outlet />
+}
+
 export const router = createBrowserRouter([
   {
     children: [
@@ -61,7 +67,10 @@ export const router = createBrowserRouter([
         children: privateRoutes,
         element: <PrivateRoutes />,
       },
-      ...publicRoutes,
+      {
+        children: publicRoutes,
+        element: <PublicRoutes />,
+      },
     ],
     element: <Layout />,
     errorElement: <ErrorPage />,
