@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 import { Trash } from '@/assets'
 import { Button } from '@/components/ui/button'
@@ -31,11 +32,6 @@ type FormValues = z.infer<typeof editDeckSchema>
 export const EditModal = ({ id, img, name, onOpenChange, open }: EditModalProps) => {
   const [coverImg, setCoverImg] = useState<File | null>(null)
   const [currentImg, setCurrentImg] = useState(img)
-
-  useEffect(() => {
-    setCurrentImg(img)
-  }, [open])
-
   const isValidImage =
     coverImg !== null &&
     ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(coverImg.type)
@@ -47,22 +43,37 @@ export const EditModal = ({ id, img, name, onOpenChange, open }: EditModalProps)
     },
     resolver: zodResolver(editDeckSchema),
   })
-  const onSubmit = handleSubmit(data => {
+
+  useEffect(() => {
+    setCurrentImg(img)
+    reset({ isPrivate: false, name: name })
+  }, [open, reset])
+
+  const onSubmit = async (data: FormValues) => {
     const formData = new FormData()
 
-    formData.append('cover', coverImg ?? '')
+    formData.append('cover', coverImg || currentImg)
     formData.append('name', data.name)
     formData.append('isPrivate', data.isPrivate ? 'true' : 'false')
-    updateDeck({ data: formData, id: id })
+
+    const updateDeckUnwrap = updateDeck({ data: formData, id: id }).unwrap()
+
+    await toast.promise(updateDeckUnwrap, {
+      error: 'Failed to update deck',
+      pending: 'updating deck...',
+      success: 'deck update successfully!',
+    })
+
+    await updateDeckUnwrap
     reset()
     setCoverImg(null)
     onOpenChange(false)
-  })
+  }
 
   const CloseHandler = () => {
     onOpenChange(open)
-    reset()
     setCoverImg(null)
+    reset()
   }
 
   const removeImg = () => {
@@ -72,14 +83,8 @@ export const EditModal = ({ id, img, name, onOpenChange, open }: EditModalProps)
 
   return (
     <Modal onOpenChange={CloseHandler} open={open} title={`change ${name} `}>
-      <form className={s.form} onSubmit={onSubmit}>
-        <FormTextField
-          autoComplete={'off'}
-          control={control}
-          label={'New name for deck'}
-          name={'name'}
-          placeholder={name}
-        />
+      <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+        <FormTextField control={control} name={'name'} />
         {currentImg || isValidImage ? (
           <div className={s.imgContainer}>
             {currentImg && !isValidImage && (

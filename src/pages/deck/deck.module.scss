@@ -1,7 +1,10 @@
 .header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 27px;
+}
+
+.inputSearch {
+  margin: 25px 0;
 }
 
 .pagination {

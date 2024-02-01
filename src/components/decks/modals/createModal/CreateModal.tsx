@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 import { Trash } from '@/assets'
 import { Button } from '@/components/ui/button'
@@ -35,17 +36,24 @@ export const CreateModal = ({ onOpenChange, open }: CreateModalProps) => {
     },
     resolver: zodResolver(newDeckSchema),
   })
-  const onSubmit = handleSubmit(data => {
+  const onSubmit = async (data: FormValues) => {
     const formData = new FormData()
 
     formData.append('cover', img ?? '')
     formData.append('name', data.name)
     formData.append('isPrivate', data.isPrivate ? 'true' : 'false')
-    createDeck(formData)
+    const createNewDeck = createDeck(formData).unwrap()
+
+    await toast.promise(createNewDeck, {
+      error: 'Failed to create Deck',
+      pending: 'Create Deck...',
+      success: 'Deck create successfully!',
+    })
+    await createNewDeck
     reset()
     setImg(null)
     onOpenChange(false)
-  })
+  }
   const isValidImage =
     img !== null && ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(img.type)
   const CloseHandler = () => {
@@ -56,7 +64,7 @@ export const CreateModal = ({ onOpenChange, open }: CreateModalProps) => {
 
   return (
     <Modal onOpenChange={CloseHandler} open={open} title={'Add New Deck'}>
-      <form className={s.form} onSubmit={onSubmit}>
+      <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <FormTextField
           autoComplete={'off'}
           control={control}

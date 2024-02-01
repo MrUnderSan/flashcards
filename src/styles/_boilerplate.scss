@@ -29,6 +29,10 @@ a:visited {
   color: inherit;
 }
 
+p {
+  margin: 0;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -38,4 +42,25 @@ body {
   color: var(--color-light-100);
 
   background-color: var(--color-dark-900);
+}
+
+//To ensure that your fields do not have a standard color when selecting from a list of previously entered values
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus input:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  background: linear-gradient(
+    rgb(255 255 255 / 0%) 0%,
+    rgb(0 174 255 / 4%) 50%,
+    rgb(255 255 255 / 0%) 51%,
+    rgb(0 174 255 / 3%) 100%
+  );
+  box-shadow: 0 0 0 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
+
+  -webkit-text-fill-color: var(--color-light-100);
 }

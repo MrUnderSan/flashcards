@@ -1,8 +1,22 @@
 .content {
   position: fixed;
+  z-index: 2;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  overflow: auto;
+
+  max-height: 90vh;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-accent-500);
+  }
 
   .title {
     display: flex;
