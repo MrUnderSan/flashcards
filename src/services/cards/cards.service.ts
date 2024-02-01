@@ -1,21 +1,26 @@
+import { Card } from '@/common/types'
 import { baseApi } from '@/services/baseApi'
-import { Card, CardArgsType, UpdateCardArgs } from '@/services/cards/cards.types'
+import { CardArgsType } from '@/services/cards/cards.types'
 
 const cardsService = baseApi.injectEndpoints({
   endpoints: builder => ({
+    createCard: builder.mutation<Card, { body: FormData; id: string }>({
+      invalidatesTags: ['Cards', 'Deck'],
+      query: ({ body, id }) => ({
+        body,
+        method: 'POST',
+        url: `/v1/decks/${id}/cards`,
+      }),
+    }),
     deleteCard: builder.mutation<void, CardArgsType>({
-      invalidatesTags: ['Cards'],
+      invalidatesTags: ['Cards', 'Deck'],
       query: args => ({
         method: 'DELETE',
         url: `v1/cards/${args.id}`,
       }),
     }),
-    getCard: builder.query<Card, CardArgsType>({
-      providesTags: ['Cards'],
-      query: args => `v1/cards/${args.id}`,
-    }),
-    updateCard: builder.mutation<void, UpdateCardArgs>({
-      invalidatesTags: ['Cards'],
+    updateCard: builder.mutation<Card, { body: FormData; id: string }>({
+      invalidatesTags: ['Cards', 'Deck'],
       query: args => ({
         body: args.body,
         method: 'PATCH',
@@ -25,4 +30,4 @@ const cardsService = baseApi.injectEndpoints({
   }),
 })
 
-export const { useDeleteCardMutation, useGetCardQuery, useUpdateCardMutation } = cardsService
+export const { useCreateCardMutation, useDeleteCardMutation, useUpdateCardMutation } = cardsService
