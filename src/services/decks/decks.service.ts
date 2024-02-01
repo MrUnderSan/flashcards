@@ -6,8 +6,25 @@ import { Deck, DecksResponse, GetDecksArgs } from '@/services/decks/decks.type'
 const decksService = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
-      createDeck: builder.mutation<DecksResponse, FormData>({
+      createDeck: builder.mutation<Deck, FormData>({
         invalidatesTags: ['Decks'],
+        async onQueryStarted(_, { dispatch, getState, queryFulfilled }) {
+          const res = await queryFulfilled
+
+          for (const { endpointName, originalArgs } of decksService.util.selectInvalidatedBy(
+            getState(),
+            [{ type: 'Decks' }]
+          )) {
+            if (endpointName !== 'getDecks') {
+              continue
+            }
+            dispatch(
+              decksService.util.updateQueryData(endpointName, originalArgs, draft => {
+                draft.items.unshift(res.data)
+              })
+            )
+          }
+        },
         query: args => ({
           body: args,
           method: 'POST',
