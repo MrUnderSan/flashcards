@@ -1,5 +1,16 @@
 .main {
+  overflow-y: scroll;
   width: 100%;
+  height: calc(100vh - var(--header-height));
   margin: 0 auto;
-  padding-top: var(--header-height);
+
+  &::-webkit-scrollbar {
+    width: 7px;
+    height: calc(100% - var(--header-height));
+    background-color: var(--color-dark-700);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-dark-300);
+  }
 }

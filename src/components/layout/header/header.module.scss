@@ -1,7 +1,4 @@
 .header {
-  position: fixed;
-  z-index: +1;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,8 +16,7 @@
 
     width: 100%;
     max-width: var(--container-width);
-    padding-block: 12px;
-    padding-inline: var(--container-padding-inline);
+    padding: 12px var(--container-padding-inline);
   }
 
   &Link {

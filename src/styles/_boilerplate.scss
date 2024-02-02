@@ -1,5 +1,8 @@
 html {
+  overflow-y: hidden;
+
   box-sizing: border-box;
+
   font-size: 100%;
 
   -webkit-font-smoothing: antialiased;
@@ -44,7 +47,7 @@ body {
   background-color: var(--color-dark-900);
 }
 
-//To ensure that your fields do not have a standard color when selecting from a list of previously entered values
+// To ensure that your fields do not have a standard color when selecting from a list of previously entered values
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus input:-webkit-autofill,
