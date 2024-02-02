@@ -5,13 +5,13 @@ import { DeleteModal } from '@/components/ui/modal/deleteModal/DeleteModal'
 
 const meta = {
   argTypes: {
+    deleteItemHandler: {
+      action: 'Item removed',
+      description: 'Callback for delete item',
+    },
     disabled: {
       control: 'boolean',
       description: 'Flag for disable buttons',
-    },
-    handleRemoveItem: {
-      action: 'Item removed',
-      description: 'Callback for delete item',
     },
     name: {
       control: 'text',
