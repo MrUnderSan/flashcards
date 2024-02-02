@@ -16,8 +16,7 @@
 
     width: 100%;
     max-width: var(--container-width);
-    padding-block: 12px;
-    padding-inline: var(--container-padding-inline);
+    padding: 12px var(--container-padding-inline);
   }
 
   &Link {
