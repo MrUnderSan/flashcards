@@ -14,11 +14,12 @@ export type ModalProps = {
   onOpenChange: (open: boolean) => void
   open: boolean
   title?: string
+  trigger?: ReactNode
 } & ComponentPropsWithoutRef<typeof DialogFromRadix.Root>
 
 export const Modal = forwardRef<ElementRef<typeof DialogFromRadix.Root>, ModalProps>(
   (props, ref) => {
-    const { children, className, title, ...restProps } = props
+    const { children, className, title, trigger, ...restProps } = props
     const classNames = {
       closeButton: s.closeButton,
       content: clsx(s.content, className),
@@ -28,6 +29,7 @@ export const Modal = forwardRef<ElementRef<typeof DialogFromRadix.Root>, ModalPr
 
     return (
       <DialogFromRadix.Root {...restProps}>
+        <DialogFromRadix.Trigger asChild>{trigger}</DialogFromRadix.Trigger>
         <DialogFromRadix.Portal>
           <DialogFromRadix.Overlay className={classNames.overlay} />
           <DialogFromRadix.Content asChild className={classNames.content} ref={ref}>
