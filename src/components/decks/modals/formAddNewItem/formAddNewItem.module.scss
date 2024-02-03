@@ -1,0 +1,23 @@
+.img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.inputContainer {
+  margin: 12px 0;
+}
+
+.buttonImage {
+  margin: 24px 0 24px;
+}
+
+.imgContainer {
+  position: relative;
+}
+
+.delete {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
