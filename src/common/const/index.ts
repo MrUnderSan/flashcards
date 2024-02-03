@@ -37,3 +37,7 @@ export const CARD_SCHEMA = z.object({
   answer: z.string().min(3, 'Answer must be longer than or equal to 3 characters').trim(),
   question: z.string().min(3, 'Question must be longer than or equal to 3 characters').trim(),
 })
+export const DECK_SCHEMA = z.object({
+  isPrivate: z.boolean().default(false),
+  name: z.string().min(3).max(30),
+})
