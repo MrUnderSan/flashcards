@@ -10,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
 import { z } from 'zod'
 
-import s from '@/components/cards/modals/formCardModal/formCardModal.module.scss'
+import s from './FormDeckModal.module.scss'
 
 type FormDeckModalProps = {
   buttonText: string
@@ -62,13 +62,13 @@ export const FormDeckModal = ({
     <FormProvider {...formMethods}>
       <form className={clsx(s.form, className)} onSubmit={handleSubmit(onSubmitHandler)}>
         <FormAddNewItem
-          checkboxProps={{ label: 'Private pack', name: 'isPrivate' }}
+          checkboxProps={{ className: s.checkbox, label: 'Private pack', name: 'isPrivate' }}
           clearImg={clearDeckImg}
           fileRef={deckFileRef}
           img={deckImg}
           isDeck
           newItemTextField={{
-            label: 'Name Pack',
+            label: 'Name Deck',
             name: 'name',
             placeholder: 'Enter a new deck name',
           }}
