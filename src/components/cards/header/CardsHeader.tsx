@@ -1,16 +1,12 @@
 import { ComponentPropsWithoutRef } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Edit, Info, Trash } from '@/assets'
-import { Play } from '@/assets/icons/play'
+import { Edit, Info, Play, Trash } from '@/assets'
 import { CreateCardModal } from '@/components/cards/modals/createCardModal/CreateCardModal'
+import { DeleteDeckModal } from '@/components/decks/modals/deleteDeckModal/DeleteDeckModal'
+import { EditDeckModal } from '@/components/decks/modals/editModal/EditDeckModal'
 import { Button } from '@/components/ui/button'
-import {
-  DropDownBasicItemContent,
-  DropDownItem,
-  DropDownMenu,
-  DropDownSeparator,
-} from '@/components/ui/dropDownMenu'
+import { DropDownItem, DropDownMenu, DropDownSeparator } from '@/components/ui/dropDownMenu'
 import { Typography } from '@/components/ui/typography'
 import { Deck } from '@/services'
 import { clsx } from 'clsx'
@@ -18,23 +14,14 @@ import { clsx } from 'clsx'
 import s from './cardsHeader.module.scss'
 
 type CardsHeaderProps = {
-  deck: Deck | undefined
+  deck: Deck
   deckId: string
   isEmpty?: boolean
   isOwner: boolean
-  setDeleteDeckMode: (deleteDeckMode: boolean) => void
-  setEditDeckMode: (editDeckMode: boolean) => void
 } & Omit<ComponentPropsWithoutRef<'div'>, 'children'>
-export const CardsHeader = ({
-  className,
-  deck,
-  deckId,
-  isEmpty,
-  isOwner,
-  setDeleteDeckMode,
-  setEditDeckMode,
-}: CardsHeaderProps) => {
+export const CardsHeader = ({ className, deck, deckId, isEmpty, isOwner }: CardsHeaderProps) => {
   const toLearnLink = `/decks/${deckId}/learn`
+  const selectItemHandler = (e: Event) => e.preventDefault()
 
   return (
     <div className={s.headerWrapper}>
@@ -54,25 +41,43 @@ export const CardsHeader = ({
               {!isEmpty && (
                 <>
                   <DropDownItem asChild>
-                    <Link to={toLearnLink}>
-                      <DropDownBasicItemContent icon={<Play />} name={'Learn'} />
-                    </Link>
+                    <Button as={Link} to={toLearnLink} variant={'icon'}>
+                      <Play className={s.iconImage} />
+                      Learn
+                    </Button>
                   </DropDownItem>
                   <DropDownSeparator />
                 </>
               )}
-              <DropDownItem onSelect={() => setEditDeckMode(true)}>
-                <DropDownBasicItemContent icon={<Edit />} name={'Edit'} />
+              <DropDownItem onSelect={selectItemHandler}>
+                <EditDeckModal
+                  deck={deck}
+                  trigger={
+                    <Button variant={'icon'}>
+                      <Edit className={s.iconImage} />
+                      Edit
+                    </Button>
+                  }
+                />
               </DropDownItem>
               <DropDownSeparator />
-              <DropDownItem onSelect={() => setDeleteDeckMode(true)}>
-                <DropDownBasicItemContent icon={<Trash />} name={'Delete'} />
+              <DropDownItem onSelect={selectItemHandler}>
+                <DeleteDeckModal
+                  id={deckId}
+                  name={deck.name}
+                  trigger={
+                    <Button variant={'icon'}>
+                      <Trash className={s.iconImage} />
+                      Delete
+                    </Button>
+                  }
+                />
               </DropDownItem>
             </DropDownMenu>
           )}
         </div>
         {isOwner && !isEmpty && (
-          <CreateCardModal deckId={deckId} trigger={<Button>Add New Card</Button>} />
+          <CreateCardModal deckId={deck.id} trigger={<Button>Add New Card</Button>} />
         )}
         {!isOwner && !isEmpty && (
           <Button as={Link} to={toLearnLink}>
