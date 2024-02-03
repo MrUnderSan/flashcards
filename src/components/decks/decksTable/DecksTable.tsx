@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
 
-import { Edit, Trash } from '@/assets'
-import { Play } from '@/assets/icons/play'
+import { Edit, Play, Trash } from '@/assets'
 import { ROUTES } from '@/common/const'
 import { getLocaleDateString } from '@/common/utils'
+import { DeleteDeckModal } from '@/components/decks/modals/deleteDeckModal/DeleteDeckModal'
+import { EditDeckModal } from '@/components/decks/modals/editModal/EditDeckModal'
 import { Column, Sort, TableSortHeader } from '@/components/tableSortHeader'
 import { Button } from '@/components/ui/button'
 import { Table } from '@/components/ui/table'
@@ -43,23 +44,11 @@ const columns: Column[] = [
 type Props = {
   currentUserId: string
   decks: Deck[] | undefined
-  deleteClick: (id: string) => void
-  editClick: (id: string) => void
   onSort: (key: Sort) => void
   sort: Sort
 }
 
-export const DecksTable = ({
-  currentUserId,
-  decks,
-  deleteClick,
-  editClick,
-  onSort,
-  sort,
-}: Props) => {
-  const deleteHandler = (id: string) => () => deleteClick(id)
-  const editHandler = (id: string) => () => editClick(id)
-
+export const DecksTable = ({ currentUserId, decks, onSort, sort }: Props) => {
   return (
     <Table.Root>
       <TableSortHeader columns={columns} onSort={onSort} sort={sort} />
@@ -89,13 +78,23 @@ export const DecksTable = ({
 
                 {deck.author.id === currentUserId && (
                   <>
-                    {' '}
-                    <Button onClick={deleteHandler(deck.id)} variant={'icon'}>
-                      <Trash />
-                    </Button>
-                    <Button onClick={editHandler(deck.id)} variant={'icon'}>
-                      <Edit />
-                    </Button>
+                    <DeleteDeckModal
+                      id={deck.id}
+                      name={deck.name}
+                      trigger={
+                        <Button variant={'icon'}>
+                          <Trash />
+                        </Button>
+                      }
+                    />
+                    <EditDeckModal
+                      deck={deck}
+                      trigger={
+                        <Button variant={'icon'}>
+                          <Edit />
+                        </Button>
+                      }
+                    />
                   </>
                 )}
               </div>
