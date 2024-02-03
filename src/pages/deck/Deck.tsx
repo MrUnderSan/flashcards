@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { SELECT_OPTIONS_PAGINATION } from '@/common/const'
@@ -6,21 +6,22 @@ import { useDecksSearchParams } from '@/common/hooks'
 import { useDebounce } from '@/common/hooks/useDebounce'
 import { Cards } from '@/components/cards'
 import { CardsHeader } from '@/components/cards/header/CardsHeader'
-import { DeleteDeckModal } from '@/components/decks/modals/deleteDeckModal/DeleteDeckModal'
-import { EditModal } from '@/components/decks/modals/editModal/EditModal'
 import { Page } from '@/components/page'
 import { BackButton } from '@/components/ui/backButton'
 import { Pagination } from '@/components/ui/pagination'
 import { Spinner } from '@/components/ui/spinner'
 import { TextField } from '@/components/ui/textField'
-import { useGetDeckCardsQuery, useGetMeQuery, useGetOneDeckQuery } from '@/services'
+import {
+  Deck as DeckType,
+  useGetDeckCardsQuery,
+  useGetMeQuery,
+  useGetOneDeckQuery,
+} from '@/services'
 
 import s from './deck.module.scss'
 
 export const Deck = () => {
   const { deckId } = useParams()
-  const [editDeckMode, setEditDeckMode] = useState<boolean>(false)
-  const [deleteDeckMode, setDeleteDeckMode] = useState<boolean>(false)
   const {
     changeItemsPerPage,
     changePage,
@@ -59,27 +60,11 @@ export const Deck = () => {
   return (
     <Page marginTop={'24px'}>
       <BackButton text={'Back to Decks List'} />
-      <EditModal
-        id={deckId ?? ''}
-        img={deck?.cover ?? ''}
-        name={deck?.name ?? ''}
-        onOpenChange={() => setEditDeckMode(false)}
-        open={editDeckMode}
-      />
-      <DeleteDeckModal
-        deckName={deck?.name ?? ''}
-        id={deckId ?? ''}
-        isBackOnDelete
-        onOpenChange={() => setDeleteDeckMode(false)}
-        open={deleteDeckMode}
-      />
       <CardsHeader
-        deck={deck}
+        deck={deck || ({} as DeckType)}
         deckId={deckId ?? ''}
         isEmpty={isEmpty}
         isOwner={isOwner}
-        setDeleteDeckMode={setDeleteDeckMode}
-        setEditDeckMode={setEditDeckMode}
       />
       {!isEmpty && (
         <TextField

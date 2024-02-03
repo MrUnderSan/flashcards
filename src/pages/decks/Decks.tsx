@@ -4,9 +4,7 @@ import { Trash } from '@/assets'
 import { SELECT_OPTIONS_PAGINATION, TABS } from '@/common/const'
 import { useDebounce, useDecksSearchParams } from '@/common/hooks'
 import { DecksTable } from '@/components/decks/decksTable'
-import { CreateModal } from '@/components/decks/modals/createModal/CreateModal'
-import { DeleteDeckModal } from '@/components/decks/modals/deleteDeckModal/DeleteDeckModal'
-import { EditModal } from '@/components/decks/modals/editModal/EditModal'
+import { CreateDeckModal } from '@/components/decks/modals/createModal/CreateDeckModal'
 import { Page } from '@/components/page'
 import { Button } from '@/components/ui/button'
 import { Pagination } from '@/components/ui/pagination'
@@ -33,9 +31,6 @@ export const Decks = () => {
     sort,
     value,
   } = useDecksSearchParams()
-  const [createMode, setCreateMode] = useState(false)
-  const [deleteModeId, setDeleteModeId] = useState<null | string>(null)
-  const [editModeId, setEditModeId] = useState<null | string>(null)
   const [currentTab, setCurrentTab] = useState('all')
   const debouncedValue = useDebounce<string>(value ?? '', 500)
   const { data: me } = useGetMeQuery()
@@ -66,33 +61,13 @@ export const Decks = () => {
     setCurrentTab(tab)
   }
 
-  const deckToUpdateName = data?.items?.find(deck => deck.id === editModeId)?.name
-  const deckToDeleteName = data?.items?.find(deck => deck.id === deleteModeId)?.name
-  const deckImg = data?.items?.find(deck => deck.id === editModeId)?.cover
-
   return (
     <Page>
-      <CreateModal onOpenChange={() => setCreateMode(false)} open={createMode} />
-      <EditModal
-        id={editModeId ?? ''}
-        img={deckImg ?? ''}
-        name={deckToUpdateName ?? ''}
-        onOpenChange={() => setEditModeId(null)}
-        open={!!editModeId}
-      />
-      <DeleteDeckModal
-        deckName={deckToDeleteName ?? 'Deck'}
-        id={deleteModeId ?? ''}
-        onOpenChange={() => setDeleteModeId(null)}
-        open={!!deleteModeId}
-      />
       <div className={s.header}>
         <Typography as={'h1'} variant={'h1'}>
           Decks list
         </Typography>
-        <Button onClick={() => setCreateMode(true)} variant={'primary'}>
-          Add New Deck
-        </Button>
+        <CreateDeckModal trigger={<Button>Add New Deck</Button>} />
       </div>
       <div className={s.filter}>
         <TextField
@@ -116,8 +91,6 @@ export const Decks = () => {
       <DecksTable
         currentUserId={currentUserId ?? ''}
         decks={data?.items}
-        deleteClick={setDeleteModeId}
-        editClick={setEditModeId}
         onSort={changeSort}
         sort={sort}
       />
