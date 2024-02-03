@@ -3,15 +3,13 @@ import { FormProvider, useForm } from 'react-hook-form'
 
 import { CARD_SCHEMA } from '@/common/const'
 import { Card, UploadImage } from '@/common/types'
+import { FormAddNewItem } from '@/components/decks/modals/formAddNewItem'
 import { Button } from '@/components/ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
 import { z } from 'zod'
 
 import s from '@/components/cards/modals/formCardModal/formCardModal.module.scss'
-
-import { CreateNewAnswer } from './formNewAnswer'
-import { CreateNewQuestion } from './formNewQuestion'
 
 type FormCardModalProps = {
   buttonText: string
@@ -76,17 +74,31 @@ export const FormCardModal = ({
   return (
     <FormProvider {...formMethods}>
       <form className={clsx(s.form, className)} onSubmit={handleSubmit(onSubmitHandler)}>
-        <CreateNewQuestion
-          clearQuestionImg={clearQuestionImg}
+        <FormAddNewItem
+          cardSubtitle={'Question:'}
+          clearImg={clearQuestionImg}
           fileRef={questionFileRef}
-          questionImg={questionImg}
-          setQuestionImg={setQuestionImg}
+          img={questionImg}
+          isCard
+          newItemTextField={{
+            label: 'Question',
+            name: 'question',
+            placeholder: 'Enter your question',
+          }}
+          setImg={setQuestionImg}
         />
-        <CreateNewAnswer
-          answerImg={answerImg}
-          clearAnswerImg={clearAnswerImg}
+        <FormAddNewItem
+          cardSubtitle={'Answer:'}
+          clearImg={clearAnswerImg}
           fileRef={answerFileRef}
-          setAnswerImg={setAnswerImg}
+          img={answerImg}
+          isCard
+          newItemTextField={{
+            label: 'Answer',
+            name: 'answer',
+            placeholder: 'Enter your answer',
+          }}
+          setImg={setAnswerImg}
         />
         <div className={s.buttons}>
           <Button onClick={() => setOpen(false)} type={'reset'} variant={'secondary'}>
