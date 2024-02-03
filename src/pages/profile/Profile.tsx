@@ -6,6 +6,7 @@ import { Page } from '@/components/page'
 import { PersonalInformation } from '@/components/personalInformation'
 import { AvatarUploaderValue } from '@/components/personalInformation/avatarUploader'
 import { ProfileInfoFormValues } from '@/components/personalInformation/profileInfoForm'
+import { BackButton } from '@/components/ui/backButton'
 import { useGetMeQuery, useLogoutMutation, useUpdateProfileMutation } from '@/services'
 
 export const Profile = () => {
@@ -51,7 +52,8 @@ export const Profile = () => {
   }
 
   return (
-    <Page>
+    <Page marginTop={'24px'}>
+      <BackButton text={'Back to Decks List'} />
       <PersonalInformation
         data={data}
         logout={logoutHandler}
