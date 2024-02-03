@@ -91,6 +91,7 @@ export const FormAddNewItem = <TFieldValues extends FieldValues>({
       )}
       {isDeck && (
         <FormCheckbox
+          className={checkboxProps?.className}
           control={control}
           label={checkboxProps?.label}
           name={checkboxProps?.name ?? ''}
