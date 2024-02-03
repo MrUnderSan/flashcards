@@ -6,9 +6,6 @@ import { useDecksSearchParams } from '@/common/hooks'
 import { useDebounce } from '@/common/hooks/useDebounce'
 import { Cards } from '@/components/cards'
 import { CardsHeader } from '@/components/cards/header/CardsHeader'
-import { CreateCardModal } from '@/components/cards/modals/createCardModal/CreateCardModal'
-import { DeleteCardModal } from '@/components/cards/modals/deleteCardModal/DeleteCardModal'
-import { EditCardModal } from '@/components/cards/modals/editCardModal/EditCardModal'
 import { DeleteDeckModal } from '@/components/decks/modals/deleteDeckModal/DeleteDeckModal'
 import { EditModal } from '@/components/decks/modals/editModal/EditModal'
 import { Page } from '@/components/page'
@@ -22,11 +19,8 @@ import s from './deck.module.scss'
 
 export const Deck = () => {
   const { deckId } = useParams()
-  const [createMode, setCreateMode] = useState<boolean>(false)
   const [editDeckMode, setEditDeckMode] = useState<boolean>(false)
   const [deleteDeckMode, setDeleteDeckMode] = useState<boolean>(false)
-  const [cardToDeleteId, setCardToDeleteId] = useState<null | string>(null)
-  const [cardToEditId, setCardToEditId] = useState<null | string>(null)
   const {
     changeItemsPerPage,
     changePage,
@@ -57,8 +51,6 @@ export const Deck = () => {
   const changeSearchValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
     changeValue(e.currentTarget.value)
   }
-  const cardToDeleteName = cards?.items?.find(card => card.id === cardToDeleteId)?.question
-  const cardToEdit = cards?.items?.find(card => card.id === cardToEditId)
 
   if (isLoading) {
     return <Spinner />
@@ -67,23 +59,6 @@ export const Deck = () => {
   return (
     <Page marginTop={'24px'}>
       <BackButton text={'Back to Decks List'} />
-      <CreateCardModal
-        deckId={deckId}
-        onOpenChange={() => setCreateMode(false)}
-        open={createMode}
-      />
-      <DeleteCardModal
-        cardName={cardToDeleteName ?? 'Selected card'}
-        id={cardToDeleteId ?? ''}
-        onOpenChange={() => setCardToDeleteId(null)}
-        open={!!cardToDeleteId}
-      />
-      <EditCardModal
-        cardToEdit={cardToEdit}
-        id={cardToEditId ?? ''}
-        onOpenChange={() => setCardToEditId(null)}
-        open={!!cardToEditId}
-      />
       <EditModal
         id={deckId ?? ''}
         img={deck?.cover ?? ''}
@@ -103,7 +78,6 @@ export const Deck = () => {
         deckId={deckId ?? ''}
         isEmpty={isEmpty}
         isOwner={isOwner}
-        setCreateMode={setCreateMode}
         setDeleteDeckMode={setDeleteDeckMode}
         setEditDeckMode={setEditDeckMode}
       />
@@ -118,13 +92,11 @@ export const Deck = () => {
       )}
       <Cards
         cards={cards?.items}
+        deckId={deckId ?? ''}
         isEmpty={isEmpty}
         isOwner={isOwner}
         onSort={changeSort}
         searchValue={value}
-        setCardToDeleteId={setCardToDeleteId}
-        setCardToEditId={setCardToEditId}
-        setCreateMode={setCreateMode}
         sort={sort}
       />
       <Pagination

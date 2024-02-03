@@ -32,3 +32,8 @@ export const IMAGE_SCHEMA = z
     file => ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(file.type),
     'Only .jpg, .jpeg, .png and .webp formats are supported. The file will not be uploaded.'
   )
+
+export const CARD_SCHEMA = z.object({
+  answer: z.string().min(3, 'Answer must be longer than or equal to 3 characters').trim(),
+  question: z.string().min(3, 'Question must be longer than or equal to 3 characters').trim(),
+})
