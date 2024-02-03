@@ -4,6 +4,8 @@ export type Id = {
   id: string
 }
 
+export type UploadImage = File | null | string
+
 export type ProfileData = {
   avatar?: string
   email: string
