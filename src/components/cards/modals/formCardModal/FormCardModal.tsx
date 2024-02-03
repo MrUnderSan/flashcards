@@ -1,17 +1,17 @@
-import { ComponentPropsWithoutRef, useRef } from 'react'
-import { FormProvider } from 'react-hook-form'
+import { ComponentPropsWithoutRef, useRef, useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
 
-import { Card } from '@/common/types'
-import { CreateNewAnswer } from '@/components/cards/modals/formCardModal/formNewAnswer/CreateNewAnswer'
-import { CreateNewQuestion } from '@/components/cards/modals/formCardModal/formNewQuestion/CreateNewQuestion'
-import {
-  FormCardModalValues,
-  useFormCardModal,
-} from '@/components/cards/modals/formCardModal/hooks/useFormCardModal'
+import { CARD_SCHEMA } from '@/common/const'
+import { Card, UploadImage } from '@/common/types'
 import { Button } from '@/components/ui/button'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { clsx } from 'clsx'
+import { z } from 'zod'
 
 import s from '@/components/cards/modals/formCardModal/formCardModal.module.scss'
+
+import { CreateNewAnswer } from './formNewAnswer'
+import { CreateNewQuestion } from './formNewQuestion'
 
 type FormCardModalProps = {
   buttonText: string
@@ -20,6 +20,7 @@ type FormCardModalProps = {
   onSubmit: (data: FormData) => void
   setOpen: (open: boolean) => void
 } & Omit<ComponentPropsWithoutRef<'form'>, 'onSubmit'>
+export type FormCardModalValues = z.input<typeof CARD_SCHEMA>
 
 export const FormCardModal = ({
   buttonText,
@@ -29,9 +30,16 @@ export const FormCardModal = ({
   onSubmit,
   setOpen,
 }: FormCardModalProps) => {
-  const { formMethods, images } = useFormCardModal(card)
+  const [questionImg, setQuestionImg] = useState<UploadImage>(card?.questionImg || null)
+  const [answerImg, setAnswerImg] = useState<UploadImage>(card?.answerImg || null)
+  const formMethods = useForm<FormCardModalValues>({
+    defaultValues: {
+      answer: card?.answer || '',
+      question: card?.question || '',
+    },
+    resolver: zodResolver(CARD_SCHEMA),
+  })
 
-  const { answerImg, questionImg, setAnswerImg, setQuestionImg } = images
   const { handleSubmit } = formMethods
 
   const isStringAnswerImg = typeof answerImg === 'string'
@@ -39,11 +47,13 @@ export const FormCardModal = ({
 
   const onSubmitHandler = (data: FormCardModalValues) => {
     const formData = new FormData()
+    const sentQuestionImg = questionImg === null ? '' : questionImg
+    const sentAnswerImg = answerImg === null ? '' : answerImg
 
     formData.append('question', data.question)
     formData.append('answer', data.answer)
-    !isStringQuestionImg && formData.append('questionImg', questionImg === null ? '' : questionImg)
-    !isStringAnswerImg && formData.append('answerImg', answerImg === null ? '' : answerImg)
+    !isStringQuestionImg && formData.append('questionImg', sentQuestionImg)
+    !isStringAnswerImg && formData.append('answerImg', sentAnswerImg)
     onSubmit(formData)
   }
 
