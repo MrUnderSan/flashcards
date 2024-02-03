@@ -5,6 +5,7 @@ import { Trash } from '@/assets'
 import { UploadImage } from '@/common/types'
 import { Button } from '@/components/ui/button'
 import { FileUploader } from '@/components/ui/fileUploader/FileUploader'
+import { FormCheckbox, FormCheckboxProps } from '@/components/ui/formComponents/formCheckbox'
 import { FormTextField, FormTextFieldProps } from '@/components/ui/formComponents/formTextField'
 import { Typography } from '@/components/ui/typography'
 
@@ -17,19 +18,23 @@ type FormTextFieldPropsWithoutControl<TFieldValues extends FieldValues> = Omit<
 
 type FormAddNewItemProps<TFieldValues extends FieldValues> = {
   cardSubtitle?: string
+  checkboxProps?: FormCheckboxProps<TFieldValues>
   clearImg: () => void
   fileRef: RefObject<HTMLInputElement>
   img: UploadImage
   isCard?: boolean
+  isDeck?: boolean
   newItemTextField: FormTextFieldPropsWithoutControl<TFieldValues>
   setImg: (questionImg: File | null) => void
 }
 export const FormAddNewItem = <TFieldValues extends FieldValues>({
   cardSubtitle,
+  checkboxProps,
   clearImg,
   fileRef,
   img,
   isCard,
+  isDeck,
   newItemTextField,
   setImg,
 }: FormAddNewItemProps<TFieldValues>) => {
@@ -82,6 +87,13 @@ export const FormAddNewItem = <TFieldValues extends FieldValues>({
               Upload image
             </Button>
           }
+        />
+      )}
+      {isDeck && (
+        <FormCheckbox
+          control={control}
+          label={checkboxProps?.label}
+          name={checkboxProps?.name ?? ''}
         />
       )}
     </>
