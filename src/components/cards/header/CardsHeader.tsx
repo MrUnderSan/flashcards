@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { Edit, Info, Trash } from '@/assets'
 import { Play } from '@/assets/icons/play'
+import { CreateCardModal } from '@/components/cards/modals/createCardModal/CreateCardModal'
 import { Button } from '@/components/ui/button'
 import {
   DropDownBasicItemContent,
@@ -21,7 +22,6 @@ type CardsHeaderProps = {
   deckId: string
   isEmpty?: boolean
   isOwner: boolean
-  setCreateMode: (createModule: boolean) => void
   setDeleteDeckMode: (deleteDeckMode: boolean) => void
   setEditDeckMode: (editDeckMode: boolean) => void
 } & Omit<ComponentPropsWithoutRef<'div'>, 'children'>
@@ -31,7 +31,6 @@ export const CardsHeader = ({
   deckId,
   isEmpty,
   isOwner,
-  setCreateMode,
   setDeleteDeckMode,
   setEditDeckMode,
 }: CardsHeaderProps) => {
@@ -72,7 +71,9 @@ export const CardsHeader = ({
             </DropDownMenu>
           )}
         </div>
-        {isOwner && !isEmpty && <Button onClick={() => setCreateMode(true)}>Add new card</Button>}
+        {isOwner && !isEmpty && (
+          <CreateCardModal deckId={deckId} trigger={<Button>Add New Card</Button>} />
+        )}
         {!isOwner && !isEmpty && (
           <Button as={Link} to={toLearnLink}>
             Learn to Pack
