@@ -2,7 +2,7 @@ import { ReactNode, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { Card } from '@/common/types'
-import { FormCardModal } from '@/components/cards/modals/formCardModal/FormCardModal'
+import { FormCardModal } from '@/components/cards/modals/formCardModal'
 import { Modal } from '@/components/ui/modal'
 import { useUpdateCardMutation } from '@/services'
 
