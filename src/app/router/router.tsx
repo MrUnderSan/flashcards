@@ -9,7 +9,17 @@ import {
 import { ROUTES } from '@/common/const'
 import { useAppOutletContext } from '@/common/hooks'
 import { Layout } from '@/components/layout'
-import { CheckEmail, Deck, Decks, Learn, Profile, RecoverPassword, SignIn, SignUp } from '@/pages'
+import {
+  CheckEmail,
+  CreateNewPassword,
+  Deck,
+  Decks,
+  Learn,
+  Profile,
+  RecoverPassword,
+  SignIn,
+  SignUp,
+} from '@/pages'
 import { ErrorPage } from '@/pages/404'
 
 const publicRoutes: RouteObject[] = [
@@ -29,6 +39,7 @@ const publicRoutes: RouteObject[] = [
     element: <CheckEmail />,
     path: ROUTES.checkEmail,
   },
+  { element: <CreateNewPassword />, path: ROUTES.createNewPassword },
 ]
 
 const privateRoutes: RouteObject[] = [
