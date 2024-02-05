@@ -1,0 +1,13 @@
+.react-loading-skeleton {
+  --base-color: #171717;
+  --highlight-color: #382766;
+
+  .dark-mode & {
+    --base-color: #293747;
+    --highlight-color: #17212d;
+  }
+}
+
+.flex-1 {
+  flex: 1;
+}
