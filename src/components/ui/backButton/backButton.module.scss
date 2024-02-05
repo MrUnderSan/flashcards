@@ -1,6 +1,14 @@
 .button {
   margin-bottom: 33px;
   padding: 0;
+
+  &:hover {
+    color: var(--color-accent-100);
+
+    .icon {
+      color: var(--color-accent-100);
+    }
+  }
 }
 
 .icon {
