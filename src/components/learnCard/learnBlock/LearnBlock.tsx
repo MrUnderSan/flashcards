@@ -1,4 +1,5 @@
 import { Typography } from '@/components/ui/typography'
+import { clsx } from 'clsx'
 
 import s from './learnBlock.module.scss'
 
@@ -10,9 +11,11 @@ export type LearnBlockProps = {
 }
 
 export const LearnBlock = ({ className, description, img, main }: LearnBlockProps) => {
+  const classNames = clsx(s.wrapper, className)
+
   return (
-    <div className={className}>
-      <Typography as={'p'} variant={'body1'}>
+    <div className={classNames}>
+      <Typography as={'p'} className={s.text} variant={'body1'}>
         <Typography as={'span'} variant={'subtitle1'}>
           {`${main}: `}
         </Typography>
