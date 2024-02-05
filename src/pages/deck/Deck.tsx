@@ -1,14 +1,13 @@
 import { ChangeEvent } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { SELECT_OPTIONS_PAGINATION } from '@/common/const'
+import { ROUTES, SELECT_OPTIONS_PAGINATION } from '@/common/const'
 import { useDecksSearchParams } from '@/common/hooks'
 import { useDebounce } from '@/common/hooks/useDebounce'
 import { Cards } from '@/components/cards'
 import { CardsHeader } from '@/components/cards/header/CardsHeader'
 import { Page } from '@/components/page'
 import { BackButton } from '@/components/ui/backButton'
-import { Loader } from '@/components/ui/loader'
 import { Pagination } from '@/components/ui/pagination'
 import { Spinner } from '@/components/ui/spinner'
 import { TextField } from '@/components/ui/textField'
@@ -48,11 +47,7 @@ export const Deck = () => {
     },
     id: deckId || '',
   })
-  const {
-    data: deck,
-    isFetching: isFetchingDeck,
-    isLoading: isLoadingDeck,
-  } = useGetOneDeckQuery({ id: deckId || '' })
+  const { data: deck, isLoading: isLoadingDeck } = useGetOneDeckQuery({ id: deckId || '' })
   const { data: me } = useGetMeQuery()
 
   const isOwner = me?.id === deck?.userId
@@ -66,13 +61,9 @@ export const Deck = () => {
     return <Spinner />
   }
 
-  if (isFetchingCards || isFetchingDeck) {
-    return <Loader />
-  }
-
   return (
     <Page marginTop={'24px'}>
-      <BackButton text={'Back to Decks List'} />
+      <BackButton pathToBack={ROUTES.decks} text={'Back to Decks List'} />
       <CardsHeader
         deck={deck || ({} as DeckType)}
         deckId={deckId ?? ''}

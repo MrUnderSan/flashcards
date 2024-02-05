@@ -3,18 +3,19 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { ArrowBack } from '@/assets'
 import { Button } from '@/components/ui/button'
-import { Typography } from '@/components/ui/typography'
 import { clsx } from 'clsx'
 
 import s from './backButton.module.scss'
 
 export type BackButtonProps = {
   className?: string
+  pathToBack?: string
   text?: string
 }
 
 export const BackButton = ({
   className,
+  pathToBack,
   text = 'Back to Previous Page',
   ...rest
 }: BackButtonProps) => {
@@ -22,7 +23,7 @@ export const BackButton = ({
 
   const backHandler = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
-    navigate(-1)
+    pathToBack ? navigate(pathToBack) : navigate(-1)
   }
 
   const classNames = clsx(s.button, className)
@@ -34,11 +35,11 @@ export const BackButton = ({
       onClick={backHandler}
       relative={'path'}
       to={'..'}
-      variant={'link'}
+      variant={'icon'}
       {...rest}
     >
       <ArrowBack className={s.icon} />
-      <Typography variant={'body2'}>{text}</Typography>
+      {text}
     </Button>
   )
 }
