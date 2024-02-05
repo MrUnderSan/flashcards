@@ -2,6 +2,7 @@ import { Edit, Trash } from '@/assets'
 import { Card } from '@/common/types'
 import { DeleteCardModal } from '@/components/cards/modals/deleteCardModal/DeleteCardModal'
 import { EditCardModal } from '@/components/cards/modals/editCardModal/EditCardModal'
+import { CardsTableWithSkeleton } from '@/components/cards/table/CardsTableWithSkeleton'
 import { Column, Sort, TableSortHeader } from '@/components/tableSortHeader'
 import { Button } from '@/components/ui/button'
 import { Rating } from '@/components/ui/rating/Rating'
@@ -35,57 +36,64 @@ const columns: Column[] = [
 
 type CardsTableProps = {
   cards: Card[] | undefined
+  isLoading: boolean
   isOwner?: boolean
   onSort: (key: Sort) => void
   sort: Sort
 }
 
-export const CardsTable = ({ cards, isOwner, onSort, sort }: CardsTableProps) => {
+export const CardsTable = ({ cards, isLoading, isOwner, onSort, sort }: CardsTableProps) => {
   return (
     <Table.Root>
       <TableSortHeader columns={columns} onSort={onSort} sort={sort} />
       <Table.Body>
-        {cards?.map(card => (
-          <Table.Row key={card.id}>
-            <Table.Cell col={'3'}>
-              {card.questionImg && (
-                <img alt={'questionImg'} className={s.img} src={card.questionImg} />
-              )}
-              <Typography variant={'body2'}>{card.question}</Typography>
-            </Table.Cell>
-            <Table.Cell col={'3'}>
-              {card.answerImg && <img alt={'answerImg'} className={s.img} src={card.answerImg} />}
-              <Typography variant={'body2'}>{card.answer}</Typography>
-            </Table.Cell>
-            <Table.Cell col={'2'}>{new Date(card.updated).toLocaleDateString('ru-RU')}</Table.Cell>
-            <Table.Cell className={isOwner ? s.altTr : ''} col={'2'}>
-              <Rating rating={card.grade} />
-              <div className={s.buttons}>
-                {isOwner && (
-                  <>
-                    <DeleteCardModal
-                      id={card.id}
-                      name={card.question}
-                      trigger={
-                        <Button variant={'icon'}>
-                          <Trash />
-                        </Button>
-                      }
-                    />
-                    <EditCardModal
-                      card={card}
-                      trigger={
-                        <Button variant={'icon'}>
-                          <Edit />
-                        </Button>
-                      }
-                    />
-                  </>
+        {isLoading ? (
+          <CardsTableWithSkeleton cards={cards} />
+        ) : (
+          cards?.map(card => (
+            <Table.Row key={card.id}>
+              <Table.Cell col={'3'}>
+                {card.questionImg && (
+                  <img alt={'questionImg'} className={s.img} src={card.questionImg} />
                 )}
-              </div>
-            </Table.Cell>
-          </Table.Row>
-        ))}
+                <Typography variant={'body2'}>{card.question}</Typography>
+              </Table.Cell>
+              <Table.Cell col={'3'}>
+                {card.answerImg && <img alt={'answerImg'} className={s.img} src={card.answerImg} />}
+                <Typography variant={'body2'}>{card.answer}</Typography>
+              </Table.Cell>
+              <Table.Cell col={'2'}>
+                {new Date(card.updated).toLocaleDateString('ru-RU')}
+              </Table.Cell>
+              <Table.Cell className={isOwner ? s.altTr : ''} col={'2'}>
+                <Rating rating={card.grade} />
+                <div className={s.buttons}>
+                  {isOwner && (
+                    <>
+                      <DeleteCardModal
+                        id={card.id}
+                        name={card.question}
+                        trigger={
+                          <Button variant={'icon'}>
+                            <Trash />
+                          </Button>
+                        }
+                      />
+                      <EditCardModal
+                        card={card}
+                        trigger={
+                          <Button variant={'icon'}>
+                            <Edit />
+                          </Button>
+                        }
+                      />
+                    </>
+                  )}
+                </div>
+              </Table.Cell>
+            </Table.Row>
+          ))
+        )}
       </Table.Body>
     </Table.Root>
   )
