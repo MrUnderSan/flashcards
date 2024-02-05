@@ -11,6 +11,7 @@ type CardsProps = {
   cards: Card[] | undefined
   deckId: string
   isEmpty?: boolean
+  isLoading: boolean
   isOwner?: boolean
   onSort: (key: Sort) => void
   searchValue: null | string
@@ -21,6 +22,7 @@ export const Cards = ({
   cards,
   deckId,
   isEmpty,
+  isLoading,
   isOwner,
   onSort,
   searchValue,
@@ -46,7 +48,13 @@ export const Cards = ({
           {isOwner && <CreateCardModal deckId={deckId} trigger={<Button>Add New Card</Button>} />}
         </div>
       ) : (
-        <CardsTable cards={cards} isOwner={isOwner} onSort={onSort} sort={sort} />
+        <CardsTable
+          cards={cards}
+          isLoading={isLoading}
+          isOwner={isOwner}
+          onSort={onSort}
+          sort={sort}
+        />
       )}
     </>
   )
