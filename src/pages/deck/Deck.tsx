@@ -8,6 +8,7 @@ import { Cards } from '@/components/cards'
 import { CardsHeader } from '@/components/cards/header/CardsHeader'
 import { Page } from '@/components/page'
 import { BackButton } from '@/components/ui/backButton'
+import { Loader } from '@/components/ui/loader'
 import { Pagination } from '@/components/ui/pagination'
 import { Spinner } from '@/components/ui/spinner'
 import { TextField } from '@/components/ui/textField'
@@ -34,7 +35,11 @@ export const Deck = () => {
   } = useDecksSearchParams()
   const debouncedValue = useDebounce<string>(value ?? '', 500)
 
-  const { data: cards, isLoading } = useGetDeckCardsQuery({
+  const {
+    data: cards,
+    isFetching: isFetchingCards,
+    isLoading: isLoadingCards,
+  } = useGetDeckCardsQuery({
     args: {
       currentPage: page,
       itemsPerPage: itemsPerPage,
@@ -43,7 +48,11 @@ export const Deck = () => {
     },
     id: deckId || '',
   })
-  const { data: deck } = useGetOneDeckQuery({ id: deckId || '' })
+  const {
+    data: deck,
+    isFetching: isFetchingDeck,
+    isLoading: isLoadingDeck,
+  } = useGetOneDeckQuery({ id: deckId || '' })
   const { data: me } = useGetMeQuery()
 
   const isOwner = me?.id === deck?.userId
@@ -53,8 +62,12 @@ export const Deck = () => {
     changeValue(e.currentTarget.value)
   }
 
-  if (isLoading) {
+  if (isLoadingCards || isLoadingDeck) {
     return <Spinner />
+  }
+
+  if (isFetchingCards || isFetchingDeck) {
+    return <Loader />
   }
 
   return (
@@ -68,6 +81,7 @@ export const Deck = () => {
       />
       {!isEmpty && (
         <TextField
+          disabled={isFetchingCards}
           onChange={changeSearchValueHandler}
           placeholder={'Search cards'}
           rootContainerProps={{ className: s.inputSearch }}
