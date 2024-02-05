@@ -24,7 +24,7 @@ export const DropDownMenu = ({
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
-        <DropdownMenu.Content className={s.dropDownMenuContent} sideOffset={12}>
+        <DropdownMenu.Content className={s.dropDownMenuContent} sideOffset={9}>
           {children}
           <DropdownMenu.Arrow asChild className={s.dropDownMenuArrow}>
             <div className={s.dropDownMenuArrowDiv}></div>
