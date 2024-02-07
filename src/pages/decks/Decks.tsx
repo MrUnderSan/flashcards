@@ -7,6 +7,7 @@ import { DecksTable } from '@/components/decks/decksTable'
 import { CreateDeckModal } from '@/components/decks/modals/createModal/CreateDeckModal'
 import { Page } from '@/components/page'
 import { Button } from '@/components/ui/button'
+import { Loader } from '@/components/ui/loader'
 import { Pagination } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
 import { TabSwitcher } from '@/components/ui/tabSwitcher'
@@ -37,11 +38,15 @@ export const Decks = () => {
   const debounceMinCards = useDebounce(minCards, 500)
   const debounceMaxCards = useDebounce(maxCards, 500)
   const debouncedValue = useDebounce<string>(value ?? '', 500)
-  const { data: me } = useGetMeQuery()
+  const { data: me, isLoading: isLoadingMe } = useGetMeQuery()
   const currentUserId = me?.id
   const authorId = tabValue === 'my' ? currentUserId : undefined
 
-  const { data } = useGetDecksQuery({
+  const {
+    data,
+    isFetching: isFetchingDecks,
+    isLoading: isLoadingDecks,
+  } = useGetDecksQuery({
     authorId,
     currentPage: page,
     itemsPerPage: Number(itemsPerPage),
@@ -64,58 +69,69 @@ export const Decks = () => {
   }
 
   return (
-    <Page>
-      <div className={s.header}>
-        <Typography as={'h1'} variant={'h1'}>
-          Decks list
-        </Typography>
-        <CreateDeckModal trigger={<Button>Add New Deck</Button>} />
-      </div>
-      <div className={s.filter}>
-        <TextField
-          onChange={changeTextHandler}
-          rootContainerProps={{ className: s.search }}
-          type={'search'}
-          value={value ?? ''}
+    <>
+      {(isFetchingDecks || isLoadingMe) && <Loader />}
+      <Page>
+        <div className={s.header}>
+          <Typography as={'h1'} variant={'h1'}>
+            Decks list
+          </Typography>
+          <CreateDeckModal
+            trigger={<Button disabled={isFetchingDecks || isLoadingDecks}>Add New Deck</Button>}
+          />
+        </div>
+        <div className={s.filter}>
+          <TextField
+            disabled={isFetchingDecks || isLoadingDecks}
+            onChange={changeTextHandler}
+            rootContainerProps={{ className: s.search }}
+            type={'search'}
+            value={value ?? ''}
+          />
+          <TabSwitcher
+            className={s.tabs}
+            onValueChange={changeTabValueHandler}
+            tabs={TABS}
+            value={tabValue}
+          />
+          <Slider
+            max={minMaxCards?.max}
+            min={minMaxCards?.min}
+            onValueChange={changeMinMaxCard}
+            value={[minCards, maxCards]}
+          />
+          <Button
+            disabled={isFetchingDecks || isLoadingDecks}
+            onClick={clearFilterHandler}
+            variant={'secondary'}
+          >
+            <Trash />
+            Clear Filter
+          </Button>
+        </div>
+        <DecksTable
+          currentUserId={currentUserId ?? ''}
+          decks={data?.items}
+          isLoading={isLoadingDecks}
+          onSort={changeSort}
+          sort={sort}
         />
-        <TabSwitcher
-          className={s.tabs}
-          onValueChange={changeTabValueHandler}
-          tabs={TABS}
-          value={tabValue}
+        {data?.items.length === 0 && (
+          <Typography as={'h2'} className={s.found} variant={'h2'}>
+            Decks not found
+          </Typography>
+        )}
+        <Pagination
+          className={s.pagination}
+          currentPage={page}
+          defaultValue={String(itemsPerPage)}
+          onChangePage={changePage}
+          onValueChange={changeItemsPerPage}
+          options={SELECT_OPTIONS_PAGINATION}
+          pageSize={itemsPerPage}
+          totalCount={data?.pagination?.totalPages || 1}
         />
-        <Slider
-          max={minMaxCards?.max}
-          min={minMaxCards?.min}
-          onValueChange={changeMinMaxCard}
-          value={[minCards, maxCards]}
-        />
-        <Button onClick={clearFilterHandler} variant={'secondary'}>
-          <Trash />
-          Clear Filter
-        </Button>
-      </div>
-      <DecksTable
-        currentUserId={currentUserId ?? ''}
-        decks={data?.items}
-        onSort={changeSort}
-        sort={sort}
-      />
-      {data?.items.length === 0 && (
-        <Typography as={'h2'} className={s.found} variant={'h2'}>
-          Decks not found
-        </Typography>
-      )}
-      <Pagination
-        className={s.pagination}
-        currentPage={page}
-        defaultValue={String(itemsPerPage)}
-        onChangePage={changePage}
-        onValueChange={changeItemsPerPage}
-        options={SELECT_OPTIONS_PAGINATION}
-        pageSize={itemsPerPage}
-        totalCount={data?.pagination?.totalPages || 1}
-      />
-    </Page>
+      </Page>
+    </>
   )
 }

@@ -13,7 +13,7 @@ type SliderProps = {
 }
 
 export const Slider = (props: SliderProps) => {
-  const { max, min, minStepsBetweenThumbs, onValueChange, step, value } = props
+  const { max = 60, min = 0, minStepsBetweenThumbs, onValueChange, step, value } = props
 
   return (
     <div className={s.container}>
