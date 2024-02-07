@@ -7,6 +7,7 @@ import { DeleteDeckModal } from '@/components/decks/modals/deleteDeckModal/Delet
 import { EditDeckModal } from '@/components/decks/modals/editModal/EditDeckModal'
 import { Button } from '@/components/ui/button'
 import { DropDownItem, DropDownMenu, DropDownSeparator } from '@/components/ui/dropDownMenu'
+import { Skeleton } from '@/components/ui/skeleton'
 import { Typography } from '@/components/ui/typography'
 import { Deck } from '@/services'
 import { clsx } from 'clsx'
@@ -17,9 +18,17 @@ type CardsHeaderProps = {
   deck: Deck
   deckId: string
   isEmpty?: boolean
+  isLoading: boolean
   isOwner: boolean
 } & Omit<ComponentPropsWithoutRef<'div'>, 'children'>
-export const CardsHeader = ({ className, deck, deckId, isEmpty, isOwner }: CardsHeaderProps) => {
+export const CardsHeader = ({
+  className,
+  deck,
+  deckId,
+  isEmpty,
+  isLoading,
+  isOwner,
+}: CardsHeaderProps) => {
   const toLearnLink = `/decks/${deckId}/learn`
   const selectItemHandler = (e: Event) => e.preventDefault()
 
@@ -28,7 +37,7 @@ export const CardsHeader = ({ className, deck, deckId, isEmpty, isOwner }: Cards
       <div className={clsx(s.header, className)}>
         <div className={s.headerLeft}>
           <Typography as={'h2'} className={s.title} variant={'large'}>
-            {deck?.name}
+            {isLoading ? <Skeleton height={'36px'} width={'300px'} /> : deck?.name}
           </Typography>
           {isOwner && (
             <DropDownMenu
@@ -77,13 +86,22 @@ export const CardsHeader = ({ className, deck, deckId, isEmpty, isOwner }: Cards
           )}
         </div>
         {isOwner && !isEmpty && (
-          <CreateCardModal deckId={deck.id} trigger={<Button>Add New Card</Button>} />
+          <CreateCardModal
+            deckId={deck.id}
+            trigger={<Button disabled={isLoading}>Add New Card</Button>}
+          />
         )}
-        {!isOwner && !isEmpty && (
-          <Button as={Link} to={toLearnLink}>
-            Learn to Pack
-          </Button>
-        )}
+        {!isOwner &&
+          !isEmpty &&
+          (isLoading ? (
+            <div>
+              <Skeleton height={'36px'} width={'143px'} />
+            </div>
+          ) : (
+            <Button as={Link} to={toLearnLink}>
+              Learn to Pack
+            </Button>
+          ))}
       </div>
       {deck?.cover && <img alt={'Deck cover'} className={s.deckImg} src={deck.cover} />}
     </div>
