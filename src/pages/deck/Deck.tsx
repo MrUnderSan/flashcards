@@ -10,6 +10,7 @@ import { Page } from '@/components/page'
 import { BackButton } from '@/components/ui/backButton'
 import { Loader } from '@/components/ui/loader'
 import { Pagination } from '@/components/ui/pagination'
+import { Spinner } from '@/components/ui/spinner'
 import { TextField } from '@/components/ui/textField'
 import {
   Deck as DeckType,
@@ -61,6 +62,10 @@ export const Deck = () => {
     changeValue(e.currentTarget.value)
   }
 
+  if (isLoadingCards) {
+    return <Spinner />
+  }
+
   return (
     <>
       {(isFetchingDeck || isFetchingCards) && <Loader />}
@@ -87,7 +92,6 @@ export const Deck = () => {
           cards={cards?.items}
           deckId={deckId ?? ''}
           isEmpty={isEmpty}
-          isLoading={isLoadingCards}
           isOwner={isOwner}
           onSort={changeSort}
           searchValue={value}
