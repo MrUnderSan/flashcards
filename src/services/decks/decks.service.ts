@@ -1,5 +1,11 @@
 import { Card, Id } from '@/common/types'
-import { CardsResponse, GetCardsArgs, GetRandomCardArg, GradeCardArg } from '@/services'
+import {
+  CardsResponse,
+  GetCardsArgs,
+  GetRandomCardArg,
+  GradeCardArg,
+  MinMaxValue,
+} from '@/services'
 import { baseApi } from '@/services/baseApi'
 import { Deck, DecksResponse, GetDecksArgs } from '@/services/decks/decks.type'
 
@@ -76,6 +82,10 @@ const decksService = baseApi.injectEndpoints({
           url: 'v2/decks',
         }),
       }),
+      getMinMaxCards: builder.query<MinMaxValue, void>({
+        providesTags: ['Cards'],
+        query: () => 'v2/decks/min-max-cards',
+      }),
       getOneDeck: builder.query<Deck, Id>({
         providesTags: ['Deck'],
         query: ({ id }) => `v1/decks/${id}`,
@@ -139,6 +149,7 @@ export const {
   useDeleteDeckMutation,
   useGetDeckCardsQuery,
   useGetDecksQuery,
+  useGetMinMaxCardsQuery,
   useGetOneDeckQuery,
   useGetRandomCardQuery,
   useGradeCardMutation,

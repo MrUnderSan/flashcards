@@ -44,5 +44,10 @@ export type GetDecksArgs = {
   orderBy?: null | string
 }
 
+export type MinMaxValue = {
+  max: number
+  min: number
+}
+
 export type GetRandomCardArg = { previousCardId: string }
 export type GradeCardArg = { cardId: string; grade: CardGrade }

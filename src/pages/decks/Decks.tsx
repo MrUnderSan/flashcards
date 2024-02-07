@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent } from 'react'
 
 import { Trash } from '@/assets'
 import { SELECT_OPTIONS_PAGINATION, TABS } from '@/common/const'
@@ -22,43 +22,45 @@ export const Decks = () => {
     changeMinMaxCard,
     changePage,
     changeSort,
+    changeTabValue,
     changeValue,
+    clearFilter,
     itemsPerPage,
     maxCards,
     minCards,
+    minMaxCards,
     page,
-    rangeValue,
     sort,
+    tabValue,
     value,
   } = useDecksSearchParams()
-  const [currentTab, setCurrentTab] = useState('all')
+  const debounceMinCards = useDebounce(minCards, 500)
+  const debounceMaxCards = useDebounce(maxCards, 500)
   const debouncedValue = useDebounce<string>(value ?? '', 500)
   const { data: me } = useGetMeQuery()
   const currentUserId = me?.id
-  const authorId = currentTab === 'my' ? currentUserId : undefined
+  const authorId = tabValue === 'my' ? currentUserId : undefined
+
   const { data } = useGetDecksQuery({
     authorId,
     currentPage: page,
     itemsPerPage: Number(itemsPerPage),
-    maxCardsCount: maxCards,
-    minCardsCount: minCards,
+    maxCardsCount: debounceMaxCards,
+    minCardsCount: debounceMinCards,
     name: debouncedValue,
     orderBy: sort ? `${sort.key}-${sort.direction}` : undefined,
   })
 
   const clearFilterHandler = () => {
-    changeMinMaxCard([0, 50])
-    setCurrentTab('all')
-    changeValue('')
+    clearFilter()
   }
 
   const changeTextHandler = (e: ChangeEvent<HTMLInputElement>) => {
     changeValue(e.currentTarget.value)
   }
 
-  const handleTabChange = (tab: string) => {
-    changePage(1)
-    setCurrentTab(tab)
+  const changeTabValueHandler = (tabValue: string) => {
+    changeTabValue(tabValue)
   }
 
   return (
@@ -78,11 +80,16 @@ export const Decks = () => {
         />
         <TabSwitcher
           className={s.tabs}
-          onValueChange={handleTabChange}
+          onValueChange={changeTabValueHandler}
           tabs={TABS}
-          value={currentTab}
+          value={tabValue}
         />
-        <Slider max={50} onValueChange={changeMinMaxCard} value={rangeValue} />
+        <Slider
+          max={minMaxCards?.max}
+          min={minMaxCards?.min}
+          onValueChange={changeMinMaxCard}
+          value={[minCards, maxCards]}
+        />
         <Button onClick={clearFilterHandler} variant={'secondary'}>
           <Trash />
           Clear Filter
