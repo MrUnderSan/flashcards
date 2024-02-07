@@ -48,7 +48,7 @@ export const CardsTable = ({ cards, isLoading, isOwner, onSort, sort }: CardsTab
       <TableSortHeader columns={columns} onSort={onSort} sort={sort} />
       <Table.Body>
         {isLoading ? (
-          <CardsTableWithSkeleton cards={cards} />
+          <CardsTableWithSkeleton />
         ) : (
           cards?.map(card => (
             <Table.Row key={card.id}>
