@@ -10,7 +10,6 @@ import { Page } from '@/components/page'
 import { BackButton } from '@/components/ui/backButton'
 import { Loader } from '@/components/ui/loader'
 import { Pagination } from '@/components/ui/pagination'
-import { Spinner } from '@/components/ui/spinner'
 import { TextField } from '@/components/ui/textField'
 import {
   Deck as DeckType,
@@ -62,19 +61,16 @@ export const Deck = () => {
     changeValue(e.currentTarget.value)
   }
 
-  if (isLoadingCards || isLoadingDeck) {
-    return <Spinner />
-  }
-
   return (
     <>
-      {isFetchingDeck && <Loader />}
+      {(isFetchingDeck || isFetchingCards) && <Loader />}
       <Page marginTop={'24px'}>
         <BackButton pathToBack={ROUTES.decks} text={'Back to Decks List'} />
         <CardsHeader
           deck={deck || ({} as DeckType)}
           deckId={deckId ?? ''}
           isEmpty={isEmpty}
+          isLoading={isLoadingDeck}
           isOwner={isOwner}
         />
         {!isEmpty && (
@@ -91,7 +87,7 @@ export const Deck = () => {
           cards={cards?.items}
           deckId={deckId ?? ''}
           isEmpty={isEmpty}
-          isLoading={isFetchingCards}
+          isLoading={isLoadingCards}
           isOwner={isOwner}
           onSort={changeSort}
           searchValue={value}
@@ -100,11 +96,12 @@ export const Deck = () => {
         <Pagination
           className={s.pagination}
           currentPage={page}
+          defaultValue={String(itemsPerPage)}
           onChangePage={changePage}
           onValueChange={changeItemsPerPage}
           options={SELECT_OPTIONS_PAGINATION}
           pageSize={Number(itemsPerPage)}
-          totalCount={cards?.pagination.totalPages ?? 0}
+          totalCount={cards?.pagination.totalPages ?? 1}
         />
       </Page>
     </>
