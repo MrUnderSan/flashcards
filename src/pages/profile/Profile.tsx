@@ -7,10 +7,11 @@ import { PersonalInformation } from '@/components/personalInformation'
 import { AvatarUploaderValue } from '@/components/personalInformation/avatarUploader'
 import { ProfileInfoFormValues } from '@/components/personalInformation/profileInfoForm'
 import { BackButton } from '@/components/ui/backButton'
+import { Loader } from '@/components/ui/loader'
 import { useGetMeQuery, useLogoutMutation, useUpdateProfileMutation } from '@/services'
 
 export const Profile = () => {
-  const { data } = useGetMeQuery()
+  const { data, isFetching: isFetchingMe, isLoading: isLoadingMe } = useGetMeQuery()
   const [updateProfile] = useUpdateProfileMutation()
   const [logout] = useLogoutMutation()
   const navigate = useNavigate()
@@ -23,7 +24,6 @@ export const Profile = () => {
 
     await toast.promise(updateProfilePromise, {
       error: 'Failed to update avatar',
-      pending: 'Updating avatar...',
       success: 'Avatar updated successfully!',
     })
 
@@ -52,14 +52,18 @@ export const Profile = () => {
   }
 
   return (
-    <Page marginTop={'24px'}>
-      <BackButton text={'Back to Decks List'} />
-      <PersonalInformation
-        data={data}
-        logout={logoutHandler}
-        updateAvatar={updateAvatar}
-        updateNickname={updateNickname}
-      />
-    </Page>
+    <>
+      {isFetchingMe && <Loader />}
+      <Page marginTop={'24px'}>
+        <BackButton text={'Back to Decks List'} />
+        <PersonalInformation
+          data={data}
+          isLoading={isLoadingMe}
+          logout={logoutHandler}
+          updateAvatar={updateAvatar}
+          updateNickname={updateNickname}
+        />
+      </Page>
+    </>
   )
 }
