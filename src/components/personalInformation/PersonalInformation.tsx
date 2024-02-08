@@ -19,6 +19,7 @@ import s from './personalInformation.module.scss'
 type PersonalInformationProps = {
   className?: string
   data?: ProfileData
+  isLoading?: boolean
   logout: () => void
   updateAvatar: (avatar: AvatarUploaderValue) => Promise<void>
   updateNickname: (data: ProfileInfoFormValues) => void
@@ -27,6 +28,7 @@ type PersonalInformationProps = {
 export const PersonalInformation = ({
   className,
   data,
+  isLoading,
   logout,
   updateAvatar,
   updateNickname,
@@ -44,7 +46,7 @@ export const PersonalInformation = ({
       <AvatarUploader
         avatarUrl={data?.avatar}
         editable={!editMode}
-        name={data?.name}
+        isLoading={isLoading}
         updateAvatar={updateAvatar}
       />
       {editMode ? (
@@ -57,6 +59,7 @@ export const PersonalInformation = ({
         <ProfileInfo
           activeEditMode={activeEditModeHandler}
           email={data?.email}
+          isLoading={isLoading}
           logout={logout}
           username={data?.name}
         />
