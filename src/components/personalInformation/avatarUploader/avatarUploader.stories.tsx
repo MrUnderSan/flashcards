@@ -26,7 +26,7 @@ export const AvatarUploaderDemo = () => {
 
   return (
     <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-      <AvatarUploader editable name={'avatar'} updateAvatar={updateAvatarHandler} />
+      <AvatarUploader editable updateAvatar={updateAvatarHandler} />
       <Toast />
     </div>
   )
@@ -35,12 +35,9 @@ export const AvatarUploaderDemo = () => {
 export const EditableTrue: Story = {
   args: {
     editable: true,
-    name: 'avatar',
     updateAvatar: async (avatar: File) => {
       console.log('Updating avatar:', avatar)
-      // Your update avatar logic here
 
-      // Return a promise to match the expected type
       return Promise.resolve()
     },
   },
@@ -56,7 +53,7 @@ export const EditableFalse = () => {
 
   return (
     <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-      <AvatarUploader name={'avatar'} updateAvatar={updateAvatarHandler} />
+      <AvatarUploader updateAvatar={updateAvatarHandler} />
     </div>
   )
 }
