@@ -1,5 +1,6 @@
 import { Edit, LogOut } from '@/assets'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
 import { Typography } from '@/components/ui/typography'
 
 import s from './profileInfo.module.scss'
@@ -7,17 +8,28 @@ import s from './profileInfo.module.scss'
 type ProfileInfoProps = {
   activeEditMode: () => void
   email?: string
+  isLoading?: boolean
   logout: () => void
   username?: string
 }
 
-export const ProfileInfo = ({ activeEditMode, email, logout, username = '' }: ProfileInfoProps) => {
+export const ProfileInfo = ({
+  activeEditMode,
+  email,
+  isLoading,
+  logout,
+  username = '',
+}: ProfileInfoProps) => {
   return (
     <>
       <div className={s.nameWithEditButton}>
-        <Typography className={s.name} variant={'h1'}>
-          {username}
-        </Typography>
+        {isLoading ? (
+          <Skeleton height={'30px'} width={'130px'} />
+        ) : (
+          <Typography className={s.name} variant={'h1'}>
+            {username}
+          </Typography>
+        )}
         <button className={s.editNameButton} onClick={activeEditMode}>
           <Edit />
         </button>
