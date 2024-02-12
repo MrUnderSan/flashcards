@@ -3,8 +3,10 @@ import { toast } from 'react-toastify'
 
 import { ROUTES } from '@/common/enums'
 import { PersonalInformation } from '@/components/personalInformation'
-import { AvatarUploaderValue } from '@/components/personalInformation/avatarUploader'
-import { ProfileInfoFormValues } from '@/components/personalInformation/profileInfoForm'
+import {
+  AvatarUploaderValue,
+  ProfileInfoFormValues,
+} from '@/components/personalInformation/persotalInformation.types'
 import { BackButton } from '@/components/ui/backButton'
 import { Loader } from '@/components/ui/loader'
 import { Page } from '@/components/ui/page'
