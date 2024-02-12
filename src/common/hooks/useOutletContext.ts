@@ -4,6 +4,4 @@ export type AppOutletContext = {
   isAuth: boolean
 }
 
-export const useAppOutletContext = () => {
-  return useOutletContext<AppOutletContext>()
-}
+export const useAppOutletContext = () => useOutletContext<AppOutletContext>()

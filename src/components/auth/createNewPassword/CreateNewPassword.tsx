@@ -5,19 +5,14 @@ import { Card } from '@/components/ui/card'
 import { FormTextField } from '@/components/ui/formComponents/formTextField'
 import { Typography } from '@/components/ui/typography'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 
 import s from './createNewPassword.module.scss'
 
-const CreateNewPasswordSchema = z.object({
-  password: z.string().min(1, 'Enter password'),
-})
-
-export type CreateNewPasswordValues = z.infer<typeof CreateNewPasswordSchema>
-
-type CreateNewPasswordProps = {
-  onSubmit: (data: CreateNewPasswordValues) => void
-}
+import {
+  CreateNewPasswordProps,
+  CreateNewPasswordSchema,
+  CreateNewPasswordValues,
+} from './createNewPassword.types'
 
 export const CreateNewPassword = ({ onSubmit }: CreateNewPasswordProps) => {
   const {
@@ -31,9 +26,7 @@ export const CreateNewPassword = ({ onSubmit }: CreateNewPasswordProps) => {
     resolver: zodResolver(CreateNewPasswordSchema),
   })
 
-  const onSubmitHandler = (data: CreateNewPasswordValues) => {
-    onSubmit(data)
-  }
+  const onSubmitHandler = (data: CreateNewPasswordValues) => onSubmit(data)
 
   return (
     <Card className={s.card}>

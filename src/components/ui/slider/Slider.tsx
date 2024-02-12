@@ -1,26 +1,24 @@
 import { Typography } from '@/components/ui/typography'
-import * as SliderRadix from '@radix-ui/react-slider'
+import { Range, Root, Thumb, Track } from '@radix-ui/react-slider'
 
 import s from './slider.module.scss'
 
-type SliderProps = {
-  max?: number
-  min?: number
-  minStepsBetweenThumbs?: number
-  onValueChange: (values: number[]) => void
-  step?: number
-  value: number[]
-}
+import { SliderProps } from './slider.types'
 
-export const Slider = (props: SliderProps) => {
-  const { max = 60, min = 0, minStepsBetweenThumbs, onValueChange, step, value } = props
-
+export const Slider = ({
+  max = 60,
+  min = 0,
+  minStepsBetweenThumbs,
+  onValueChange,
+  step,
+  value,
+}: SliderProps) => {
   return (
     <div className={s.container}>
       <Typography as={'span'} className={s.valueBox} variant={'body1'}>
         {value[0]}
       </Typography>
-      <SliderRadix.Root
+      <Root
         className={s.slider}
         max={max}
         min={min}
@@ -29,12 +27,12 @@ export const Slider = (props: SliderProps) => {
         step={step}
         value={value}
       >
-        <SliderRadix.Track className={s.slider__track}>
-          <SliderRadix.Range className={s.slider__range} />
-        </SliderRadix.Track>
-        <SliderRadix.Thumb className={s.slider__thumb} />
-        <SliderRadix.Thumb className={s.slider__thumb} />
-      </SliderRadix.Root>
+        <Track className={s.slider__track}>
+          <Range className={s.slider__range} />
+        </Track>
+        <Thumb className={s.slider__thumb} />
+        <Thumb className={s.slider__thumb} />
+      </Root>
       <Typography as={'span'} className={s.valueBox} variant={'body1'}>
         {value[1]}
       </Typography>

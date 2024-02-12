@@ -5,7 +5,7 @@ import { CreateNewPassword } from './'
 const meta = {
   component: CreateNewPassword,
   tags: ['autodocs'],
-  title: 'Components/Auth/CreateNewPassword',
+  title: 'Components/Auth/CreateNewPasswordPage',
 } satisfies Meta<typeof CreateNewPassword>
 
 export default meta

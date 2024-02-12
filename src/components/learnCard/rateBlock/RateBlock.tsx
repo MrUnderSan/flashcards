@@ -1,15 +1,9 @@
-import { Grade } from '@/common/types'
 import { LearnBlock } from '@/components/learnCard/learnBlock'
 
 import s from './rateBlock.module.scss'
 
+import { RateBlockProps } from '../learnCard.types'
 import { LearnRate } from './learnRate'
-
-export type RateBlockProps = {
-  answer: string
-  answerImg: string
-  onSubmit: (data: Grade) => void
-}
 
 export const RateBlock = ({ answer, answerImg, onSubmit }: RateBlockProps) => {
   return (

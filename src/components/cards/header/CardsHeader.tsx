@@ -1,26 +1,19 @@
-import { ComponentPropsWithoutRef } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Edit, Info, Play, Trash } from '@/assets'
-import { CreateCardModal } from '@/components/cards/modals/createCardModal/CreateCardModal'
-import { DeleteDeckModal } from '@/components/decks/modals/deleteDeckModal/DeleteDeckModal'
-import { EditDeckModal } from '@/components/decks/modals/editModal/EditDeckModal'
+import { CreateCardModal } from '@/components/modals/cards/createCardModal/CreateCardModal'
+import { DeleteDeckModal } from '@/components/modals/decks/deleteDeckModal/DeleteDeckModal'
+import { EditDeckModal } from '@/components/modals/decks/editModal/EditDeckModal'
 import { Button } from '@/components/ui/button'
 import { DropDownItem, DropDownMenu, DropDownSeparator } from '@/components/ui/dropDownMenu'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Typography } from '@/components/ui/typography'
-import { Deck } from '@/services'
 import { clsx } from 'clsx'
 
 import s from './cardsHeader.module.scss'
 
-type CardsHeaderProps = {
-  deck: Deck
-  deckId: string
-  isEmpty?: boolean
-  isLoading: boolean
-  isOwner: boolean
-} & Omit<ComponentPropsWithoutRef<'div'>, 'children'>
+import { CardsHeaderProps } from '../cards.types'
+
 export const CardsHeader = ({
   className,
   deck,
@@ -103,7 +96,7 @@ export const CardsHeader = ({
             </Button>
           ))}
       </div>
-      {deck?.cover && <img alt={'Deck cover'} className={s.deckImg} src={deck.cover} />}
+      {deck?.cover && <img alt={'DeckPage cover'} className={s.deckImg} src={deck.cover} />}
     </div>
   )
 }

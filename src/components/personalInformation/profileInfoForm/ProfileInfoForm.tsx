@@ -8,18 +8,12 @@ import { z } from 'zod'
 
 import s from './profileInfoForm.module.scss'
 
-const ProfileInfoFormSchema = z.object({
+import { ProfileInfoFormProps, ProfileInfoFormValues } from '../persotalInformation.types'
+
+export const ProfileInfoFormSchema = z.object({
   name: z.string().min(3).trim(),
 })
 
-export type ProfileInfoFormValues = z.infer<typeof ProfileInfoFormSchema>
-
-type ProfileInfoFormProps = {
-  className?: string
-  deactivateEditMode: () => void
-  initialValues?: ProfileInfoFormValues
-  updateNickname: (data: ProfileInfoFormValues) => void
-}
 export const ProfileInfoForm = ({
   className,
   deactivateEditMode,

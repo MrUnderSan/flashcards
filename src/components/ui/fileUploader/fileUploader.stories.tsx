@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
+import { IMAGE_SCHEMA } from '@/common/constants'
 import { Button } from '@/components/ui/button'
 import { FileUploader } from '@/components/ui/fileUploader/FileUploader'
 import { Toast } from '@/components/ui/toast'
 import { Meta, StoryObj } from '@storybook/react'
-import { z } from 'zod'
 
 const meta = {
   component: FileUploader,
@@ -16,19 +16,12 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-const coverSchema = z
-  .instanceof(File)
-  .refine(file => file.size <= 1000000, `Max image size is 1MB. The file will not be uploaded.`)
-  .refine(
-    file => ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(file.type),
-    'Only .jpg, .jpeg, .png and .webp formats are supported. The file will not be uploaded.'
-  )
-
 const FormFileUploader = () => {
   const [cover, setCover] = useState<File | null>(null)
 
   const isValidImage =
-    cover !== null && ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(cover.type)
+    cover !== null &&
+    ['images/jpeg', 'images/jpg', 'images/png', 'images/webp'].includes(cover.type)
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '500px' }}>
@@ -39,7 +32,7 @@ const FormFileUploader = () => {
             Change cover
           </Button>
         }
-        validationSchema={coverSchema}
+        validationSchema={IMAGE_SCHEMA}
       />
       {isValidImage && <img alt={'cover'} src={URL.createObjectURL(cover)} />}
       <Toast />
@@ -50,7 +43,7 @@ const FormFileUploader = () => {
 export const FormImageUploader: Story = {
   args: {
     trigger: null,
-    validationSchema: coverSchema,
+    validationSchema: IMAGE_SCHEMA,
   },
   render: args => <FormFileUploader {...args} />,
 }

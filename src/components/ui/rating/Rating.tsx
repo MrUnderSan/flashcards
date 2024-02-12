@@ -1,17 +1,11 @@
-import { ComponentPropsWithoutRef } from 'react'
-
 import { Star, StarEmpty } from '@/assets/icons'
 import { clsx } from 'clsx'
 
 import s from './rating.module.scss'
 
-type RatingProps = {
-  maxRating?: number
-  rating: number
-} & ComponentPropsWithoutRef<'div'>
+import { RatingProps } from './rating.types'
 
-export const Rating = (props: RatingProps) => {
-  const { className, maxRating = 5, rating, ...restProps } = props
+export const Rating = ({ className, maxRating = 5, rating, ...restProps }: RatingProps) => {
   const stars = [...Array(maxRating)].map((_, index) => index + 1)
 
   return (

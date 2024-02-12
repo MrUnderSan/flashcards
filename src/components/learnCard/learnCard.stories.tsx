@@ -25,12 +25,12 @@ const card: Card = {
 const meta = {
   args: {
     card,
-    deckName: 'Deck Name',
+    deckName: 'DeckPage Name',
     onSubmit: action('onSubmit'),
   },
   component: LearnCard,
   tags: ['autodocs'],
-  title: 'components/Learn',
+  title: 'components/LearnPage',
 } satisfies Meta<typeof LearnCard>
 
 export default meta

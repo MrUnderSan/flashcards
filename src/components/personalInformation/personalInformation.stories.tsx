@@ -20,7 +20,7 @@ const meta = {
   parameters: {
     layout: 'fullscreen',
   },
-  title: 'Components/Profile/PersonalInformation',
+  title: 'Components/ProfilePage/PersonalInformation',
 } satisfies Meta<typeof PersonalInformation>
 
 export default meta

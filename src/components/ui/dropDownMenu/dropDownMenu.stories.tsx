@@ -54,7 +54,7 @@ export const Profile: Story = {
       </DropDownItem>{' '}
       <DropDownSeparator />
       <DropDownItem>
-        <DropDownBasicItemContent icon={<Person />} name={'My Profile'} />
+        <DropDownBasicItemContent icon={<Person />} name={'My ProfilePage'} />
       </DropDownItem>
       <DropDownSeparator />
       <DropDownItem onSelect={action('onLogout')}>

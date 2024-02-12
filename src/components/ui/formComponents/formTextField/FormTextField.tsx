@@ -1,11 +1,8 @@
-import { Control, FieldPath, FieldValues, useController } from 'react-hook-form'
+import { FieldValues, useController } from 'react-hook-form'
 
-import { TextField, TextFieldProps } from '@/components/ui/textField'
+import { TextField } from '@/components/ui/textField'
 
-export type FormTextFieldProps<TFieldValues extends FieldValues> = {
-  control: Control<TFieldValues>
-  name: FieldPath<TFieldValues>
-} & Omit<TextFieldProps, 'id' | 'onChange' | 'value'>
+import { FormTextFieldProps } from './formTextField.types'
 
 export const FormTextField = <TFieldValues extends FieldValues>(
   props: FormTextFieldProps<TFieldValues>

@@ -1,44 +1,14 @@
 import { Edit, Trash } from '@/assets'
-import { Card } from '@/common/types'
-import { DeleteCardModal } from '@/components/cards/modals/deleteCardModal/DeleteCardModal'
-import { EditCardModal } from '@/components/cards/modals/editCardModal/EditCardModal'
-import { Column, Sort, TableSortHeader } from '@/components/tableSortHeader'
+import { CardsTableProps, columns } from '@/components/cards/cards.types'
+import { DeleteCardModal } from '@/components/modals/cards/deleteCardModal/DeleteCardModal'
+import { EditCardModal } from '@/components/modals/cards/editCardModal/EditCardModal'
+import { TableSortHeader } from '@/components/tableSortHeader'
 import { Button } from '@/components/ui/button'
 import { Rating } from '@/components/ui/rating/Rating'
 import { Table } from '@/components/ui/table'
 import { Typography } from '@/components/ui/typography'
 
 import s from './cardsTable.module.scss'
-
-const columns: Column[] = [
-  {
-    cols: '3',
-    key: 'question',
-    title: 'Question',
-  },
-  {
-    cols: '3',
-    key: 'answer',
-    title: 'Answer',
-  },
-  {
-    cols: '2',
-    key: 'updated',
-    title: 'Last Updated',
-  },
-  {
-    cols: '2',
-    key: 'grade',
-    title: 'Grade',
-  },
-]
-
-type CardsTableProps = {
-  cards: Card[] | undefined
-  isOwner?: boolean
-  onSort: (key: Sort) => void
-  sort: Sort
-}
 
 export const CardsTable = ({ cards, isOwner, onSort, sort }: CardsTableProps) => {
   return (

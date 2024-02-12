@@ -1,39 +1,30 @@
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
-import { ROUTES } from '@/common/const'
+import { ROUTES } from '@/common/enums'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { FormTextField } from '@/components/ui/formComponents/formTextField'
 import { Typography } from '@/components/ui/typography'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 
 import s from './forgotPassword.module.scss'
 
-const signUpSchema = z.object({
-  email: z.string().email(),
-})
+import { ForgotPasswordFormValues, ForgotPasswordProps, signUpSchema } from './fogotPassword.types'
 
-type FormValues = z.infer<typeof signUpSchema>
-
-type Props = {
-  recoverPassword: (email: string) => void
-}
-
-export const ForgotPassword = ({ recoverPassword }: Props) => {
+export const ForgotPassword = ({ recoverPassword }: ForgotPasswordProps) => {
   const {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<FormValues>({
+  } = useForm<ForgotPasswordFormValues>({
     defaultValues: {
       email: '',
     },
     resolver: zodResolver(signUpSchema),
   })
 
-  const handleRecoverPassword = (data: FormValues) => {
+  const handleRecoverPassword = (data: ForgotPasswordFormValues) => {
     recoverPassword(data.email)
   }
 
@@ -60,7 +51,7 @@ export const ForgotPassword = ({ recoverPassword }: Props) => {
         <Typography as={'p'} variant={'body2'}>
           Did you remember your password?
         </Typography>
-        <Button as={Link} className={s.logIn} to={ROUTES.signIn} variant={'link'}>
+        <Button as={Link} className={s.logIn} to={ROUTES.SIGN_IN} variant={'link'}>
           Try logging in
         </Button>
       </div>

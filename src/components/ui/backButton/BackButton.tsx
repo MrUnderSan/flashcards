@@ -7,11 +7,7 @@ import { clsx } from 'clsx'
 
 import s from './backButton.module.scss'
 
-export type BackButtonProps = {
-  className?: string
-  pathToBack?: string
-  text?: string
-}
+import { BackButtonProps } from './backButton.types'
 
 export const BackButton = ({
   className,

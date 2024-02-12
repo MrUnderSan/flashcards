@@ -1,13 +1,8 @@
-import { CSSProperties } from 'react'
-
 import { clsx } from 'clsx'
 
 import s from './loader.module.scss'
 
-type LoaderProps = {
-  className?: string
-  style?: CSSProperties
-}
+import { LoaderProps } from './loader.types'
 
 export const Loader = ({ className, style }: LoaderProps) => {
   const classNames = clsx(s.loader, className)

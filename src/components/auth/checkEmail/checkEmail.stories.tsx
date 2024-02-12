@@ -9,7 +9,7 @@ const meta = {
   component: CheckEmail,
   decorators: [withRouter],
   tags: ['autodocs'],
-  title: 'Components/Auth/CheckEmail',
+  title: 'Components/Auth/CheckEmailPage',
 } satisfies Meta<typeof CheckEmail>
 
 export default meta

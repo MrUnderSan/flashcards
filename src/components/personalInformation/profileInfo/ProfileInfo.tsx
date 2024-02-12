@@ -5,13 +5,7 @@ import { Typography } from '@/components/ui/typography'
 
 import s from './profileInfo.module.scss'
 
-type ProfileInfoProps = {
-  activeEditMode: () => void
-  email?: string
-  isLoading?: boolean
-  logout: () => void
-  username?: string
-}
+import { ProfileInfoProps } from '../persotalInformation.types'
 
 export const ProfileInfo = ({
   activeEditMode,

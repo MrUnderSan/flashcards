@@ -1,16 +1,14 @@
 import { Link } from 'react-router-dom'
 
 import { Email } from '@/assets'
-import { ROUTES } from '@/common/const'
+import { ROUTES } from '@/common/enums'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
 
 import s from './checkEmail.module.scss'
 
-export type CheckEmailProps = {
-  email: string
-}
+import { CheckEmailProps } from './checkEmail.types'
 
 export const CheckEmail = ({ email }: CheckEmailProps) => {
   const linkToEmail = email.split('@')[1]
@@ -25,7 +23,7 @@ export const CheckEmail = ({ email }: CheckEmailProps) => {
           {email}
         </Typography>
       </Typography>
-      <Button as={Link} className={s.button} fullWidth to={ROUTES.signIn}>
+      <Button as={Link} className={s.button} fullWidth to={ROUTES.SIGN_IN}>
         Back to Sign In
       </Button>
     </Card>

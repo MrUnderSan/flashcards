@@ -1,25 +1,14 @@
 import { useRef, useState } from 'react'
 
 import { EditAvatar } from '@/assets'
-import { IMAGE_SCHEMA } from '@/common/const'
+import { AvatarUploaderProps } from '@/components/personalInformation/persotalInformation.types'
 import { Avatar } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { FileUploader } from '@/components/ui/fileUploader/FileUploader'
 import { Skeleton } from '@/components/ui/skeleton'
 import { clsx } from 'clsx'
-import { z } from 'zod'
 
 import s from './avatarUploader.module.scss'
-
-type AvatarUploaderProps = {
-  avatarUrl?: string
-  className?: string
-  editable?: boolean
-  isLoading?: boolean
-  updateAvatar: (avatar: AvatarUploaderValue) => Promise<void>
-}
-
-export type AvatarUploaderValue = z.infer<typeof IMAGE_SCHEMA>
 
 export const AvatarUploader = ({
   avatarUrl,

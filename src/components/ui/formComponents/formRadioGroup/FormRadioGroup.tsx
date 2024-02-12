@@ -1,13 +1,14 @@
-import { Control, FieldPath, FieldValues, useController } from 'react-hook-form'
+import { FieldValues, useController } from 'react-hook-form'
 
-import { RadioGroup, RadioGroupProps } from '@/components/ui/radio'
+import { RadioGroup } from '@/components/ui/radio'
 
-type Props<T extends FieldValues> = {
-  control: Control<T>
-  name: FieldPath<T>
-} & Omit<RadioGroupProps, 'onValueChange' | 'value'>
+import { FormRadioGroupProps } from './formRadioGroup.types'
 
-export const FormRadioGroup = <T extends FieldValues>({ control, name, ...rest }: Props<T>) => {
+export const FormRadioGroup = <T extends FieldValues>({
+  control,
+  name,
+  ...rest
+}: FormRadioGroupProps<T>) => {
   const {
     field: { onChange, value },
   } = useController({

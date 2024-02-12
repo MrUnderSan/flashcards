@@ -1,16 +1,16 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
+import { ElementRef, forwardRef } from 'react'
 
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { Item } from '@radix-ui/react-dropdown-menu'
 import { clsx } from 'clsx'
 
 import s from './dropDownItem.module.scss'
 
-export type DropDownItemProps = ComponentPropsWithoutRef<typeof DropdownMenu.Item>
+import { DropDownItemProps } from '../dropDownMenu.types'
 
-export const DropDownItem = forwardRef<ElementRef<typeof DropdownMenu.Item>, DropDownItemProps>(
+export const DropDownItem = forwardRef<ElementRef<typeof Item>, DropDownItemProps>(
   ({ className, ...rest }, ref) => {
     const classNames = clsx(s.dropDownItem, className)
 
-    return <DropdownMenu.Item className={classNames} ref={ref} {...rest} />
+    return <Item className={classNames} ref={ref} {...rest} />
   }
 )

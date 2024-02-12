@@ -15,7 +15,7 @@ const meta = {
   parameters: {
     layout: 'fullscreen',
   },
-  title: 'Components/Profile/ProfileInfo',
+  title: 'Components/ProfilePage/ProfileInfo',
 } satisfies Meta<typeof ProfileInfo>
 
 export default meta

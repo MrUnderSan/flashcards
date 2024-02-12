@@ -9,7 +9,7 @@ const meta = {
   component: SignIn,
   decorators: [withRouter],
   tags: ['autodocs'],
-  title: 'Components/Auth/SignIn',
+  title: 'Components/Auth/SignInPage',
 } satisfies Meta<typeof SignIn>
 
 export default meta

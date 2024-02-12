@@ -1,25 +1,13 @@
-import {
-  ChangeEvent,
-  ComponentPropsWithoutRef,
-  ElementRef,
-  ReactNode,
-  forwardRef,
-  useEffect,
-  useState,
-} from 'react'
+import { ChangeEvent, ElementRef, forwardRef, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { IMAGE_SCHEMA } from '@/common/const'
+import { IMAGE_SCHEMA } from '@/common/constants'
 import { Typography } from '@/components/ui/typography'
-import { ZodEffects, ZodError } from 'zod'
+import { ZodError } from 'zod'
 
 import s from './fileUploader.module.scss'
 
-export type FileUploaderProps = {
-  setFile: (file: File | null) => void
-  trigger: ReactNode
-  validationSchema?: ZodEffects<any>
-} & ComponentPropsWithoutRef<'input'>
+import { FileUploaderProps } from './fileUploader.types'
 
 export const FileUploader = forwardRef<ElementRef<'input'>, FileUploaderProps>(
   ({ className, name, setFile, trigger, validationSchema = IMAGE_SCHEMA, ...rest }, ref) => {

@@ -1,35 +1,24 @@
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
-import { ROUTES } from '@/common/const'
+import { ROUTES } from '@/common/enums'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { FormCheckbox } from '@/components/ui/formComponents/formCheckbox'
 import { FormTextField } from '@/components/ui/formComponents/formTextField'
 import { Typography } from '@/components/ui/typography'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 
 import s from './signIn.module.scss'
 
-const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(4).max(30),
-  rememberMe: z.boolean().default(false),
-})
-
-type FormValues = z.infer<typeof loginSchema>
-
-export type SignInProps = {
-  onSubmit: (data: FormValues) => void
-}
+import { SignInFormValues, SignInProps, loginSchema } from './signIn.types'
 
 export const SignIn = ({ onSubmit }: SignInProps) => {
   const {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<FormValues>({
+  } = useForm<SignInFormValues>({
     defaultValues: {
       email: '',
       password: '',
@@ -69,7 +58,7 @@ export const SignIn = ({ onSubmit }: SignInProps) => {
         <Typography
           as={Link}
           className={s.recoverPassword}
-          to={ROUTES.recoverPassword}
+          to={ROUTES.RECOVER_PASSWORD}
           variant={'body2'}
         >
           Forgot Password?
@@ -81,7 +70,7 @@ export const SignIn = ({ onSubmit }: SignInProps) => {
       <Typography className={s.description} variant={'body2'}>
         Don&apos;t have an account?
       </Typography>
-      <Button as={Link} className={s.signUp} to={ROUTES.signUp} variant={'link'}>
+      <Button as={Link} className={s.signUp} to={ROUTES.SIGN_UP} variant={'link'}>
         Sign Up
       </Button>
     </Card>

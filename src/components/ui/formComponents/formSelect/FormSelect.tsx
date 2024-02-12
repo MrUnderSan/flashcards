@@ -1,11 +1,8 @@
-import { Control, FieldPath, FieldValues, useController } from 'react-hook-form'
+import { FieldValues, useController } from 'react-hook-form'
 
-import { Select, SelectProps } from '@/components/ui/select'
+import { Select } from '@/components/ui/select'
 
-export type FormSelectProps<TFieldValues extends FieldValues> = {
-  control: Control<TFieldValues>
-  name: FieldPath<TFieldValues>
-} & Omit<SelectProps, 'onValueChange' | 'value'>
+import { FormSelectProps } from './formSelect.types'
 
 export const FormSelect = <TFieldValues extends FieldValues>(
   props: FormSelectProps<TFieldValues>

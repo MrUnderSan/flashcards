@@ -1,21 +1,11 @@
-import { Card } from '@/common/types'
-import { CreateCardModal } from '@/components/cards/modals/createCardModal/CreateCardModal'
 import { CardsTable } from '@/components/cards/table'
-import { Sort } from '@/components/tableSortHeader'
+import { CreateCardModal } from '@/components/modals/cards/createCardModal/CreateCardModal'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 
 import s from './cards.module.scss'
 
-type CardsProps = {
-  cards: Card[] | undefined
-  deckId: string
-  isEmpty?: boolean
-  isOwner?: boolean
-  onSort: (key: Sort) => void
-  searchValue: null | string
-  sort: Sort
-}
+import { CardsProps } from './cards.types'
 
 export const Cards = ({
   cards,
@@ -41,7 +31,8 @@ export const Cards = ({
       {isEmpty ? (
         <div className={s.infoBlock}>
           <Typography className={s.infoText} variant={'body2'}>
-            {'This deck is empty' + (isOwner ? '. ' + 'Click add new card to fill this deck' : '')}
+            {'This decks is empty' +
+              (isOwner ? '. ' + 'Click add new cards to fill this decks' : '')}
           </Typography>
           {isOwner && <CreateCardModal deckId={deckId} trigger={<Button>Add New Card</Button>} />}
         </div>

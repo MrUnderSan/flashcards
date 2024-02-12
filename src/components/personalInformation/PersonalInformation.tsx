@@ -1,29 +1,15 @@
 import { useState } from 'react'
 
-import { ProfileData } from '@/common/types'
-import {
-  AvatarUploader,
-  AvatarUploaderValue,
-} from '@/components/personalInformation/avatarUploader/AvatarUploader'
+import { AvatarUploader } from '@/components/personalInformation/avatarUploader/AvatarUploader'
 import { ProfileInfo } from '@/components/personalInformation/profileInfo/ProfileInfo'
-import {
-  ProfileInfoForm,
-  ProfileInfoFormValues,
-} from '@/components/personalInformation/profileInfoForm/ProfileInfoForm'
+import { ProfileInfoForm } from '@/components/personalInformation/profileInfoForm/ProfileInfoForm'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
 import { clsx } from 'clsx'
 
 import s from './personalInformation.module.scss'
 
-type PersonalInformationProps = {
-  className?: string
-  data?: ProfileData
-  isLoading?: boolean
-  logout: () => void
-  updateAvatar: (avatar: AvatarUploaderValue) => Promise<void>
-  updateNickname: (data: ProfileInfoFormValues) => void
-}
+import { PersonalInformationProps } from './persotalInformation.types'
 
 export const PersonalInformation = ({
   className,

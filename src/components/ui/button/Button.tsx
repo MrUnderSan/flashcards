@@ -1,29 +1,10 @@
-import {
-  ComponentPropsWithoutRef,
-  ElementRef,
-  ElementType,
-  ReactNode,
-  Ref,
-  forwardRef,
-} from 'react'
+import { ElementRef, ElementType, Ref, forwardRef } from 'react'
 
 import { clsx } from 'clsx'
 
 import s from './button.module.scss'
 
-type ButtonOwnProps<T extends ElementType> = {
-  as?: T
-  fullWidth?: boolean
-  variant?: 'icon' | 'link' | 'primary' | 'secondary' | 'tertiary'
-}
-
-export type ButtonProps<T extends ElementType = 'button'> = ButtonOwnProps<T> &
-  Omit<ComponentPropsWithoutRef<T>, keyof ButtonOwnProps<T>>
-
-type ButtonWithRef = <T extends ElementType = 'button'>(
-  props: ButtonProps<T>,
-  ref?: Ref<ElementRef<T>>
-) => ReactNode
+import { ButtonProps, ButtonWithRef } from './button.types'
 
 export const Button: ButtonWithRef = forwardRef(
   <T extends ElementType>(props: ButtonProps<T>, ref: Ref<ElementRef<T>>) => {

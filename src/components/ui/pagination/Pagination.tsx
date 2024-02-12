@@ -1,18 +1,12 @@
 import { ArrowInPagination } from '@/assets'
 import { DOTS, usePagination } from '@/components/ui/pagination/hooks/usePagination'
-import { Select, SelectProps } from '@/components/ui/select'
+import { Select } from '@/components/ui/select'
 import { Typography } from '@/components/ui/typography'
 import { clsx } from 'clsx'
 
 import s from './pagination.module.scss'
 
-type PaginationProps = {
-  currentPage: number
-  onChangePage: (page: number) => void
-  pageSize: number
-  siblingCount?: number
-  totalCount: number
-} & SelectProps
+import { PaginationProps } from './pagination.types'
 
 export const Pagination = ({
   className,

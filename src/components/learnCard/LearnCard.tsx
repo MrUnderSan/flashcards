@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Card as CardType, Grade } from '@/common/types'
+import { Grade } from '@/common/types'
 import { LearnBlock } from '@/components/learnCard/learnBlock'
 import { RateBlock } from '@/components/learnCard/rateBlock'
 import { Button } from '@/components/ui/button'
@@ -9,12 +9,7 @@ import { Typography } from '@/components/ui/typography'
 
 import s from './learnCard.module.scss'
 
-export type LearnCardProps = {
-  card: CardType
-  deckName: string
-  onSubmit: (data: Grade, changeRateMode: any) => void
-  open?: boolean
-}
+import { LearnCardProps } from './learnCard.types'
 
 export const LearnCard = ({ card, deckName, onSubmit, open = false }: LearnCardProps) => {
   const [rateMode, setRateMode] = useState(open)

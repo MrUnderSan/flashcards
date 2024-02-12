@@ -1,13 +1,8 @@
-import SkeletonBase, { SkeletonProps as SkeletonPropsBase } from 'react-loading-skeleton'
+import SkeletonBase from 'react-loading-skeleton'
 
 import { clsx } from 'clsx'
 
-export type SkeletonProps = Omit<
-  SkeletonPropsBase,
-  'baseColor' | 'borderRadius' | 'highlightColor'
-> & {
-  containerFlex?: boolean
-}
+import { SkeletonProps } from './skeleton.types'
 
 export const Skeleton = ({ containerClassName, containerFlex = true, ...props }: SkeletonProps) => {
   return (

@@ -10,7 +10,7 @@ const meta = {
     },
   },
   component: AvatarUploader,
-  title: 'Components/Profile/AvatarUploader',
+  title: 'Components/ProfilePage/AvatarUploader',
 } satisfies Meta<typeof AvatarUploader>
 
 export default meta

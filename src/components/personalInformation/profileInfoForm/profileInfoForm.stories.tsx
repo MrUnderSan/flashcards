@@ -8,7 +8,7 @@ const meta = {
     layout: 'fullscreen',
   },
   tags: ['autodocs'],
-  title: 'Components/Profile/ProfileInfoForm',
+  title: 'Components/ProfilePage/ProfileInfoForm',
 } satisfies Meta<typeof ProfileInfoForm>
 
 export default meta

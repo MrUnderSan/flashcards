@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom'
 
 import { LogOut, Person } from '@/assets'
-import { ROUTES } from '@/common/const'
-import { ProfileData } from '@/common/types'
+import { ROUTES } from '@/common/enums'
 import {
   DropDownBasicItemContent,
   DropDownItem,
@@ -13,10 +12,7 @@ import { Typography } from '@/components/ui/typography'
 
 import s from './headerDropDown.module.scss'
 
-export type HeaderDropDownProps = {
-  logout: () => void
-  profile: ProfileData
-}
+import { HeaderDropDownProps } from '../header.types'
 
 export const HeaderDropDown = ({
   logout,
@@ -50,8 +46,8 @@ export const HeaderDropDown = ({
       </DropDownItem>
       <DropDownSeparator />
       <DropDownItem asChild>
-        <Link to={ROUTES.profile}>
-          <DropDownBasicItemContent icon={<Person />} name={'My Profile'} />
+        <Link to={ROUTES.PROFILE}>
+          <DropDownBasicItemContent icon={<Person />} name={'My ProfilePage'} />
         </Link>
       </DropDownItem>
       <DropDownSeparator />

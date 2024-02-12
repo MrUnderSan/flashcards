@@ -3,12 +3,7 @@ import { clsx } from 'clsx'
 
 import s from './learnBlock.module.scss'
 
-export type LearnBlockProps = {
-  className?: string
-  description: string
-  img?: string
-  main: 'Answer' | 'Question'
-}
+import { LearnBlockProps } from '../learnCard.types'
 
 export const LearnBlock = ({ className, description, img, main }: LearnBlockProps) => {
   const classNames = clsx(s.wrapper, className)

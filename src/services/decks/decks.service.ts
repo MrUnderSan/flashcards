@@ -1,4 +1,4 @@
-import { Card, Id } from '@/common/types'
+import { Card } from '@/common/types'
 import {
   CardsResponse,
   GetCardsArgs,
@@ -37,7 +37,7 @@ const decksService = baseApi.injectEndpoints({
           url: `v1/decks`,
         }),
       }),
-      deleteDeck: builder.mutation<void, Id>({
+      deleteDeck: builder.mutation<void, { id: string }>({
         invalidatesTags: ['Decks'],
         async onQueryStarted({ id }, { dispatch, getState, queryFulfilled }) {
           let patchResult
@@ -86,7 +86,7 @@ const decksService = baseApi.injectEndpoints({
         providesTags: ['Cards'],
         query: () => 'v2/decks/min-max-cards',
       }),
-      getOneDeck: builder.query<Deck, Id>({
+      getOneDeck: builder.query<Deck, { id: string }>({
         providesTags: ['Deck'],
         query: ({ id }) => `v1/decks/${id}`,
       }),

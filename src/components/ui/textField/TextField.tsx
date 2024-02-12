@@ -1,4 +1,4 @@
-import { ChangeEvent, ComponentProps, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
+import { ChangeEvent, forwardRef, useState } from 'react'
 
 import { Eye, EyeOff, Search } from '@/assets'
 import { Typography } from '@/components/ui/typography'
@@ -6,18 +6,8 @@ import { clsx } from 'clsx'
 
 import s from './textField.module.scss'
 
-export type TextFieldProps = {
-  errorMessage?: string
-  label?: string
-  labelProps?: ComponentProps<'label'>
-  onValueChange?: (value: string) => void
-  rootContainerProps?: ComponentProps<'div'>
-  type?: 'password' | 'search' | 'text'
-} & ComponentPropsWithoutRef<'input'>
-
-type PropsType = TextFieldProps & Omit<ComponentPropsWithoutRef<'input'>, keyof TextFieldProps>
-
-export const TextField = forwardRef<HTMLInputElement, PropsType>(
+import { TextFieldProps } from './textFiled.types'
+export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   (
     {
       className,
