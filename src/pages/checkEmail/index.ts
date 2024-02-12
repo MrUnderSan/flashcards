@@ -1,1 +1,1 @@
-export * from './CheckEmail'
+export * from './CheckEmailPage'

@@ -1,1 +1,1 @@
-export * from './Learn'
+export * from './LearnPage'
