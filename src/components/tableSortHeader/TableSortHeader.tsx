@@ -1,31 +1,10 @@
-import { ComponentPropsWithoutRef } from 'react'
-
 import ArrowSort from '@/assets/icons/arrowSort'
-import { ColsType, Table } from '@/components/ui/table'
+import { Table } from '@/components/ui/table'
 import { clsx } from 'clsx'
 
 import s from './tableSortHeader.module.scss'
 
-export type Column = {
-  cols: ColsType
-  key: string
-  sortable?: boolean
-  title: string
-}
-
-export type Sort = {
-  direction: 'asc' | 'desc'
-  key: string
-} | null
-
-export type TableSortHeaderProps = Omit<
-  ComponentPropsWithoutRef<'thead'> & {
-    columns: Column[]
-    onSort?: (sort: Sort) => void
-    sort?: Sort
-  },
-  'children'
->
+import { TableSortHeaderProps } from './tableSortHeader.types'
 
 export const TableSortHeader = ({ columns, onSort, sort, ...restProps }: TableSortHeaderProps) => {
   const handleSort = (key: string, sortable?: boolean) => () => {
